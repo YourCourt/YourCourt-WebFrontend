@@ -1,0 +1,91 @@
+
+<yourcourt-navbar></yourcourt-navbar>
+<div *ngIf="!isLogged || isRegisterFail">
+    <div *ngIf="httpError.length>0">
+        <div  class="alert alert-danger" *ngFor="let error of httpError"> {{error}}</div>
+    </div>
+    <div *ngIf="messageError">
+        <div  class="alert alert-danger" *ngFor="let error of httpError"> {{messageError}}</div>
+    </div>
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <form #f="ngForm" [formGroup]="formRegister" (ngSubmit)="onRegister()">
+                    <div class="form-group">
+                        <label>Nombre de Usuario: </label>
+                        <input type="text" name="username" id="username" class="form-control" formControlName="username"
+                            required minlength="3" maxlength="25">
+                        <div class="alert alert-danger"
+                            *ngIf="formRegister.get('username').touched && formRegister.get('username').invalid">
+                            <div *ngIf="formRegister.get('username').errors.required">No puede quedar vacío</div>
+                            <div *ngIf="formRegister.get('username').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                            <div *ngIf="formRegister.get('username').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña: </label>
+                        <input type="password" name="password" id="password" class="form-control" formControlName="password"
+                            required minlength="8" maxlength="25" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                            [ngClass]="{'is-invalid':formRegister.get('password').touched && formRegister.get('password').invalid}">
+                        <div class="alert alert-danger"
+                            *ngIf="formRegister.get('password').touched && formRegister.get('password').invalid">
+                            <div *ngIf="formRegister.get('password').errors.required">Debe insertar una contraseña</div>
+                            <div *ngIf="formRegister.get('password').errors.minlength">Debe de tener al menos 8 caracteres</div>
+                            <div *ngIf="formRegister.get('password').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                            <div *ngIf="formRegister.get('password').errors.pattern">Debe contener al menos una letra y un
+                                número</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email: </label>
+                        <input type="text" name="email" id="email" class="form-control" formControlName="email"
+                            required email minlength="5" maxlength="50" placeholder="email@email.com">
+                        <div class="alert alert-danger"
+                            *ngIf="formRegister.get('email').touched && formRegister.get('email').invalid">
+                            <div *ngIf="formRegister.get('email').errors.required">No puede quedar vacío</div>
+                            <div *ngIf="formRegister.get('email').errors.minlength">Debe de tener al menos 5 caracteres</div>
+                            <div *ngIf="formRegister.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                            <div *ngIf="formRegister.get('email').errors.email">Formato no válido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Año de nacimiento: </label>
+                        <input type="date" name="birthDate" id="birthDate" class="form-control" formControlName="birthDate"
+                            required past>
+                        <div class="alert alert-danger"
+                            *ngIf="formRegister.get('birthDate').touched && formRegister.get('birthDate').invalid">
+                            <div *ngIf="formRegister.get('birthDate').errors.required">No puede quedar vacío</div>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono: </label>
+                        <input type="text" name="phone" id="phone" class="form-control" formControlName="phone" placeholder="">
+                        <div class="alert alert-danger"
+                            *ngIf="formRegister.get('phone').touched && formRegister.get('phone').invalid">
+                            <div *ngIf="formRegister.get('phone').errors.pattern">Formato incorrecto</div>
+                             </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Número de socio: </label>
+                        <input type="number" name="membershipNumber" id="membershipNumber" class="form-control" formControlName="membershipNumber"
+                            required>
+                        <div class="alert alert-danger"
+                            *ngIf="formRegister.get('membershipNumber').touched && formRegister.get('membershipNumber').invalid">
+                            <div *ngIf="formRegister.get('membershipNumber').errors.required">No puede quedar vacío</div>
+                            <!-- <div *ngIf="formRegister.get('membershipNumber').errors.pattern">Debe de ser de 5 dígitos</div> -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary" [disabled]="!formRegister.valid">
+                            <i></i> Confirmar</button>
+                    </div>
+                </form>
+            </div>
+            
+</div>
+
