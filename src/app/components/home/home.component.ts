@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
     private tokenService: TokenService
     ) { }
 
+    page=4;
+
   isLogged:boolean = false;
   loggedUsername: String;
 

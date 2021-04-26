@@ -12,22 +12,25 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  auth = environment.backendEndpoint+'/auth/'
+  auth = environment.backendEndpoint+'/auth'
+  users = environment.backendEndpoint+'/users'
   //auth='http://localhost:50482/auth/';
   //auth = 'http://localhost:8080/auth/'
   constructor(private httpClient: HttpClient) { }
 
   public new(newUser: NewUser): Observable<any>{
-    return this.httpClient.post<any>(this.auth + 'new', newUser);
+    var req=this.httpClient.post<NewUser>(this.users, newUser);
+    return req
   }
 
   public login(loginUser: LoginUser): Observable<any>{
-    return this.httpClient.post<JwtDto>(this.auth + 'login', loginUser);
+    var req=this.httpClient.post<JwtDto>(this.auth + '/login', loginUser);
+    return req
     //return this.httpClient.get<JwtDto>(this.auth+'login');
   }
 
   public showUser(username: String): Observable<any>{
-    return this.httpClient.get<GetUser>(this.auth+"show/"+username);
+    return this.httpClient.get<GetUser>(this.users+'/'+username);
   }
 
 

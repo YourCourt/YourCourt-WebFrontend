@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+html, body{ 
+    /* height: 100%; */
+    /* background:linear-gradient(0deg, rgba(119, 45, 45, 0.878), rgba(204, 98, 98, 0.844)); */
+    background:  linear-gradient(0deg, rgba(109, 187, 6, 0.719), rgba(2, 194, 44, 0.329)),url(./assets/home.jpg);
+   
+    margin: 0;
+    height: auto;
+    min-height: 1200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+

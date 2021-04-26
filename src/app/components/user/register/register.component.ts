@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { tokenReference } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
   suscription: Observable<any>;
 
   messageError: string;
-  isLoginFail = false;
+  httpError:Array<string>=[];
+  isRegisterFail = false;
   formRegister: FormGroup;
 
   constructor(private authService: AuthService,
@@ -32,21 +34,23 @@ export class RegisterComponent implements OnInit {
                 this.formRegister = formBuilder.group({
                   username: ['', Validators.required],
                   password: ['', Validators.required],
-                  email: ['', Validators.required],
+                  email: ['', Validators.email],
                   birthDate: ['', Validators.required],
-                  phone: ['', Validators.required],
-                  membershipNumber: ['', Validators.required]
+                  phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
+                  membershipNumber: ['', [Validators.required]]
                 })
                }
 
   ngOnInit(): void {
+    
       if(this.tokenService.getToken()){
         this.isLogged= true;
       }
   }
 
   onRegister(): void{
-
+    this.httpError=[];
+    
     this.newUser = new NewUser(this.formRegister.value.username, 
                               this.formRegister.value.password,
                               this.formRegister.value.email,
@@ -56,58 +60,52 @@ export class RegisterComponent implements OnInit {
 
  //console.log(this.newUser)
      this.authService.new(this.newUser).subscribe(
-      response => {
-        var res = response
+      responseRegister => {
 
      //console.log("User " + res.username + "  sucessfully created.")
 
         this.authService.login(new LoginUser(this.formRegister.value.username, 
                                             this.formRegister.value.password)).subscribe(
-          response => {
-            //var res = response
-            var res = response
+          responseLogin => {
+            console.log(responseLogin)
     
             this.isLogged = true;
-            this.isLoginFail = false;
+            this.isRegisterFail = false;
     
-         //console.log("User token: " + res.token);
-         //console.log("Username: " + res.username);
-         //console.log("User roles: " + res.authorities);
+            this.tokenService.setToken(responseLogin.token);
+            this.tokenService.setUsername(responseLogin.username);
+            this.tokenService.setAuthorities(responseLogin.authorities);
     
-            this.tokenService.setToken(res.token);
-            this.tokenService.setUsername(res.username);
-            this.tokenService.setAuthorities(res.authorities);
-    
-            // console.log("User " + res.username + "  logged sucessfully.")
-
             this.router.navigate(['/']);
             
-
-          }, err =>{
-            this.isLogged = false;
-            this.isLoginFail = true;
-
-            var returned_error = err.error.text
-            if(returned_error == undefined){
-              returned_error = 'Ha ocurrido un error'
-            }
-            this.messageError = returned_error;
-         //console.log(this.messageError)
-            
+          }, errorLogin =>{
+            console.log(errorLogin)
           }
         )
 
-      }, err =>{
-        this.isLogged = false;
-        this.isLoginFail = true;
+      }, errorRegister =>{
 
-        var returned_error = err.error.text
+        console.log(errorRegister)
+        this.isLogged = false;
+        this.isRegisterFail = true;
+        if(errorRegister.error && errorRegister.status!=0){
+          for (var text in errorRegister.error) {
+            this.httpError.push(errorRegister.error[text])
+        }
+      }else{
+        this.httpError.push("Error desconocido")
+      }
+        /*
+        this.isLogged = false;
+        this.isRegisterFail = true;
+
+        var returned_error = errorRegister.error.text
         if(returned_error == undefined){
           returned_error = 'Ha ocurrido un error'
         }
-        this.messageError = returned_error;
-        // console.log(this.messageError)
+        this.messageError = returned_error;*/
 
+        
     
   }
   );

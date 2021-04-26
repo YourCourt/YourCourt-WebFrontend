@@ -46,32 +46,29 @@ export class LoginComponent implements OnInit {
     this.loginUser = new LoginUser(this.formLogin.value.username, this.formLogin.value.password);
  //console.log(this.loginUser)
     this.authService.login(this.loginUser).subscribe(
-      response => {
-        var res = response
-        //var res = response[0]
-     //console.log(response)
+      responseLogin => {
+        var res = responseLogin
+
         this.isLogged = true;
         this.isLoginFail = false;
 
-     //console.log("User token: " + res.token);
-     //console.log("Username: " + res.username);
-     //console.log("User roles: " + res.authorities);
 
         this.tokenService.setToken(res.token);
         this.tokenService.setUsername(res.username);
         this.tokenService.setAuthorities(res.authorities);
 
-     //console.log("User " + res.username + "  logged sucessfully.")
-
         this.router.navigate(['/']);
         
-      }, err =>{
+      }, errorLogin =>{
         this.isLogged = false;
         this.isLoginFail = true;
+        console.log(errorLogin)
         
-        var returned_error = err.error.text
-        if(returned_error == undefined){
+        var returned_error = errorLogin.error.error
+        if(returned_error == 'Unauthorized'){
           returned_error = 'Usuario incorrecto'
+        }else{
+          returned_error = 'Error desconocido'
         }
         this.messageError = returned_error;
      //console.log(this.messageError)

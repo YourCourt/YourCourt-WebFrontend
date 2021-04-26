@@ -1,7 +1,12 @@
 
 <yourcourt-navbar></yourcourt-navbar>
-<div *ngIf="!isLogged">
-    <div *ngIf="isLoginFail" class="alert alert-danger"> {{messageError}}</div>
+<div *ngIf="!isLogged || isRegisterFail">
+    <div *ngIf="httpError.length>0">
+        <div  class="alert alert-danger" *ngFor="let error of httpError"> {{error}}</div>
+    </div>
+    <div *ngIf="messageError">
+        <div  class="alert alert-danger" *ngFor="let error of httpError"> {{messageError}}</div>
+    </div>
     <div class="outer">
         <div class="middle">
             <div class="inner">
@@ -35,7 +40,7 @@
                     <div class="form-group">
                         <label>Email: </label>
                         <input type="text" name="email" id="email" class="form-control" formControlName="email"
-                            required email minlength="5" maxlength="50">
+                            required email minlength="5" maxlength="50" placeholder="email@email.com">
                         <div class="alert alert-danger"
                             *ngIf="formRegister.get('email').touched && formRegister.get('email').invalid">
                             <div *ngIf="formRegister.get('email').errors.required">No puede quedar vacío</div>
@@ -48,7 +53,7 @@
                     <div class="form-group">
                         <label>Año de nacimiento: </label>
                         <input type="date" name="birthDate" id="birthDate" class="form-control" formControlName="birthDate"
-                            required >
+                            required past>
                         <div class="alert alert-danger"
                             *ngIf="formRegister.get('birthDate').touched && formRegister.get('birthDate').invalid">
                             <div *ngIf="formRegister.get('birthDate').errors.required">No puede quedar vacío</div>
@@ -57,22 +62,21 @@
                     </div>
                     <div class="form-group">
                         <label>Teléfono: </label>
-                        <input type="text" name="phone" id="phone" class="form-control" formControlName="phone"
-                            required>
+                        <input type="text" name="phone" id="phone" class="form-control" formControlName="phone" placeholder="">
                         <div class="alert alert-danger"
                             *ngIf="formRegister.get('phone').touched && formRegister.get('phone').invalid">
-                            <div *ngIf="formRegister.get('phone').errors.required">No puede quedar vacío</div>
+                            <div *ngIf="formRegister.get('phone').errors.pattern">Formato incorrecto</div>
                              </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Número de socio: </label>
-                        <input type="text" name="membershipNumber" id="membershipNumber" class="form-control" formControlName="membershipNumber"
-                            required minlength="5" maxlength="5">
+                        <input type="number" name="membershipNumber" id="membershipNumber" class="form-control" formControlName="membershipNumber"
+                            required>
                         <div class="alert alert-danger"
                             *ngIf="formRegister.get('membershipNumber').touched && formRegister.get('membershipNumber').invalid">
                             <div *ngIf="formRegister.get('membershipNumber').errors.required">No puede quedar vacío</div>
-                            <div *ngIf="formRegister.get('membershipNumber').errors.minlength">Debe de ser de 5 caracteres</div>
+                            <!-- <div *ngIf="formRegister.get('membershipNumber').errors.pattern">Debe de ser de 5 dígitos</div> -->
                         </div>
                     </div>
 
