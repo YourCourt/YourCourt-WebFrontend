@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "yourcourt":"ng serve --proxy-config proxy.conf.json",
+    "yourcourt": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -17,6 +17,7 @@
     "@angular/common": "~11.2.9",
     "@angular/compiler": "~11.2.9",
     "@angular/core": "~11.2.9",
+    "@angular/flex-layout": "*",
     "@angular/forms": "~11.2.9",
     "@angular/localize": "~11.2.9",
     "@angular/platform-browser": "~11.2.9",

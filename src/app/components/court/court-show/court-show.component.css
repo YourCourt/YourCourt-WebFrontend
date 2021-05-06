@@ -1,0 +1,28 @@
+.card{
+    margin-left: 10%;
+    margin-right: 10%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.18);
+    background-color: rgb(186, 231, 233);
+  }
+  .card img{
+    text-align: center;
+    max-height: 500px;
+    display: block;
+    border-radius: 15px 15px 15px 15px;
+    padding: 5px;
+    object-fit: contain;
+  }
+
+  .card-title{
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 10px 0 15px 0;
+  }
+
+  .card-text{
+    font-size: 18px;
+    margin: 10px 0 15px 0;
+  }
