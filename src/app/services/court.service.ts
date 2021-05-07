@@ -17,4 +17,16 @@ export class CourtService {
   public getCourt(id:number): Observable<any>{
     return this.httpClient.get<Court>(this.baseUrl+'/courts/'+id.toString());
   }
+
+  public createCourt(court:Court): Observable<any>{
+    return this.httpClient.post<Court>(this.baseUrl+'/courts',court);
+  }
+
+  public updateCourt(id:number,court:Court): Observable<any>{
+    return this.httpClient.put<Court>(this.baseUrl+'/courts/'+id.toString(),court);
+  }
+
+  public deleteCourt(id:number): Observable<any>{
+    return this.httpClient.delete<any>(this.baseUrl+'/courts/'+id.toString());
+  }
 }

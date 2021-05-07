@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourtListComponent } from './components/court/court-list/court-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CourtShowComponent } from './components/court/court-show/court-show.component';
+import { CourtCreateComponent } from './components/court/court-create/court-create.component';
+import { CourtUpdateComponent } from './components/court/court-update/court-update.component';
 
 
 
@@ -27,7 +29,9 @@ import { CourtShowComponent } from './components/court/court-show/court-show.com
     NavbarComponent,
     HomeComponent,
     CourtListComponent,
-    CourtShowComponent
+    CourtShowComponent,
+    CourtCreateComponent,
+    CourtUpdateComponent
   ],
   imports: [
     BrowserModule,

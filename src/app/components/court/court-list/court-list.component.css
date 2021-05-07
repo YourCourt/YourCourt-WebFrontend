@@ -69,7 +69,20 @@
     text-align: center;
   }
 
-  .create button{
-    padding: 5px;
+  .create a{
+    padding: 10px;
+    background-color: #ffffff83;
+    color: black;
+    border: 5px solid #4CAF50;
+  }
+
+  .create a:hover {
+    background-color: #4CAF50;
+    color: white;
+    border: 5px solid #ffffff83;
+  }
+
+  .list{
+    margin-bottom: 10%;
   }
     

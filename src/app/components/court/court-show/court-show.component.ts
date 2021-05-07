@@ -14,28 +14,35 @@ export class CourtShowComponent implements OnInit {
 
   constructor(private courtService: CourtService, private tokenService: TokenService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
-  court:Court;
+  court: Court;
 
   ngOnInit(): void {
     this.getCourt()
   }
 
   getCourt(): void {
-
     this.courtService.getCourt(Number(this.activatedRoute.snapshot.paramMap.get('id'))).subscribe(
       data => {
         this.court = data;
-        console.log(this.court)
+      },
+      err => {
+        utils.redirect(this.router,'/pistas')      }
+    );
+  }
+
+  getCourtType(type: string) {
+    return utils.getCourtType(type)
+  }
+
+  deleteCourt() {
+    this.courtService.deleteCourt(this.court.id).subscribe(
+      data => {
+        return utils.promiseReload(this.router,'/pistas/',2000)
       },
       err => {
         console.log(err)
       }
     );
-  }
-
-  getCourtType(type:string){
-    console.log('hola')
-    return utils.getCourtType(type)
   }
 
 }
