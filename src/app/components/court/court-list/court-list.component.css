@@ -3,7 +3,9 @@
     /* margin: 0; */
     box-sizing: border-box;
   }
+
   body{
+
     background-color: #151320;
     height: 100vh;
     display: grid;

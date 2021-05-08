@@ -5,6 +5,7 @@ import { TokenService } from 'src/app/services/token.service';
 import * as utils from 'src/app/components/court/courtUtils'
 import { Court } from 'src/app/models/court';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-court-update',
@@ -13,13 +14,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CourtUpdateComponent implements OnInit {
 
-  constructor(private courtService: CourtService, private tokenService: TokenService, private activatedRoute: ActivatedRoute, private router: Router,private formBuilder: FormBuilder) { }
+  constructor(private courtService: CourtService, private imageService: ImageService, private tokenService: TokenService, private activatedRoute: ActivatedRoute, private router: Router,private formBuilder: FormBuilder) { }
 
 
   court: Court;
   courtUpdated:Court;
   defaultCourtType='FAST'
   form:FormGroup
+  image: File
 
   ngOnInit(): void {
     this.getCourt()
@@ -50,12 +52,27 @@ export class CourtUpdateComponent implements OnInit {
 
     this.courtService.updateCourt(this.court.id,this.courtUpdated).subscribe(
       data => {
+        if(this.image!=undefined){
+
+          this.imageService.newCourtImage(data.id,this.image).subscribe(
+            data => {},err => {});
+        }
+
         return utils.promiseReload(this.router,'/pistas/'+ data.id,3500)
       },
       err => {
         console.log(err)
       }
     );
+  }
+
+  addCourtImage(imageFile: FileList, image) {
+    const file = imageFile.item(0)
+    if (file.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png') {
+      this.image = file
+    } else {
+      image.value = undefined
+    }
   }
 
 }

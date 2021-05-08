@@ -8,6 +8,15 @@
     background-color: rgb(186, 231, 233);
   }
 
+  .card img{
+    text-align: center;
+    max-height: 500px;
+    display: block;
+    border-radius: 15px 15px 15px 15px;
+    padding: 5px;
+    object-fit: contain;
+  }
+
 .form-control, label, .invalid-feedback{
     margin-left: 5%;
     margin-right: 5%;
