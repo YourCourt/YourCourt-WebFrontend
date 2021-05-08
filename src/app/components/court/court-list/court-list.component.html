@@ -1,0 +1,22 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="create">
+    <a href="/pistas/crear" class="btn btn-primary">
+        Crear una pista</a>
+</div>
+<div class="list">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="90%" fxFlex.sm="30%" *ngFor="let item of courts">
+            <a class="card-link" href="/pistas/{{item.id}}">
+                <div class="card mx-5 my-5">
+                    <img class="card-img-top" src="{{item.image.imageUrl}}" alt="{{item.image.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title text-green">{{item.name}}</h5>
+                        <p class="card-text text-center pr-3 pb-3 text-truncate"> {{item.description}}</p>
+                    </div>
+                    <div class="card-footer">{{getCourtType(item.courtType)}}</div>
+
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

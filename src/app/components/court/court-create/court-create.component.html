@@ -1,0 +1,43 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+  <form [formGroup]="form" (ngSubmit)="createCourt()">
+
+    <div class="form-group">
+      <label for="image">Imagen</label>
+      <br>
+      <input type="file" id="image" class="form-control file-input" accept="image/*"
+        (change)="addCourtImage($event.target.files, image)">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input type="text" class="form-control"
+        [ngClass]="{'is-invalid':form.get('name').touched && form.get('name').invalid}" id="name"
+        placeholder="Nombre de la pista" formControlName="name" required minlength="3" maxLength="50">
+      <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+        <div *ngIf="form?.get('name').errors.required">El nombre es obligatorio.</div>
+        <div *ngIf="form?.get('name').errors.minlength">El nombre debe ser de un mínimo de 3 caracteres.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea class="form-control"
+        [ngClass]="{'is-invalid':form.get('description').touched && form.get('description').invalid}" id="description"
+        placeholder="Descripción de la pista" cols="30" rows="10" formControlName="description" required
+        maxLength="512"></textarea>
+      <div class="invalid-feedback" *ngIf="form.get('description').touched && form.get('description').invalid">
+        <div *ngIf="form?.get('description').errors.required">La descripción es obligatoria.</div>
+      </div>
+    </div>
+
+    <label for="courtType">Tipo de pista</label>
+    <select class="form-control" id="courtType" formControlName="courtType">
+      <option label="Rápida">FAST</option>
+      <option label="Tierra batida">CLAY</option>
+    </select>
+    <div class="create-btn">
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Crear pista</button>
+    </div>
+  </form>
+</div>
