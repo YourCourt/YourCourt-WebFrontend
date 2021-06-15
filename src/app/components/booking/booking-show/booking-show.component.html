@@ -1,0 +1,19 @@
+<yourcourt-navbar></yourcourt-navbar>
+
+<div class="card mb-3 ">
+    <div class="card-body">
+      <h5 class="card-title">{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}&nbsp;a&nbsp;{{booking?.endDate | date: 'HH:mm' }}</h5>
+      <p class="card-text"> Fecha de inicio:&nbsp;{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
+      <p class="card-text"> Fecha de fin:&nbsp;{{booking?.endDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
+      <p class="card-text"> Fecha de realización:&nbsp;{{booking?.creationDate | date: 'dd/MM/yyyy' }}</p>
+
+    </div>
+  
+    <!-- <div class="modify">
+      <a href="/pistas/editar/{{court?.id}}" class="btn btn-primary edit">
+        Modificar pista</a>
+      <button class="btn btn-primary delete" (click)="deleteCourt()">
+        Eliminar pista
+      </button>
+    </div> -->
+  </div>

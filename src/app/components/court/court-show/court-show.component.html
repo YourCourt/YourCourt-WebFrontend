@@ -15,32 +15,73 @@
     </button>
   </div>
 </div>
-<div class="container">
-  <div class="row row-cols-5 border">
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
-    <div class="col">Column</div>
+
+<!-- <div class="container mb-5" style="background-color: white;">
+  <div class="row  border">
+    <div class="col-sm">-</div>
+    <div *ngFor="let day of week">
+      <div class="col-sm">{{day}}</div>
+    </div>
   </div>
+  <div *ngFor="let hour of hours">
+    <div class="row  border">
+      <div class="col-sm">{{hour}}</div>
+      <div class="col-sm">Column1</div>
+      <div class="col-sm">Column2</div>
+      <div class="col-sm">Column3</div>
+      <div class="col-sm">Column4</div>
+      <div class="col-sm">Column5</div>
+      <div class="col-sm">Column6</div>
+      <div class="col-sm">Column7</div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div class="ngb-datepicker">
+  <ngb-datepicker class="datepicker" #dp [(ngModel)]="model" (navigate)="date = $event.next" [minDate]="minDate"
+    [maxDate]="maxDate"></ngb-datepicker>
 </div>
+<hr />
+<div class="datepicker-buttons">
+  <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Hoy</button>
+  <button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">Mes actual</button>
+  <button class="btn btn-sm btn-outline-primary mr-2" (click)="openScrollableContent(longContent)">Reservar</button>
+</div>
+<hr />
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Reserva: {{model.day}}-{{model.month}}-{{model.year}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Hora</th>
+          <th>Disponibilidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hour of hours">
+          <td>{{hour}}</td>
+          <td *ngIf="availability[hour]; else notAvailable"><button class="btn btn-outline-success"
+              (click)="book(hour)">Reservar</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+    <ng-template #notAvailable>
+      <td><button class="btn btn-outline-danger" disabled>No disponible</button></td>
+    </ng-template>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

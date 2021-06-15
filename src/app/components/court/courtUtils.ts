@@ -16,18 +16,6 @@ export function getCourtType(inputType: string) {
     return outputType;
   }
 
-export function reload(){
-  window.location.reload()
-}
+export const hours:Array<string>=['09:00','10:00','11:00','12:00','13:00','14:00','17:00','18:00','19:00','20:00','21:00']
 
-export function promiseReload(router:Router,navigation:string, timeout:number){
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(router.navigate([navigation]).then(() => { reload() }))
-    }, timeout)
-  })
-}
 
-export function redirect(router:Router,navigation:string){
-  router.navigate([navigation])
-}

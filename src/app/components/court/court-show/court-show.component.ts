@@ -3,7 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Court } from 'src/app/models/court';
 import { CourtService } from 'src/app/services/court.service';
 import { TokenService } from 'src/app/services/token.service';
-import * as utils from 'src/app/components/court/courtUtils'
+import * as courtUtils from 'src/app/components/court/courtUtils'
+import * as appUtils from 'src/app/appUtils'
+import { DatePipe } from '@angular/common';
+import { NgbCalendar, NgbDatepickerConfig, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-court-show',
@@ -12,12 +17,37 @@ import * as utils from 'src/app/components/court/courtUtils'
 })
 export class CourtShowComponent implements OnInit {
 
-  constructor(private courtService: CourtService, private tokenService: TokenService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private courtService: CourtService, private tokenService: TokenService, private authService: AuthService, private activatedRoute: ActivatedRoute, private router: Router, public datepipe: DatePipe, private calendar: NgbCalendar, private calendarConfig: NgbDatepickerConfig, private modalService: NgbModal) {
+
+  }
 
   court: Court;
+  hours: Array<string> = courtUtils.hours
+
+  userId:number;
+
+  model: NgbDateStruct;
+  date: { year: number, month: number };
+  today: Date
+  minDate: NgbDateStruct;
+  maxDate: NgbDateStruct;
+  availability;
 
   ngOnInit(): void {
     this.getCourt()
+    const today = new Date();//Date('2021-06-06')
+    this.model = { year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() };
+    this.minDate = { year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() };
+    this.maxDate = { year: today.getFullYear(), month: today.getMonth() + 3, day: today.getDate() };
+    this.authService.showUser(this.tokenService.getUsername()).subscribe(
+      data => {
+        this.userId = data.id;
+      },
+      err => {
+        
+      }
+    );
+    
   }
 
   getCourt(): void {
@@ -26,18 +56,19 @@ export class CourtShowComponent implements OnInit {
         this.court = data;
       },
       err => {
-        utils.redirect(this.router,'/pistas')      }
+        appUtils.redirect(this.router, '/pistas')
+      }
     );
   }
 
   getCourtType(type: string) {
-    return utils.getCourtType(type)
+    return courtUtils.getCourtType(type)
   }
 
   deleteCourt() {
     this.courtService.deleteCourt(this.court.id).subscribe(
       data => {
-        return utils.promiseReload(this.router,'/pistas/',2000)
+        return appUtils.promiseReload(this.router, '/pistas/', 2000)
       },
       err => {
         console.log(err)
@@ -45,4 +76,20 @@ export class CourtShowComponent implements OnInit {
     );
   }
 
+  selectToday() {
+    this.model = this.calendar.getToday();
+  }
+
+  openScrollableContent(longContent) {
+    this.availability = { '09:00': true, '10:00': true, '11:00': true, '12:00': false, '13:00': true, '14:00': true, '17:00': false, '18:00': true, '19:00': false, '20:00': true, '21:00': true }
+    this.modalService.open(longContent, { scrollable: true, size: 'sm' });
+  }
+
+  book(hour: string) {
+    this.modalService.dismissAll()
+    let formatDay=appUtils.addZeroBeforeNumber(this.model.day)
+    let formatMonth=appUtils.addZeroBeforeNumber(this.model.month)
+    let params={ 'hour': hour, 'day': formatDay, 'month': formatMonth, 'year': this.model.year,'courtId':this.court.id, 'userId':this.userId}
+    return appUtils.redirectParams(this.router, '/reservas/crear',params)
+  }
 }

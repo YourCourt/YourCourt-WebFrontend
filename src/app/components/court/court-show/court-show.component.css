@@ -61,3 +61,23 @@
     color: white;
     border: 5px solid #ffffff83;
   }
+
+  .ngb-datepicker{
+    text-align: center;
+    
+  }
+
+  .datepicker{
+    background-color: white;
+  }
+
+  .datepicker-buttons{
+    text-align: center;
+  }
+
+  .datepicker-buttons button{
+    color: white;
+    background-color: #4178df83;
+  }
+
+
