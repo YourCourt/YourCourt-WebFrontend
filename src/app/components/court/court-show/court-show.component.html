@@ -69,9 +69,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let hour of hours">
-          <td>{{hour}}</td>
-          <td *ngIf="availability[hour]; else notAvailable"><button class="btn btn-outline-success"
-              (click)="book(hour)">Reservar</button></td>
+          <td>{{hour.start}}-{{hour.end}}</td>
+          <td *ngIf="availability[hour.start]; else notAvailable"><button class="btn btn-outline-success"
+              (click)="book(hour.start,hour.end)">Reservar</button></td>
         </tr>
 
       </tbody>

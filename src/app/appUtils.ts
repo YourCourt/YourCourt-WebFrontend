@@ -25,3 +25,5 @@ export function redirectParams(router:Router,navigation:string,params){
 export function addZeroBeforeNumber(number:number) {
   return ('0' + number).slice(-2)
 }
+
+export const LOW_STOCK:number=20;

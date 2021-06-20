@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,6 +18,13 @@ export class BookingService {
 
   public getBooking(id:number): Observable<any>{
     return this.httpClient.get<Booking>(this.baseUrl+'/bookings/'+id.toString());
+  }
+
+  public getBookingsByDate(date:string,courtId:number): Observable<any>{
+    let params = new HttpParams()
+    .set('date', date )
+    .set('courtId', courtId.toString() );
+    return this.httpClient.get<any>(this.baseUrl+'/bookings/date', {params});
   }
 
   public createBooking(bookingDto:BookingDto): Observable<any>{
