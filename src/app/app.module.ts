@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -18,8 +18,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CourtShowComponent } from './components/court/court-show/court-show.component';
 import { CourtCreateComponent } from './components/court/court-create/court-create.component';
 import { CourtUpdateComponent } from './components/court/court-update/court-update.component';
+import { DatePipe, registerLocaleData } from '@angular/common';
+
+import localeEs from '@angular/common/locales/es';
+import { BookingCreateComponent } from './components/booking/booking-create/booking-create.component';
+import { BookingShowComponent } from './components/booking/booking-show/booking-show.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 
+registerLocaleData(localeEs, 'es-ES');
 
 @NgModule({
   declarations: [
@@ -31,7 +38,10 @@ import { CourtUpdateComponent } from './components/court/court-update/court-upda
     CourtListComponent,
     CourtShowComponent,
     CourtCreateComponent,
-    CourtUpdateComponent
+    CourtUpdateComponent,
+    BookingCreateComponent,
+    BookingShowComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +54,7 @@ import { CourtUpdateComponent } from './components/court/court-update/court-upda
     FlexLayoutModule,
 
   ],
-  providers: [interceptor],
+  providers: [interceptor,DatePipe ,{ provide: LOCALE_ID, useValue: 'es-ES' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

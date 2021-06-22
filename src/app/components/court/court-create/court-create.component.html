@@ -37,7 +37,13 @@
       <option label="Tierra batida">CLAY</option>
     </select>
     <div class="create-btn">
-      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Crear pista</button>
+      <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary" [disabled]="!form.valid">Crear pista</button>
+
+      <ng-template #loadingButton>
+        <button type="submit" class="btn btn-primary">
+          <img  style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif">
+        </button>
+      </ng-template>
     </div>
   </form>
 </div>

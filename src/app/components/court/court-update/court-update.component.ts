@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourtService } from 'src/app/services/court.service';
 import { TokenService } from 'src/app/services/token.service';
-import * as utils from 'src/app/components/court/courtUtils'
+import * as courtUtils from 'src/app/components/court/courtUtils'
+import * as appUtils from 'src/app/appUtils'
 import { Court } from 'src/app/models/court';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from 'src/app/services/image.service';
@@ -22,6 +23,8 @@ export class CourtUpdateComponent implements OnInit {
   defaultCourtType='FAST'
   form:FormGroup
   image: File
+
+  loading:boolean=false;
 
   ngOnInit(): void {
     this.getCourt()
@@ -43,7 +46,7 @@ export class CourtUpdateComponent implements OnInit {
         this.form.controls['courtType'].setValue(data.courtType);
       },
       err => {
-        utils.redirect(this.router,'/pistas')      }
+        appUtils.redirect(this.router,'/pistas')      }
     );
   }
 
@@ -57,8 +60,8 @@ export class CourtUpdateComponent implements OnInit {
           this.imageService.newCourtImage(data.id,this.image).subscribe(
             data => {},err => {});
         }
-
-        return utils.promiseReload(this.router,'/pistas/'+ data.id,3500)
+        this.loading=true;
+        return appUtils.promiseReload(this.router,'/pistas/'+ data.id,3500)
       },
       err => {
         console.log(err)

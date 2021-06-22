@@ -1,33 +1,103 @@
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 export function getCourtType(inputType: string) {
-    let outputType: string;
-  
-    switch (inputType) {
-      case "FAST":
-        outputType = "Rápida"
-        break;
-      case "CLAY":
-        outputType = "Tierra batida"
-        break;
-      default:
-        outputType = inputType
-        break;
-    }
-    return outputType;
+  let outputType: string;
+
+  switch (inputType) {
+    case 'FAST':
+      outputType = 'Rápida';
+      break;
+    case 'CLAY':
+      outputType = 'Tierra batida';
+      break;
+    default:
+      outputType = inputType;
+      break;
   }
-
-export function reload(){
-  window.location.reload()
+  return outputType;
 }
 
-export function promiseReload(router:Router,navigation:string, timeout:number){
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(router.navigate([navigation]).then(() => { reload() }))
-    }, timeout)
-  })
+export class BookingHour {
+  start: string;
+  end: string;
 }
 
-export function redirect(router:Router,navigation:string){
-  router.navigate([navigation])
+export const hours: Array<BookingHour> = [
+  { start: '08:30', end: '10:00' },
+  { start: '10:00', end: '11:00' },
+  { start: '11:00', end: '12:00' },
+  { start: '12:00', end: '13:00' },
+  { start: '13:00', end: '14:00' },
+  { start: '14:00', end: '15:00' },
+  { start: '17:00', end: '18:00' },
+  { start: '18:00', end: '19:00' },
+  { start: '19:00', end: '20:00' },
+  { start: '20:00', end: '21:00' },
+  { start: '21:00', end: '22:00' },
+];
+
+function checkAvailability(
+  bookingsByDate: BookingHour[],
+  tupleHour: BookingHour
+) {
+  if (
+    bookingsByDate.some(
+      (booking) =>
+        booking.start === tupleHour.start && booking.end === tupleHour.end
+    )
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export function getAvailability(
+  bookingsByDate: Array<BookingHour>,
+  today: boolean
+) {
+  let possibleHours = hours;
+  var availability: any = {};
+
+  for (var tupleHour of possibleHours) {
+    if (today) {
+      let todayHours = new Date().getHours();
+      let todayMinutes = new Date().getMinutes();
+      let tupleHourSplit = tupleHour.start.split(':');
+      let tupleHourHours = Number(tupleHourSplit[0]);
+      let tupleHourMinutes = Number(tupleHourSplit[1]);
+
+      switch (todayHours >= tupleHourHours) {
+        case true: {
+          if (
+            (todayHours == tupleHourHours &&
+              todayMinutes >= tupleHourMinutes) ||
+            todayHours > tupleHourHours
+          ) {
+            availability[tupleHour.start] = false;
+          } else {
+            availability[tupleHour.start] = checkAvailability(
+              bookingsByDate,
+              tupleHour
+            );
+          }
+          break;
+        }
+        case false: {
+          availability[tupleHour.start] = checkAvailability(
+            bookingsByDate,
+            tupleHour
+          );
+          break;
+        }
+      }
+    }
+
+    if (!today) {
+      availability[tupleHour.start] = checkAvailability(
+        bookingsByDate,
+        tupleHour
+      );
+    }
+  }
+  return availability;
 }

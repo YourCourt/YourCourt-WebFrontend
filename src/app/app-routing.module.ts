@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { BookingCreateComponent } from './components/booking/booking-create/booking-create.component';
+import { BookingShowComponent } from './components/booking/booking-show/booking-show.component';
 import { CourtCreateComponent } from './components/court/court-create/court-create.component';
 import { CourtListComponent } from './components/court/court-list/court-list.component';
 import { CourtShowComponent } from './components/court/court-show/court-show.component';
@@ -17,11 +19,13 @@ const routes: Routes = [
   {path:'pistas/crear',component: CourtCreateComponent,pathMatch: 'full'},
   {path:'pistas/:id',component: CourtShowComponent,pathMatch: 'full'},
   {path:'pistas/editar/:id',component: CourtUpdateComponent,pathMatch: 'full'},
+  {path:'reservas/crear',component: BookingCreateComponent,pathMatch: 'full'},
+  {path:'reservas/:id',component: BookingShowComponent,pathMatch: 'full'},
   {path:'',component: HomeComponent},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{scrollPositionRestoration: 'enabled'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

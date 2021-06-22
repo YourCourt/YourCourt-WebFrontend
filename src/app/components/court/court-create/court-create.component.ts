@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Court } from 'src/app/models/court';
 import { CourtService } from 'src/app/services/court.service';
-import * as utils from 'src/app/components/court/courtUtils'
+import * as appUtils from 'src/app/appUtils'
+import * as courtUtils from 'src/app/components/court/courtUtils'
 import { ImageService } from 'src/app/services/image.service';
 
 @Component({
@@ -14,9 +15,10 @@ import { ImageService } from 'src/app/services/image.service';
 export class CourtCreateComponent implements OnInit {
 
   form: FormGroup;
-  courtCreated: Court;
   defaultCourtType = 'FAST'
   image: File
+
+  loading:boolean=false;
 
   constructor(private courtService: CourtService, private imageService: ImageService, private formBuilder: FormBuilder, private router: Router) {
 
@@ -33,16 +35,17 @@ export class CourtCreateComponent implements OnInit {
   }
 
   createCourt(): void {
-    this.courtCreated = new Court(this.form.value.name, this.form.value.description, this.form.value.courtType)
+    let courtCreated = new Court(this.form.value.name, this.form.value.description, this.form.value.courtType)
 
-    this.courtService.createCourt(this.courtCreated).subscribe(
+    this.courtService.createCourt(courtCreated).subscribe(
       data => {
         if(this.image!=undefined){
 
           this.imageService.newCourtImage(data.id,this.image).subscribe(
             data => {},err => {});
         }
-        return utils.promiseReload(this.router, '/pistas/' + data.id, 5500)
+        this.loading=true;
+        return appUtils.promiseReload(this.router, '/pistas/' + data.id, 5500)
       },
       err => {
         console.log(err)
