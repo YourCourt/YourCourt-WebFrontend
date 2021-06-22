@@ -6,6 +6,12 @@
       <p class="card-text"> Fecha de inicio:&nbsp;{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
       <p class="card-text"> Fecha de fin:&nbsp;{{booking?.endDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
       <p class="card-text"> Fecha de realización:&nbsp;{{booking?.creationDate | date: 'dd/MM/yyyy' }}</p>
+      <p class="card-text"> &nbsp;<a href="/pistas/{{booking?.court}}">Pista reservada</a> </p>
+
+      <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i"  style="border-style: outset;">
+       <a href="/productos/{{line.product.id}}"> <p class=" col-6"> {{i+1}}:&nbsp;{{line.product.name}}</p></a><p class=" col-2"> Cantidad:&nbsp;{{line.quantity}}</p><p class=" col-2"> Descuento:&nbsp;{{line.discount}}</p>
+        
+      </div>
 
     </div>
   

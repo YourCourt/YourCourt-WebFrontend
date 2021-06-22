@@ -18,6 +18,8 @@ export class CourtCreateComponent implements OnInit {
   defaultCourtType = 'FAST'
   image: File
 
+  loading:boolean=false;
+
   constructor(private courtService: CourtService, private imageService: ImageService, private formBuilder: FormBuilder, private router: Router) {
 
     this.form = formBuilder.group({
@@ -42,6 +44,7 @@ export class CourtCreateComponent implements OnInit {
           this.imageService.newCourtImage(data.id,this.image).subscribe(
             data => {},err => {});
         }
+        this.loading=true;
         return appUtils.promiseReload(this.router, '/pistas/' + data.id, 5500)
       },
       err => {

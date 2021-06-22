@@ -5,6 +5,7 @@ export class Product {
   name: string;
   description: string;
   price: number;
+  totalPrice:number;
   stock: number;
   tax: number;
   image: Image;

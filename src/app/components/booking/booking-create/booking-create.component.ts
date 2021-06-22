@@ -4,11 +4,20 @@ import { TokenService } from 'src/app/services/token.service';
 import * as bookingUtils from 'src/app/components/booking/bookingUtils';
 import * as appUtils from 'src/app/appUtils';
 import { BookingService } from 'src/app/services/booking.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BookingDto } from 'src/app/models/booking';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { BookingDto, Line } from 'src/app/models/booking';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductType } from 'src/app/models/product-type';
+import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-booking-create',
   templateUrl: './booking-create.component.html',
@@ -24,10 +33,15 @@ export class BookingCreateComponent implements OnInit {
   userId: number;
   startDate: string;
   endDate: string;
-  form: FormGroup;
+  formSearch: FormGroup;
+  bookedProducts: FormArray = new FormArray([]);
 
   products: Product[];
+  productTypes: ProductType[];
   lowStock: number = appUtils.LOW_STOCK;
+
+  gridColumns = 2;
+  loading:boolean=false;
 
   constructor(
     private tokenService: TokenService,
@@ -36,9 +50,12 @@ export class BookingCreateComponent implements OnInit {
     private bookingService: BookingService,
     private productService: ProductService,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public toastService: ToastService
   ) {
-    this.form = formBuilder.group({});
+    this.formSearch = formBuilder.group({
+      productType: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -68,25 +85,13 @@ export class BookingCreateComponent implements OnInit {
       'T' +
       this.end_hour;
 
-    this.getAllProducts();
+    this.getAllProductTypes();
   }
 
-  createBooking() {
-    let bookingCreated = new BookingDto(
-      this.courtId,
-      2,
-      this.startDate,
-      this.endDate,
-      []
-    );
-
-    this.bookingService.createBooking(bookingCreated).subscribe(
+  getAllProductTypes() {
+    this.productService.getAllProductTypes().subscribe(
       (data) => {
-        return appUtils.promiseReload(
-          this.router,
-          '/reservas/' + data.id,
-          2000
-        );
+        this.productTypes = data;
       },
       (err) => {
         console.log(err);
@@ -94,23 +99,14 @@ export class BookingCreateComponent implements OnInit {
     );
   }
 
-  getAllProducts() {
-    this.productService.getAll().subscribe(
+  onSearch() {
+    this.getAllProductsByProductType(this.formSearch.value.productType);
+  }
+
+  getAllProductsByProductType(typeName: string) {
+    this.productService.getProductByTypeName(typeName).subscribe(
       (data) => {
         this.products = data;
-        let first = this.products[0];
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
-        this.products.push(first);
       },
       (err) => {
         console.log(err);
@@ -119,7 +115,69 @@ export class BookingCreateComponent implements OnInit {
   }
 
   openScrollableContent(longContent) {
+    this.modalService.open(longContent, { scrollable: true, size: 'xl' });
+  }
 
-    this.modalService.open(longContent, { scrollable: true, size: 'sm' });
+  bookProduct(item: Product) {
+    if (
+      this.bookedProducts.value.find((controls) => controls.item === item) ===
+      undefined
+    ) {
+      //If has not been added yet
+
+      const control = new FormControl(
+        { item: item, quantity: 1 },
+        Validators.required
+      );
+      this.bookedProducts.push(control);
+    } else {
+      appUtils.showDanger(
+        this.toastService,
+        'El producto ya se encuentra añadido'
+      );
+    }
+  }
+
+  removeProduct(bookedProduct: { item: Product; quantity: number }) {
+    let found: AbstractControl = this.bookedProducts.controls.find(
+      (control) => control.value === bookedProduct
+    );
+    let foundIndex = this.bookedProducts.controls.indexOf(found);
+    this.bookedProducts.removeAt(foundIndex);
+  }
+
+  getBookingLines() {
+    let lines: Array<Line> = [];
+    let discount: number = 0;
+    for (let bookedProduct of this.bookedProducts.value) {
+      lines.push(
+        new Line(discount, bookedProduct.quantity, bookedProduct.item.id)
+      );
+    }
+    return lines;
+  }
+
+  createBooking() {
+    let bookingCreated = new BookingDto(
+      this.courtId,
+      this.userId,
+      this.startDate,
+      this.endDate,
+      this.getBookingLines()
+    );
+
+    this.bookingService.createBooking(bookingCreated).subscribe(
+      (data) => {
+        this.loading=true;
+        return appUtils.promiseReload(
+          this.router,
+          '/reservas/' + data.id,
+          3000
+        );
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

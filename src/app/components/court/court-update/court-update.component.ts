@@ -24,6 +24,8 @@ export class CourtUpdateComponent implements OnInit {
   form:FormGroup
   image: File
 
+  loading:boolean=false;
+
   ngOnInit(): void {
     this.getCourt()
 
@@ -58,7 +60,7 @@ export class CourtUpdateComponent implements OnInit {
           this.imageService.newCourtImage(data.id,this.image).subscribe(
             data => {},err => {});
         }
-
+        this.loading=true;
         return appUtils.promiseReload(this.router,'/pistas/'+ data.id,3500)
       },
       err => {

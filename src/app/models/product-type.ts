@@ -1,8 +1,8 @@
 export class ProductType {
   id: number;
-  name: string;
+  typeName: string;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(typeName: string) {
+    this.typeName = typeName;
   }
 }

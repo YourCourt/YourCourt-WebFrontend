@@ -112,13 +112,19 @@ export class CourtShowComponent implements OnInit {
     let formatMonth = appUtils.addZeroBeforeNumber(this.model.month);
     let dateString: string =
       this.model.year.toString() + '-' + formatMonth + '-' + formatDay;
-    this.bookingService.getBookingsByDate(dateString,this.court.id).subscribe(
+    this.bookingService.getBookingsByDate(dateString, this.court.id).subscribe(
       (data) => {
         for (var hourTuple of data) {
           this.bookingsByDate.push({ start: hourTuple[0], end: hourTuple[1] });
         }
-        let today:boolean=this.model.year==this.calendar.getToday().year && this.model.month==this.calendar.getToday().month &&this.model.day==this.calendar.getToday().day;
-        this.availability = courtUtils.getAvailability(this.bookingsByDate,today);
+        let today: boolean =
+          this.model.year == this.calendar.getToday().year &&
+          this.model.month == this.calendar.getToday().month &&
+          this.model.day == this.calendar.getToday().day;
+        this.availability = courtUtils.getAvailability(
+          this.bookingsByDate,
+          today
+        );
       },
       (err) => {
         console.log(err);

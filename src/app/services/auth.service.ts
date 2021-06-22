@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   public showUser(username: String): Observable<any> {
-    return this.httpClient.get<User>(this.users + '/' + username);
+    return this.httpClient.get<User>(this.users + '/username/' + username);
   }
 
 

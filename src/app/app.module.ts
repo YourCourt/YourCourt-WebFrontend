@@ -23,6 +23,7 @@ import { DatePipe, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { BookingCreateComponent } from './components/booking/booking-create/booking-create.component';
 import { BookingShowComponent } from './components/booking/booking-show/booking-show.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -39,7 +40,8 @@ registerLocaleData(localeEs, 'es-ES');
     CourtCreateComponent,
     CourtUpdateComponent,
     BookingCreateComponent,
-    BookingShowComponent
+    BookingShowComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
