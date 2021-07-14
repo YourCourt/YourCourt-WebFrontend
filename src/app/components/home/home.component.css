@@ -1,0 +1,11 @@
+.container{
+    background: linear-gradient(0deg, rgba(6, 187, 178, 0.513), rgba(8, 93, 119, 0.5));
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+h1.title,h2.username{
+    text-align: center;
+    text-shadow : 5px 10px 5px #08770d;
+    color: rgb(11, 218, 108);
+}

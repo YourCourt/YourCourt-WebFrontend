@@ -10,16 +10,17 @@ import { CourtUpdateComponent } from './components/court/court-update/court-upda
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
+import {PermissionsService as guard } from './revisors/permissions.service';
 
 const routes: Routes = [
   
   {path:'registro',component: RegisterComponent,pathMatch: 'full'},
   {path:'acceso',component: LoginComponent,pathMatch: 'full'},
   {path:'pistas',component: CourtListComponent,pathMatch: 'full'},
-  {path:'pistas/crear',component: CourtCreateComponent,pathMatch: 'full'},
+  {path:'pistas/crear',component: CourtCreateComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin'] }},
   {path:'pistas/:id',component: CourtShowComponent,pathMatch: 'full'},
-  {path:'pistas/editar/:id',component: CourtUpdateComponent,pathMatch: 'full'},
-  {path:'reservas/crear',component: BookingCreateComponent,pathMatch: 'full'},
+  {path:'pistas/editar/:id',component: CourtUpdateComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin'] }},
+  {path:'reservas/crear',component: BookingCreateComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin','user'] }},
   {path:'reservas/:id',component: BookingShowComponent,pathMatch: 'full'},
   {path:'',component: HomeComponent},
 ];

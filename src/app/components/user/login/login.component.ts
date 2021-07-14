@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { LoginUser } from 'src/app/models/login-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
+import * as appUtils from 'src/app/appUtils';
+import { ToastService } from 'src/app/services/toast.service';
 
 
 @Component({
@@ -16,16 +18,16 @@ export class LoginComponent implements OnInit {
   isLogged = false;
   isLoginFail = false;
   loginUser: LoginUser;
-  roles : string[] = [];
-  messageError: string;
+  roles: string[] = [];
   formLogin: FormGroup;
 
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
     private router: Router,
+    private toastService: ToastService,
     private formBuilder: FormBuilder
-  ) { 
+  ) {
     this.formLogin = formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.tokenService.getToken()){
+    if (this.tokenService.getToken()) {
       this.isLogged = true;
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
@@ -42,9 +44,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onLogin(){
+  onLogin() {
     this.loginUser = new LoginUser(this.formLogin.value.username, this.formLogin.value.password);
- //console.log(this.loginUser)
+
     this.authService.login(this.loginUser).subscribe(
       responseLogin => {
         var res = responseLogin
@@ -56,30 +58,27 @@ export class LoginComponent implements OnInit {
         this.tokenService.setToken(res.token);
         this.tokenService.setUsername(res.username);
         this.tokenService.setAuthorities(res.authorities);
+        appUtils.showSuccess(this.toastService,'Acceso exitoso')
+        appUtils.redirect(this.router, '/')
 
-        this.router.navigate(['/']);
-        
-      }, errorLogin =>{
+      }, errorLogin => {
         this.isLogged = false;
         this.isLoginFail = true;
-        console.log(errorLogin)
-        
+
         var returned_error = errorLogin.error.error
-        if(returned_error == 'Unauthorized'){
-          returned_error = 'Usuario incorrecto'
-        }else{
-          returned_error = 'Error desconocido'
+        if (returned_error == 'Unauthorized') {
+          appUtils.showDanger(this.toastService, 'Usuario incorrecto');
+        } else {
+          appUtils.showDanger(this.toastService, 'Error desconocido');
         }
-        this.messageError = returned_error;
-     //console.log(this.messageError)
-        
+
       }
     )
   }
 
   onLogout(): void {
     this.tokenService.logOut();
-    window.location.reload();
+    appUtils.reload()
   }
 
 

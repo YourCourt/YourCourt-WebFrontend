@@ -1,19 +1,21 @@
 import { Router } from '@angular/router';
-export function getCourtType(inputType: string) {
-  let outputType: string;
 
-  switch (inputType) {
-    case 'FAST':
-      outputType = 'Rápida';
-      break;
-    case 'CLAY':
-      outputType = 'Tierra batida';
-      break;
-    default:
-      outputType = inputType;
-      break;
+let courtTypesArray: Array<{ display: string; value: string; }> = [{ display: 'Rápida', value: 'FAST' }, { display: 'Tierra batida', value: 'CLAY' }]
+export const courtTypes: Map<string, string> = new Map(courtTypesArray.map(i => [i.display, i.value]));
+
+function getKeyByValue(map: Map<string, string>, searchValue: any): string {
+  let valueResult: string = '';
+
+  for (let [key, value] of map.entries()) {
+    if (value === searchValue) {
+      valueResult = key;
+    }
   }
-  return outputType;
+  return valueResult;
+}
+
+export function getCourtType(inputType: string) {
+  return getKeyByValue(courtTypes, inputType)
 }
 
 export class BookingHour {

@@ -15,6 +15,7 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { BookingService } from 'src/app/services/booking.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-court-show',
@@ -26,6 +27,7 @@ export class CourtShowComponent implements OnInit {
     private courtService: CourtService,
     private bookingService: BookingService,
     private tokenService: TokenService,
+    private toastService: ToastService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -47,6 +49,8 @@ export class CourtShowComponent implements OnInit {
   minDate: NgbDateStruct;
   maxDate: NgbDateStruct;
   availability: any = {};
+
+  isAdmin:boolean=appUtils.isAdminUser(this.tokenService)
 
   ngOnInit(): void {
     this.getCourt();
@@ -70,7 +74,7 @@ export class CourtShowComponent implements OnInit {
       (data) => {
         this.userId = data.id;
       },
-      (err) => {}
+      (err) => {appUtils.showDanger(this.toastService,'Usuario incorrecto')}
     );
   }
 
@@ -82,6 +86,7 @@ export class CourtShowComponent implements OnInit {
           this.court = data;
         },
         (err) => {
+          appUtils.showDanger(this.toastService,'Pista inexistente')
           appUtils.redirect(this.router, '/pistas');
         }
       );
@@ -94,10 +99,11 @@ export class CourtShowComponent implements OnInit {
   deleteCourt() {
     this.courtService.deleteCourt(this.court.id).subscribe(
       (data) => {
+        appUtils.showSuccess(this.toastService,'Pista eliminada')
         return appUtils.promiseReload(this.router, '/pistas/', 2000);
       },
       (err) => {
-        console.log(err);
+        appUtils.showDanger(this.toastService, err)
       }
     );
   }

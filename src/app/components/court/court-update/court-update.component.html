@@ -34,8 +34,7 @@
 
     <label for="courtType">Tipo de pista</label>
     <select class="form-control" id="courtType" formControlName="courtType">
-      <option label="Rápida">FAST</option>
-      <option label="Tierra batida">CLAY</option>
+      <option *ngFor="let entry of courtTypesEntries" label={{entry[0]}}>{{entry[1]}}</option>
     </select>
     <div class="create-btn">
       <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary" [disabled]="!form.valid">Actualizar pista</button>
