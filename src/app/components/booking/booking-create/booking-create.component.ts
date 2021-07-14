@@ -130,6 +130,7 @@ export class BookingCreateComponent implements OnInit {
         Validators.required
       );
       this.bookedProducts.push(control);
+      appUtils.showSuccess(this.toastService,'Producto añadido')
     } else {
       appUtils.showDanger(
         this.toastService,
@@ -144,6 +145,7 @@ export class BookingCreateComponent implements OnInit {
     );
     let foundIndex = this.bookedProducts.controls.indexOf(found);
     this.bookedProducts.removeAt(foundIndex);
+    appUtils.showSuccess(this.toastService,'Producto eliminado')
   }
 
   getBookingLines() {
@@ -169,6 +171,7 @@ export class BookingCreateComponent implements OnInit {
     this.bookingService.createBooking(bookingCreated).subscribe(
       (data) => {
         this.loading=true;
+        appUtils.showSuccess(this.toastService,'Reserva creada')
         return appUtils.promiseReload(
           this.router,
           '/reservas/' + data.id,
@@ -176,7 +179,7 @@ export class BookingCreateComponent implements OnInit {
         );
       },
       (err) => {
-        console.log(err);
+        appUtils.showDanger(this.toastService,'Error desconocido')
       }
     );
   }

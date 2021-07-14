@@ -7,6 +7,7 @@ import * as appUtils from 'src/app/appUtils'
 import { Court } from 'src/app/models/court';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from 'src/app/services/image.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-court-update',
@@ -15,12 +16,14 @@ import { ImageService } from 'src/app/services/image.service';
 })
 export class CourtUpdateComponent implements OnInit {
 
-  constructor(private courtService: CourtService, private imageService: ImageService, private tokenService: TokenService, private activatedRoute: ActivatedRoute, private router: Router,private formBuilder: FormBuilder) { }
+  constructor(private courtService: CourtService, private imageService: ImageService, private tokenService: TokenService, private toastService: ToastService, private activatedRoute: ActivatedRoute, private router: Router,private formBuilder: FormBuilder) { }
 
 
   court: Court;
   courtUpdated:Court;
   defaultCourtType='FAST'
+  courtTypes:Map<string,string>=courtUtils.courtTypes
+  courtTypesEntries=Array.from(this.courtTypes.entries());
   form:FormGroup
   image: File
 
@@ -46,6 +49,7 @@ export class CourtUpdateComponent implements OnInit {
         this.form.controls['courtType'].setValue(data.courtType);
       },
       err => {
+        appUtils.showDanger(this.toastService,'Pista inexistente')
         appUtils.redirect(this.router,'/pistas')      }
     );
   }
@@ -61,10 +65,11 @@ export class CourtUpdateComponent implements OnInit {
             data => {},err => {});
         }
         this.loading=true;
+        appUtils.showSuccess(this.toastService,'Pista actualizada')
         return appUtils.promiseReload(this.router,'/pistas/'+ data.id,3500)
       },
       err => {
-        console.log(err)
+        appUtils.showDanger(this.toastService,err)
       }
     );
   }

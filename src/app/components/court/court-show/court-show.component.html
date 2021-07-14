@@ -7,7 +7,7 @@
     <p class="card-text">Tipo de pista:&nbsp; {{getCourtType(court?.courtType)}}</p>
   </div>
 
-  <div class="modify">
+  <div class="modify" *ngIf="isAdmin">
     <a href="/pistas/editar/{{court?.id}}" class="btn btn-primary edit">
       Modificar pista</a>
     <button class="btn btn-primary delete" (click)="deleteCourt()">

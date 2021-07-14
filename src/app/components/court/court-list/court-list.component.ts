@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Court } from 'src/app/models/court';
 import { CourtService } from 'src/app/services/court.service';
 import * as utils from 'src/app/components/court/courtUtils'
+import * as appUtils from 'src/app/appUtils';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-court-list',
@@ -11,7 +13,8 @@ import * as utils from 'src/app/components/court/courtUtils'
 export class CourtListComponent implements OnInit {
 
   courts: Court[] = []
-  constructor(private courtService: CourtService) { }
+  isAdmin:boolean=appUtils.isAdminUser(this.tokenService)
+  constructor(private courtService: CourtService,private tokenService: TokenService) { }
 
   gridColumns = 3;
 

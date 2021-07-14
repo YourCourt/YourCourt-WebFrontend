@@ -6,6 +6,7 @@ import { CourtService } from 'src/app/services/court.service';
 import * as appUtils from 'src/app/appUtils'
 import * as courtUtils from 'src/app/components/court/courtUtils'
 import { ImageService } from 'src/app/services/image.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-court-create',
@@ -17,21 +18,20 @@ export class CourtCreateComponent implements OnInit {
   form: FormGroup;
   defaultCourtType = 'FAST'
   image: File
-
+  courtTypes:Map<string,string>=courtUtils.courtTypes
+  courtTypesEntries=Array.from(this.courtTypes.entries());
   loading:boolean=false;
 
-  constructor(private courtService: CourtService, private imageService: ImageService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private courtService: CourtService, private imageService: ImageService, private toastService: ToastService,private formBuilder: FormBuilder, private router: Router) {
 
     this.form = formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(512)]],
       courtType: [this.defaultCourtType, [Validators.required]],
-      image: [this.defaultCourtType, [Validators.required]],
     })
   }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
   }
 
   createCourt(): void {
@@ -45,10 +45,11 @@ export class CourtCreateComponent implements OnInit {
             data => {},err => {});
         }
         this.loading=true;
+        appUtils.showSuccess(this.toastService,'Pista creada')
         return appUtils.promiseReload(this.router, '/pistas/' + data.id, 5500)
       },
       err => {
-        console.log(err)
+        appUtils.showDanger(this.toastService, err);
       }
     );
   }
