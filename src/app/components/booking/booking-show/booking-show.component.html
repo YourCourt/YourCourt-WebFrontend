@@ -1,25 +1,30 @@
 <yourcourt-navbar></yourcourt-navbar>
 
 <div class="card mb-3 ">
-    <div class="card-body">
-      <h5 class="card-title">{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}&nbsp;a&nbsp;{{booking?.endDate | date: 'HH:mm' }}</h5>
-      <p class="card-text"> Fecha de inicio:&nbsp;{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
-      <p class="card-text"> Fecha de fin:&nbsp;{{booking?.endDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
-      <p class="card-text"> Fecha de realización:&nbsp;{{booking?.creationDate | date: 'dd/MM/yyyy' }}</p>
-      <p class="card-text"> &nbsp;<a href="/pistas/{{booking?.court}}">Pista reservada</a> </p>
+  <div class="card-body">
+    <h5 class="card-title">{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}&nbsp;a&nbsp;{{booking?.endDate |
+      date: 'HH:mm' }}</h5>
+    <p class="card-text"> Fecha de inicio:&nbsp;{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
+    <p class="card-text"> Fecha de fin:&nbsp;{{booking?.endDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
+    <p class="card-text"> Fecha de realización:&nbsp;{{booking?.creationDate | date: 'dd/MM/yyyy' }}</p>
+    <p class="card-text" *ngIf="lines.length>0"> Precio total:&nbsp;{{booking?.productBookingSum }}€</p>
+    <p class="card-text"> &nbsp;<a href="/pistas/{{booking?.court}}">Pista reservada</a> </p>
 
-      <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i"  style="border-style: outset;">
-       <a href="/productos/{{line.product.id}}"> <p class=" col-6"> {{i+1}}:&nbsp;{{line.product.name}}</p></a><p class=" col-2"> Cantidad:&nbsp;{{line.quantity}}</p><p class=" col-2"> Descuento:&nbsp;{{line.discount}}</p>
-        
-      </div>
+    <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i" style="border-style: outset;">
+      <a href="/productos/{{line.product.id}}">
+        <p class=" col-6"> {{i+1}}:&nbsp;{{line.product.name}}</p>
+      </a>
+      <p class=" col-2"> Cantidad:&nbsp;{{line.quantity}}</p>
+      <p class=" col-2"> Descuento:&nbsp;{{line.discount}}</p>
+      <p class=" col-2"> Coste:&nbsp;{{line.product.bookPrice * line.quantity}}€</p>
 
     </div>
-  
-    <!-- <div class="modify">
-      <a href="/pistas/editar/{{court?.id}}" class="btn btn-primary edit">
-        Modificar pista</a>
-      <button class="btn btn-primary delete" (click)="deleteCourt()">
-        Eliminar pista
-      </button>
-    </div> -->
+
   </div>
+
+  <div class="modify" *ngIf="isAdmin || isBookingOwner">
+    <button class="btn btn-primary delete" (click)="deleteBooking()">
+      Eliminar reserva
+    </button>
+  </div>
+</div>

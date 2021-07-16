@@ -8,6 +8,10 @@ import { CourtListComponent } from './components/court/court-list/court-list.com
 import { CourtShowComponent } from './components/court/court-show/court-show.component';
 import { CourtUpdateComponent } from './components/court/court-update/court-update.component';
 import { HomeComponent } from './components/home/home.component';
+import { ProductCreateComponent } from './components/products/product-create/product-create.component';
+import { ProductListComponent } from './components/products/product-list/product-list.component';
+import { ProductShowComponent } from './components/products/product-show/product-show.component';
+import { ProductUpdateComponent } from './components/products/product-update/product-update.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import {PermissionsService as guard } from './revisors/permissions.service';
@@ -21,7 +25,11 @@ const routes: Routes = [
   {path:'pistas/:id',component: CourtShowComponent,pathMatch: 'full'},
   {path:'pistas/editar/:id',component: CourtUpdateComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin'] }},
   {path:'reservas/crear',component: BookingCreateComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin','user'] }},
-  {path:'reservas/:id',component: BookingShowComponent,pathMatch: 'full'},
+  {path:'reservas/:id',component: BookingShowComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin','user']}},
+  {path:'productos',component: ProductListComponent,pathMatch: 'full'},
+  {path:'productos/crear',component: ProductCreateComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin'] }},
+  {path:'productos/:id',component: ProductShowComponent,pathMatch: 'full'},
+  {path:'productos/editar/:id',component: ProductUpdateComponent,pathMatch: 'full', canActivate: [guard], data: { expectedRol:['admin'] }},
   {path:'',component: HomeComponent},
 ];
 

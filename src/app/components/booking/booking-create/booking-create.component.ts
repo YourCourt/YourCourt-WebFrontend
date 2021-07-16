@@ -16,7 +16,7 @@ import { BookingDto, Line } from 'src/app/models/booking';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProductType } from 'src/app/models/product-type';
+import { ProductType } from 'src/app/models/product';
 import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-booking-create',

@@ -53,6 +53,8 @@
                   <p class="card-text text-center pr-3 pb-3 text-truncate"> {{item.description}}</p>
                   <br>
                   <p class="card-text ml-3"><em class="fas fa-box" aria-hidden="true"></em>&nbsp;{{item.stock}}</p>
+
+                  <p class="card-text ml-3"><em class="fas fa-coins" aria-hidden="true"></em>&nbsp;{{item.bookPrice}}€</p>
                 </div>
               </a>
               <div class="card-footer"><button type="submit" class="btn btn-primary" [disabled]="item.stock<lowStock"
