@@ -1,4 +1,5 @@
 import { Router } from '@angular/router';
+import { User } from './models/user';
 import { ToastService } from './services/toast.service';
 import { TokenService } from './services/token.service';
 
@@ -78,4 +79,8 @@ export function showErrorMessaages(httpResponse: any, toastService: ToastService
 
 export function isAdminUser(tokenService:TokenService):boolean{
   return tokenService.getAuthorities().includes('ROLE_ADMIN')
+}
+
+export function isObjectOwner(loggedUser:number, objectUser:number):boolean{
+  return loggedUser===objectUser;
 }

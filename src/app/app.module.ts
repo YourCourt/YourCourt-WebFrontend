@@ -24,6 +24,10 @@ import localeEs from '@angular/common/locales/es';
 import { BookingCreateComponent } from './components/booking/booking-create/booking-create.component';
 import { BookingShowComponent } from './components/booking/booking-show/booking-show.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { ProductListComponent } from './components/products/product-list/product-list.component';
+import { ProductCreateComponent } from './components/products/product-create/product-create.component';
+import { ProductShowComponent } from './components/products/product-show/product-show.component';
+import { ProductUpdateComponent } from './components/products/product-update/product-update.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -41,7 +45,11 @@ registerLocaleData(localeEs, 'es-ES');
     CourtUpdateComponent,
     BookingCreateComponent,
     BookingShowComponent,
-    ToastComponent
+    ToastComponent,
+    ProductListComponent,
+    ProductCreateComponent,
+    ProductShowComponent,
+    ProductUpdateComponent
   ],
   imports: [
     BrowserModule,

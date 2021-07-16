@@ -1,0 +1,47 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="create" *ngIf="isAdmin">
+    <a href="/productos/crear" class="btn btn-primary">
+        Crear un producto</a>
+</div>
+<div class="searchForm">
+    <form #f="ngForm" (ngSubmit)="onSearch()" [formGroup]="formSearch">
+        <div class="form-group">
+            <label for="productType">Tipo de producto</label>
+
+            <select formControlName="productType" class="form-control" id="productType">
+                <option *ngFor="let productType of productTypes" [value]="productType.typeName">
+                    {{ productType.typeName }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" [disabled]="!formSearch.valid">
+                Buscar
+            </button>
+        </div>
+    </form>
+</div>
+<div class="list">
+    <div *ngIf="products" fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="90%" fxFlex.sm="30%" *ngFor="let item of products">
+
+            <div class="card mx-5 my-5">
+                <a class="card-link" href="/productos/{{item.id}}">
+                    <img class="card-img-top" src="{{item.image.imageUrl}}" alt="{{item.image.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title text-green">{{item.name}}</h5>
+                        <p class="card-text text-center pr-3 pb-3 text-truncate"> {{item.description}}</p>
+                        <br>
+                        <p class="card-text ml-3"><em class="fas fa-box" aria-hidden="true"></em>&nbsp;{{item.stock}}
+                        </p>
+
+                    </div>
+                    <div class="card-footer">{{item.totalPrice}}€</div>
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

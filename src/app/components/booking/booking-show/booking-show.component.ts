@@ -7,6 +7,9 @@ import * as appUtils from 'src/app/appUtils';
 import * as bookingUtils from 'src/app/components/booking/bookingUtils';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-booking-show',
@@ -16,19 +19,48 @@ import { Product } from 'src/app/models/product';
 export class BookingShowComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private bookingService: BookingService,
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    public toastService: ToastService
+  ) {
+    this.isAdmin = appUtils.isAdminUser(this.tokenService)
+
+  }
   booking: Booking;
   lines: Array<{
     product: Product;
     quantity: number;
     discount: number;
-}> = [];
+  }> = [];
+
+  isAdmin: boolean
+  user: User;
+  isBookingOwner: boolean;
+
   ngOnInit(): void {
     this.getBooking();
+    this.setAccesibility();
+
+  }
+
+  setAccesibility() {
+    this.authService.showUser(this.tokenService.getUsername()).subscribe(
+      (data) => {
+        this.user = data;
+        this.isBookingOwner = appUtils.isObjectOwner(this.user.id, this.booking.user)
+        if (!this.isBookingOwner) {
+          appUtils.showDanger(this.toastService, 'Usuario incorrecto')
+          return appUtils.promiseReload(this.router, '/pistas/', 500);
+        }
+      },
+      (err) => {
+        appUtils.showDanger(this.toastService, 'Usuario incorrecto');
+        return appUtils.promiseReload(this.router, '/pistas/', 500);
+      }
+    );
   }
 
   getBooking(): void {
@@ -44,11 +76,11 @@ export class BookingShowComponent implements OnInit {
             this.productService
               .getProductById(line.productId)
               .subscribe((product) => {
-                let lineWithProduct:{
+                let lineWithProduct: {
                   product: Product;
                   quantity: number;
                   discount: number;
-              } = {
+                } = {
                   'product': product,
                   'quantity': line.quantity,
                   'discount': line.discount,
@@ -58,8 +90,21 @@ export class BookingShowComponent implements OnInit {
           }
         },
         (err) => {
-          appUtils.redirect(this.router, '/pistas');
+          appUtils.showDanger(this.toastService, 'Reserva inexistente');
+          return appUtils.promiseReload(this.router, '/pistas/', 500);
         }
       );
+  }
+
+  deleteBooking() {
+    this.bookingService.deleteBooking(this.booking.id).subscribe(
+      (data) => {
+        appUtils.showSuccess(this.toastService, 'Reserva eliminada')
+        return appUtils.promiseReload(this.router, '/pistas/', 2000);
+      },
+      (err) => {
+        appUtils.showDanger(this.toastService, err)
+      }
+    );
   }
 }
