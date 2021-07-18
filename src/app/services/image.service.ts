@@ -25,5 +25,17 @@ export class ImageService {
     return this.httpClient.post<any>(url, formData)
   }
 
+  public newUserImage(id: number, image: File): Observable<any> {
+    var url = this.baseUrl + '/image/user/' + id
+    const formData: FormData = new FormData()
+    formData.append('multipartFile', image)
+    return this.httpClient.post<any>(url, formData)
+  }
+
+  public deleteUserImage(id: number): Observable<any> {
+    var url = this.baseUrl + '/image/user/' + id
+    return this.httpClient.delete<any>(url)
+  }
+
   
 }

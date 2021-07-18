@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JwtDto } from '../models/jwt-dto';
 import { LoginUser } from '../models/login-user';
-import { NewUser } from '../models/new-user';
+import { NewUser, UpdateUser } from '../models/user-dto';
 import { User } from '../models/user';
 
 import { environment } from '../../environments/environment';
@@ -20,6 +20,11 @@ export class AuthService {
 
   public new(newUser: NewUser): Observable<any> {
     var req = this.httpClient.post<NewUser>(this.users, newUser);
+    return req
+  }
+
+  public update(updateUser: UpdateUser,id:number): Observable<any> {
+    var req = this.httpClient.put<UpdateUser>(this.users+'/'+id.toString(), updateUser);
     return req
   }
 

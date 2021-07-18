@@ -81,6 +81,6 @@ export function isAdminUser(tokenService:TokenService):boolean{
   return tokenService.getAuthorities().includes('ROLE_ADMIN')
 }
 
-export function isObjectOwner(loggedUser:number, objectUser:number):boolean{
+export function isObjectOwner(loggedUser:User, objectUser:User):boolean{
   return loggedUser===objectUser;
 }

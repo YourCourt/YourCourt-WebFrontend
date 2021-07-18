@@ -20,11 +20,17 @@ export class BookingService {
     return this.httpClient.get<Booking>(this.baseUrl+'/bookings/'+id.toString());
   }
 
+  public getBookingsByUsername(username:string): Observable<Booking[]>{
+    let params = new HttpParams()
+    .set('username', username );
+    return this.httpClient.get<Booking[]>(this.baseUrl+'/bookings/user/', {params});
+  }
+
   public getBookingsByDate(date:string,courtId:number): Observable<any>{
     let params = new HttpParams()
     .set('date', date )
     .set('courtId', courtId.toString() );
-    return this.httpClient.get<any>(this.baseUrl+'/bookings/date', {params});
+    return this.httpClient.get<Booking[]>(this.baseUrl+'/bookings/date', {params});
   }
 
   public createBooking(bookingDto:BookingDto): Observable<any>{
