@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginUser } from 'src/app/models/login-user';
-import { NewUser } from 'src/app/models/new-user';
+import { NewUser } from 'src/app/models/user-dto';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
               this.tokenService.setUsername(responseLogin.username);
               this.tokenService.setAuthorities(responseLogin.authorities);
               appUtils.showSuccess(this.toastService,'Registro exitoso')
-              appUtils.redirect(this.router,'/')
+              appUtils.promiseReload(this.router, '/' , 1000)
 
             }, errorLogin => {
               appUtils.showDanger(this.toastService, errorLogin);

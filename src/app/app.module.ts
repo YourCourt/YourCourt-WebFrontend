@@ -24,10 +24,16 @@ import localeEs from '@angular/common/locales/es';
 import { BookingCreateComponent } from './components/booking/booking-create/booking-create.component';
 import { BookingShowComponent } from './components/booking/booking-show/booking-show.component';
 import { ToastComponent } from './components/toast/toast.component';
-import { ProductListComponent } from './components/products/product-list/product-list.component';
-import { ProductCreateComponent } from './components/products/product-create/product-create.component';
-import { ProductShowComponent } from './components/products/product-show/product-show.component';
-import { ProductUpdateComponent } from './components/products/product-update/product-update.component';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { ProductCreateComponent } from './components/product/product-create/product-create.component';
+import { ProductShowComponent } from './components/product/product-show/product-show.component';
+import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { CourseCreateComponent } from './components/course/course-create/course-create.component';
+import { CourseListComponent } from './components/course/course-list/course-list.component';
+import { CourseUpdateComponent } from './components/course/course-update/course-update.component';
+import { CourseShowComponent } from './components/course/course-show/course-show.component';
+import { InscriptionShowComponent } from './components/inscription/inscription-show/inscription-show.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -49,16 +55,22 @@ registerLocaleData(localeEs, 'es-ES');
     ProductListComponent,
     ProductCreateComponent,
     ProductShowComponent,
-    ProductUpdateComponent
+    ProductUpdateComponent,
+    ProfileComponent,
+    CourseCreateComponent,
+    CourseListComponent,
+    CourseUpdateComponent,
+    CourseShowComponent,
+    InscriptionShowComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule,
+    
     FormsModule, ReactiveFormsModule,
-    NgbPaginationModule, NgbAlertModule,
+    NgbModule,NgbPaginationModule, NgbAlertModule,
     FlexLayoutModule,
 
   ],

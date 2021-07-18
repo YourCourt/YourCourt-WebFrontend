@@ -50,8 +50,8 @@ export class BookingShowComponent implements OnInit {
     this.authService.showUser(this.tokenService.getUsername()).subscribe(
       (data) => {
         this.user = data;
-        this.isBookingOwner = appUtils.isObjectOwner(this.user.id, this.booking.user)
-        if (!this.isBookingOwner) {
+        this.isBookingOwner = this.user.id === this.booking.user;
+        if (!this.isBookingOwner || !this.isAdmin) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/pistas/', 500);
         }

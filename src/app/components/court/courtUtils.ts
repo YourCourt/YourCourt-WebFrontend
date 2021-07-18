@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 
-let courtTypesArray: Array<{ display: string; value: string; }> = [{ display: 'Rápida', value: 'FAST' }, { display: 'Tierra batida', value: 'CLAY' }]
+let courtTypesArray: Array<{ display: string; value: string; }> = [{ display: 'Rápida', value: 'HARD' }, { display: 'Tierra batida', value: 'CLAY' }]
 export const courtTypes: Map<string, string> = new Map(courtTypesArray.map(i => [i.display, i.value]));
 
 function getKeyByValue(map: Map<string, string>, searchValue: any): string {

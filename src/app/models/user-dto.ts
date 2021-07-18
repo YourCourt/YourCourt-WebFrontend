@@ -17,3 +17,18 @@ export class NewUser {
     }
 
 }
+
+export class UpdateUser {
+    
+    email: string;
+    birthDate: Date;
+    phone: string;
+
+    constructor(email: string, birthDate: Date, phone: string) {
+ 
+        this.email = email;
+        this.birthDate=birthDate;
+        this.phone=phone;
+    }
+
+}
