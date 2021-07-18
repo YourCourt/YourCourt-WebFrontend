@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
 
-  //backendEndpoint: 'https://dev-yourcourt-api.herokuapp.com'
-  backendEndpoint: 'http://localhost:8080'
+  backendEndpoint: 'https://dev-yourcourt-api.herokuapp.com'
+  //backendEndpoint: 'http://localhost:8080'
 };
 
 /*

@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - "lts/*"
+jdk: openjdk11
+dist: bionic
+sudo: required
+
+before_script:
+  - npm install -g @angular/cli
+  - npm install
+
+script:
+  - yes | cp -r bootstrap.min.css node_modules/bootstrap/dist/css/bootstrap.min.css
+  - npm link
+  - npm cache clean --force
+  - ng build --prod
+notifications:
+  email:
+    recipients:
+      - juanogtir@alum.us.es
+      - javvazzam@alum.us.es
+    on_success: always
+    on_failure: always
+deploy:
+  provider: heroku
+  app: dev-yourcourt-web
+  strategy: git
+  api_key: $HEROKU_AUTH_TOKEN
+  on:
+    branch: develop
