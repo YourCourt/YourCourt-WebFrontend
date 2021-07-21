@@ -1,1 +1,26 @@
-<p>course-list works!</p>
+<yourcourt-navbar></yourcourt-navbar>
+<div class="create" *ngIf="isAdmin">
+    <a href="/cursos/crear" class="btn btn-primary">
+        Crear un curso</a>
+</div>
+
+<div class="list">
+    <div *ngIf="courses" fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="90%" fxFlex.sm="30%" *ngFor="let item of courses">
+
+            <div class="card mx-5">
+                <a class="card-link" href="/cursos/{{item.id}}">
+                    <div class="card-body">
+                        <h5 class="card-title text-green">{{item.title}}</h5>
+                        <p class="card-text text-center pr-3 pb-3 text-truncate"> {{item.description}}</p>
+                        <br>
+                    </div>
+                    <div class="card-footer">{{item.startDate | date: 'dd/MM/yyyy' }} - {{item.endDate | date: 'dd/MM/yyyy' }}</div>
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

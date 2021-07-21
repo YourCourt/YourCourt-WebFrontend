@@ -1,0 +1,67 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+    <form [formGroup]="form" (ngSubmit)="updateInscription()">
+
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control"
+                [ngClass]="{'is-invalid':form.get('name').touched && form.get('name').invalid}" id="name"
+                placeholder="Nombre" formControlName="name" required minlength="3" maxLength="50">
+            <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+                <div *ngIf="form?.get('name').errors.required">El nombre es obligatorio.</div>
+                <div *ngIf="form?.get('name').errors.minlength">El nombre debe ser de un mínimo de 3
+                    caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="surnames">Apellidos</label>
+            <input type="text" class="form-control"
+                [ngClass]="{'is-invalid':form.get('surnames').touched && form.get('surnames').invalid}" id="surnames"
+                placeholder="Apellidos" formControlName="surnames" required minlength="3" maxLength="50">
+            <div class="invalid-feedback" *ngIf="form.get('surnames').touched && form.get('surnames').invalid">
+                <div *ngIf="form?.get('surnames').errors.required">Los apellidos son obligatorios.</div>
+                <div *ngIf="form?.get('surnames').errors.minlength">Los apellidos deben ser de un mínimo
+                    de 3
+                    caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control"
+                [ngClass]="{'is-invalid':form.get('email').touched && form.get('email').invalid}" id="email"
+                placeholder="Email" formControlName="email" disabled>
+
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="text" class="form-control"
+                [ngClass]="{'is-invalid':form.get('phone').touched && form.get('phone').invalid}" id="phone"
+                placeholder="Teléfono" formControlName="phone" disabled>
+
+        </div>
+
+        <div class="form-group">
+            <label for="observations">Observaciones</label>
+            <textarea class="form-control"
+                [ngClass]="{'is-invalid':form.get('observations').touched && form.get('observations').invalid}"
+                id="observations" placeholder="Observaciones" cols="30" rows="10" formControlName="observations"
+                maxLength="512" required></textarea>
+        </div>
+
+        <div class="text-center mb-2">
+            <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary"
+                [disabled]="!form.valid">Inscribirse</button>
+        </div>
+
+        <ng-template #loadingButton>
+            <button type="submit" class="btn btn-primary">
+                <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif">
+            </button>
+        </ng-template>
+
+    </form>
+
+</div>
