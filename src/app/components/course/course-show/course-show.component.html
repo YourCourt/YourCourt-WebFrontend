@@ -1,1 +1,91 @@
-<p>course-show works!</p>
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+    <div class="card-body">
+        <h5 class="card-title">{{course?.title}}</h5>
+        <p class="card-text"> {{course?.description}}</p>
+        <p class="card-text"> {{course?.startDate | date: 'dd/MM/yyyy' }} - {{course?.endDate | date: 'dd/MM/yyyy' }}
+        </p>
+        <div class="text-center create-btn">
+            <button *ngIf="userId && !alreadyInscripted" class="btn btn-sm btn-outline-primary mr-2 card-text"
+                (click)="openScrollableContent(longContent)">Inscribirse</button>
+            <hr />
+        </div>
+    </div>
+
+    <div class="modify" *ngIf="isAdmin">
+        <a href="/cursos/editar/{{course?.id}}" class="btn btn-primary edit">
+            Modificar curso</a>
+        <button class="btn btn-primary delete" (click)="deleteCourse()">
+            Eliminar curso
+        </button>
+    </div>
+</div>
+
+
+
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Inscripción para: {{course?.title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form [formGroup]="inscriptionForm" (ngSubmit)="onInscriptionCreate()">
+
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control"
+                    [ngClass]="{'is-invalid':inscriptionForm.get('name').touched && inscriptionForm.get('name').invalid}"
+                    id="name" placeholder="Nombre" formControlName="name" required minlength="3" maxLength="50">
+                <div class="invalid-feedback"
+                    *ngIf="inscriptionForm.get('name').touched && inscriptionForm.get('name').invalid">
+                    <div *ngIf="inscriptionForm?.get('name').errors.required">El nombre es obligatorio.</div>
+                    <div *ngIf="inscriptionForm?.get('name').errors.minlength">El nombre debe ser de un mínimo de 3
+                        caracteres.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="surnames">Apellidos</label>
+                <input type="text" class="form-control"
+                    [ngClass]="{'is-invalid':inscriptionForm.get('surnames').touched && inscriptionForm.get('surnames').invalid}"
+                    id="surnames" placeholder="Apellidos" formControlName="surnames" required minlength="3"
+                    maxLength="50">
+                <div class="invalid-feedback"
+                    *ngIf="inscriptionForm.get('surnames').touched && inscriptionForm.get('surnames').invalid">
+                    <div *ngIf="inscriptionForm?.get('surnames').errors.required">Los apellidos son obligatorios.</div>
+                    <div *ngIf="inscriptionForm?.get('surnames').errors.minlength">Los apellidos deben ser de un mínimo
+                        de 3
+                        caracteres.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="observations">Observaciones</label>
+                <textarea class="form-control"
+                    [ngClass]="{'is-invalid':inscriptionForm.get('observations').touched && inscriptionForm.get('observations').invalid}"
+                    id="observations" placeholder="Observaciones" cols="30" rows="10" formControlName="observations"
+                    maxLength="512" required></textarea>
+            </div>
+
+            <div class="text-center">
+                <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary"
+                    [disabled]="!inscriptionForm.valid">Inscribirse</button>
+            </div>
+
+            <ng-template #loadingButton>
+                <button type="submit" class="btn btn-primary">
+                    <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif">
+                </button>
+            </ng-template>
+
+        </form>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+    </div>
+</ng-template>

@@ -34,6 +34,7 @@ import { CourseListComponent } from './components/course/course-list/course-list
 import { CourseUpdateComponent } from './components/course/course-update/course-update.component';
 import { CourseShowComponent } from './components/course/course-show/course-show.component';
 import { InscriptionShowComponent } from './components/inscription/inscription-show/inscription-show.component';
+import { InscriptionUpdateComponent } from './components/inscription/inscription-update/inscription-update.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -61,7 +62,8 @@ registerLocaleData(localeEs, 'es-ES');
     CourseListComponent,
     CourseUpdateComponent,
     CourseShowComponent,
-    InscriptionShowComponent
+    InscriptionShowComponent,
+    InscriptionUpdateComponent
   ],
   imports: [
     BrowserModule,

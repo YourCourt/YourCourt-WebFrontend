@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
+import * as appUtils from 'src/app/appUtils';
 
 @Component({
   selector: 'yourcourt-navbar',
@@ -16,6 +17,8 @@ export class NavbarComponent implements OnInit {
 
   isLogged:boolean = false;
   loggedUsername: String;
+
+  isAdmin:boolean=appUtils.isAdminUser(this.tokenService)
 
   ngOnInit(): void {
     if(this.tokenService.getToken()){
