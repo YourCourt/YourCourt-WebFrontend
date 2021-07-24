@@ -100,11 +100,11 @@ export class BookingCreateComponent implements OnInit {
   }
 
   onSearch() {
-    this.getAllProductsByProductType(this.formSearch.value.productType);
+    this.getAllBookableProductsByProductType(this.formSearch.value.productType);
   }
 
-  getAllProductsByProductType(typeName: string) {
-    this.productService.getProductByTypeName(typeName).subscribe(
+  getAllBookableProductsByProductType(typeName: string) {
+    this.productService.getBookeableProductsByTypeName(typeName).subscribe(
       (data) => {
         this.products = data;
       },

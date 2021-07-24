@@ -1,0 +1,16 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+  <img src="{{news?.image.imageUrl}}" class="card-img-top" alt="{{news?.image.name}}">
+  <div class="card-body">
+    <h5 class="card-title">{{news?.name}}</h5>
+    <p class="card-text"> {{news?.description}}</p>
+  </div>
+
+  <div class="modify" *ngIf="isAdmin">
+    <a href="/noticias/editar/{{news?.id}}" class="btn btn-primary edit">
+      Modificar noticia</a>
+    <button class="btn btn-primary delete" (click)="deleteNews()">
+      Eliminar noticia
+    </button>
+  </div>
+</div>
