@@ -22,10 +22,18 @@ export class ProductService {
     );
   }
 
-  public getProductByTypeName(typeName: string): Observable<any> {
+  public getProductsByTypeName(typeName: string): Observable<any> {
     let params = new HttpParams().set('typeName', typeName);
     return this.httpClient.get<Product[]>(
       this.baseUrl + '/products/productsByType',
+      { params }
+    );
+  }
+
+  public getBookeableProductsByTypeName(typeName: string): Observable<any> {
+    let params = new HttpParams().set('typeName', typeName);
+    return this.httpClient.get<Product[]>(
+      this.baseUrl + '/products/bookableProductsByType',
       { params }
     );
   }

@@ -51,7 +51,7 @@ export class ProductListComponent implements OnInit {
   }
 
   getAllProductsByProductType(typeName: string) {
-    this.productService.getProductByTypeName(typeName).subscribe(
+    this.productService.getProductsByTypeName(typeName).subscribe(
       (data) => {
         this.products = data;
       },

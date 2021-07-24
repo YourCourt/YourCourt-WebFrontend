@@ -1,0 +1,45 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+  <form [formGroup]="form" (ngSubmit)="updateNews()">
+
+    <div class="form-group">
+      <label for="image">Imagen</label>
+      <br>
+      <input type="file" id="image" class="form-control file-input" accept="image/*"
+        (change)="addNewsImage($event.target.files, image)">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Título</label>
+      <input type="text" class="form-control"
+        [ngClass]="{'is-invalid':form.get('name').touched && form.get('name').invalid}" id="name"
+        placeholder="Título de la noticia" formControlName="name" required minlength="3" maxLength="50">
+      <div class="invalid-feedback" *ngIf="form.get('name').touched && form.get('name').invalid">
+        <div *ngIf="form?.get('name').errors.required">El título es obligatorio.</div>
+        <div *ngIf="form?.get('name').errors.minlength">El título debe ser de un mínimo de 3 caracteres.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea class="form-control"
+        [ngClass]="{'is-invalid':form.get('description').touched && form.get('description').invalid}" id="description"
+        placeholder="Descripción de la noticia" cols="30" rows="10" formControlName="description" required
+        maxLength="512"></textarea>
+      <div class="invalid-feedback" *ngIf="form.get('description').touched && form.get('description').invalid">
+        <div *ngIf="form?.get('description').errors.required">La descripción es obligatoria.</div>
+      </div>
+    </div>
+
+    <div class="create-btn">
+      <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary" [disabled]="!form.valid">Crear
+        noticia</button>
+
+      <ng-template #loadingButton>
+        <button type="submit" class="btn btn-primary">
+          <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif">
+        </button>
+      </ng-template>
+    </div>
+  </form>
+</div>

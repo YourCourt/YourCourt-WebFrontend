@@ -35,6 +35,10 @@ import { CourseUpdateComponent } from './components/course/course-update/course-
 import { CourseShowComponent } from './components/course/course-show/course-show.component';
 import { InscriptionShowComponent } from './components/inscription/inscription-show/inscription-show.component';
 import { InscriptionUpdateComponent } from './components/inscription/inscription-update/inscription-update.component';
+import { NewsCreateComponent } from './components/news/news-create/news-create.component';
+import { NewsShowComponent } from './components/news/news-show/news-show.component';
+import { NewsUpdateComponent } from './components/news/news-update/news-update.component';
+import { NewsListComponent } from './components/news/news-list/news-list.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -63,7 +67,11 @@ registerLocaleData(localeEs, 'es-ES');
     CourseUpdateComponent,
     CourseShowComponent,
     InscriptionShowComponent,
-    InscriptionUpdateComponent
+    InscriptionUpdateComponent,
+    NewsCreateComponent,
+    NewsShowComponent,
+    NewsUpdateComponent,
+    NewsListComponent
   ],
   imports: [
     BrowserModule,
