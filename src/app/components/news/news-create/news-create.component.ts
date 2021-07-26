@@ -37,7 +37,7 @@ export class NewsCreateComponent implements OnInit {
         if (this.image != undefined) {
 
           this.imageService.newNewsImage(data.id, this.image).subscribe(
-            data => { }, errorImage => { appUtils.showErrorMessaages(errorImage, this.toastService) });
+            data => { }, errorImage => { appUtils.showErrorMessages(errorImage, this.toastService) });
         }
         this.loading = true;
         appUtils.showSuccess(this.toastService, 'Noticia creada')

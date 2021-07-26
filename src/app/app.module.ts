@@ -39,6 +39,8 @@ import { NewsCreateComponent } from './components/news/news-create/news-create.c
 import { NewsShowComponent } from './components/news/news-show/news-show.component';
 import { NewsUpdateComponent } from './components/news/news-update/news-update.component';
 import { NewsListComponent } from './components/news/news-list/news-list.component';
+import { CartComponent } from './components/purchase/cart/cart.component';
+import { PurchaseShowComponent } from './components/purchase/purchase-show/purchase-show.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -71,7 +73,9 @@ registerLocaleData(localeEs, 'es-ES');
     NewsCreateComponent,
     NewsShowComponent,
     NewsUpdateComponent,
-    NewsListComponent
+    NewsListComponent,
+    CartComponent,
+    PurchaseShowComponent
   ],
   imports: [
     BrowserModule,

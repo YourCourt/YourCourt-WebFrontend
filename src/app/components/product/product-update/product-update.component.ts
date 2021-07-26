@@ -93,7 +93,7 @@ export class ProductUpdateComponent implements OnInit {
         if (this.image != undefined) {
 
           this.imageService.newProductImage(data.id, this.image).subscribe(
-            data => { }, errorImage => { appUtils.showErrorMessaages(errorImage, this.toastService); 
+            data => { }, errorImage => { appUtils.showErrorMessages(errorImage, this.toastService); 
             });
         }
 

@@ -43,7 +43,7 @@ export class CourseCreateComponent implements OnInit {
         return appUtils.promiseReload(this.router, '/cursos/' + data.id, 2500)
       },
       err => {
-        appUtils.showErrorMessaages(err,this.toastService);
+        appUtils.showErrorMessages(err,this.toastService);
       }
     );
   }

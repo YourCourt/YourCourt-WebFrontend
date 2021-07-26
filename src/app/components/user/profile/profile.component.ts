@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
       (data) => {
         this.user = data;
         this.isProfileOwner = this.user.username === this.tokenService.getUsername();
-        if (!this.isProfileOwner && !this.isAdmin) {
+        if (this.isProfileOwner==false && this.isAdmin==false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/', 500);
         }
@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit {
         appUtils.promiseReload(this.router, '/usuario/' + this.user.username, 1000)
       }, errorUpdate => {
 
-        appUtils.showErrorMessaages(errorUpdate, this.toastService)
+        appUtils.showErrorMessages(errorUpdate, this.toastService)
 
       }
     );
@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit {
         data => {
           appUtils.showSuccess(this.toastService, 'Actualización exitosa');
           appUtils.promiseReload(this.router, '/usuario/' + this.user.username, 1000)
-        }, err => { appUtils.showErrorMessaages(err, this.toastService) });
+        }, err => { appUtils.showErrorMessages(err, this.toastService) });
     }
   }
 
@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit {
       this.AllBookings=data;
       this.collectionSize=data.length;
       this.refreshBookings()
-    }, err => { appUtils.showErrorMessaages(err, this.toastService) });
+    }, err => { appUtils.showErrorMessages(err, this.toastService) });
 
   }
 

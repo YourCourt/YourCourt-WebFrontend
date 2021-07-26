@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
 
         this.isLogged = false;
         this.isRegisterFail = true;
-        appUtils.showErrorMessaages(errorRegister,this.toastService)
+        appUtils.showErrorMessages(errorRegister,this.toastService)
         // if (errorRegister.error && errorRegister.status != 0) {
         //   for (var text in errorRegister.error) {
         //     appUtils.showDanger(this.toastService, errorRegister.error[text]);

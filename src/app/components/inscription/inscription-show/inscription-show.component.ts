@@ -45,11 +45,17 @@ export class InscriptionShowComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
+
+    this.getInscription();
+  }
+
+  setAccesibility(){
     this.authService.showUser(this.tokenService.getUsername()).subscribe(
       (data) => {
         this.user = data;
         this.isInscriptionOwner = this.user.username === this.tokenService.getUsername();
-        if (!this.isInscriptionOwner && !this.isAdmin) {
+        if (this.isInscriptionOwner==false && this.isAdmin==false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/', 500);
         }
@@ -57,8 +63,6 @@ export class InscriptionShowComponent implements OnInit {
       },
       (err) => { appUtils.showDanger(this.toastService, 'Usuario no logueado') }
     );
-
-    this.getInscription();
   }
 
   getInscription(): void {
@@ -67,6 +71,7 @@ export class InscriptionShowComponent implements OnInit {
       .subscribe(
         (data) => {
           this.inscription = data;
+          this.setAccesibility();
         },
         (err) => {
           appUtils.showDanger(this.toastService, 'Inscripción inexistente')

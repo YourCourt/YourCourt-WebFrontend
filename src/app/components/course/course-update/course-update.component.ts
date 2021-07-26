@@ -52,7 +52,7 @@ export class CourseUpdateComponent implements OnInit {
         this.form.controls['startDate'].setValue(data.startDate);
         this.form.controls['endDate'].setValue(data.endDate);
 
-        this.authService.showUser(this.tokenService.getUsername()).subscribe(
+        /*this.authService.showUser(this.tokenService.getUsername()).subscribe(
           (data) => {
             this.user = data;
             this.isCourseOwner = this.user.username === this.tokenService.getUsername();
@@ -64,7 +64,7 @@ export class CourseUpdateComponent implements OnInit {
 
           },
           (err) => { appUtils.showDanger(this.toastService, 'Usuario no logueado') }
-        );
+        );*/
 
 
       },
@@ -85,7 +85,7 @@ export class CourseUpdateComponent implements OnInit {
         return appUtils.promiseReload(this.router, '/cursos/' + data.id, 2500)
       },
       err => {
-        appUtils.showErrorMessaages(err,this.toastService);
+        appUtils.showErrorMessages(err,this.toastService);
       }
     );
   }

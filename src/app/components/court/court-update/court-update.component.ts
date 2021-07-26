@@ -62,7 +62,7 @@ export class CourtUpdateComponent implements OnInit {
         if(this.image!=undefined){
 
           this.imageService.newCourtImage(data.id,this.image).subscribe(
-            data => {},errorImage => {appUtils.showErrorMessaages(errorImage, this.toastService)});
+            data => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
         }
         this.loading=true;
         appUtils.showSuccess(this.toastService,'Pista actualizada')

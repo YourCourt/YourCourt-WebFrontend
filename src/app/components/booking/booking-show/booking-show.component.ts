@@ -37,7 +37,7 @@ export class BookingShowComponent implements OnInit {
   }> = [];
 
   isAdmin: boolean
-  user: User;
+  user: User;purchaseUser:User;
   isBookingOwner: boolean;
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class BookingShowComponent implements OnInit {
       (data) => {
         this.user = data;
         this.isBookingOwner = this.user.id === this.booking.user;
-        if (!this.isBookingOwner || !this.isAdmin) {
+        if (this.isBookingOwner==false && this.isAdmin==false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/pistas/', 500);
         }
@@ -63,12 +63,23 @@ export class BookingShowComponent implements OnInit {
     );
   }
 
+  setBookingUser() {
+    this.authService
+      .showUserById(this.booking.user)
+      .subscribe((data) => {
+        this.purchaseUser = data;
+      });
+  }
+
   getBooking(): void {
     this.bookingService
       .getBooking(Number(this.activatedRoute.snapshot.paramMap.get('id')))
       .subscribe(
         (data) => {
           this.booking = data;
+
+          this.setAccesibility();
+          this.setBookingUser();
           this.booking.creationDate = new Date(data.creationDate);
           this.booking.startDate = new Date(data.startDate);
           this.booking.endDate = new Date(data.endDate);

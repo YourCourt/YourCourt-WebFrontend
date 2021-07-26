@@ -60,6 +60,62 @@
     color: white;
     border: 5px solid #ffffff83;
   }
+
+  .addToCart{
+    text-align: center!important;
+    margin-bottom: 5px!important;
+    margin-top: 5px!important;
+    display: block;
+    justify-content: center;
+    padding: 10px;
+    background-color: #ffffff83;
+    border: 5px solid #4caf50;
+    max-width: max-content;
+    margin: auto;
+    cursor: pointer;
+  }
+
+  .addToCart p{
+    color: green;
+    font-size: 24px;
+  }
+
+  .addToCart:hover{
+    text-align: center!important;
+    margin-bottom: 5px!important;
+    display: block;
+    padding: 10px;
+    background-color: #4caf50;
+    border: 5px solid #ffffff83;
+    max-width: max-content;
+    margin: auto;
+    cursor: pointer;
+  }
+
+  .addToCart:hover p{
+    color: #ffffff83;
+    font-size: 24px;
+  }
+
+
+  .create {
+    margin: 20px;
+    display: block;
+    text-align: center;
+  }
+  
+  .create a {
+    padding: 10px;
+    background-color: #ffffff83;
+    color: black;
+    border: 5px solid #4caf50;
+  }
+  
+  .create a:hover {
+    background-color: #4caf50;
+    color: white;
+    border: 5px solid #ffffff83;
+  }
   
 
   
