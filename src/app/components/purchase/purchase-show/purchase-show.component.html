@@ -1,0 +1,27 @@
+<yourcourt-navbar></yourcourt-navbar>
+
+<div class="card mb-3 ">
+    <div class="card-body">
+        <h5 class="card-title">{{purchase?.creationDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</h5>
+        <p class="card-text"> Autor:&nbsp; <a href="/usuario/{{purchaseUser?.username}}">{{purchaseUser?.username}}</a>
+        </p>
+        <p class="card-text"> Precio total:&nbsp;{{purchase?.productPurchaseSum }}€</p>
+
+        <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i" style="border-style: outset;">
+            <a href="/productos/{{line.product.id}}">
+                <p class=" col-6"> {{i+1}}:&nbsp;{{line.product.name}}</p>
+            </a>
+            <p class=" col-2"> Cantidad:&nbsp;{{line.quantity}}</p>
+            <p class=" col-2"> Descuento:&nbsp;{{line.discount}}</p>
+            <p class=" col-2"> Coste:&nbsp;{{line.product.totalPrice * line.quantity}}€</p>
+
+        </div>
+
+    </div>
+
+    <div class="modify" *ngIf="isAdmin || isPurchaseOwner">
+        <button class="btn btn-primary delete" (click)="deletePurchase()">
+            Eliminar Compra
+        </button>
+    </div>
+</div>

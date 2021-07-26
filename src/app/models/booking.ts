@@ -1,3 +1,5 @@
+import { Line } from "./purchase";
+
 export class BookingDto {
     court: number;
     user: number;
@@ -14,17 +16,7 @@ export class BookingDto {
     }
 }
 
-export class Line {
-    discount: number;
-    quantity: number;
-    productId: number;
 
-    constructor(discount: number, quantity: number, productId: number){
-        this.discount=discount;
-        this.quantity=quantity;
-        this.productId=productId;
-    }
-}
 
 export class Booking {
     id: number;

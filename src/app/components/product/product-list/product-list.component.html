@@ -22,6 +22,7 @@
     </form>
 </div>
 <div class="list">
+
     <div *ngIf="products" fxLayout="row wrap" fxLayoutGap="16px grid">
         <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="90%" fxFlex.sm="30%" *ngFor="let item of products">
 

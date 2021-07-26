@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   formSearch: FormGroup;
   products: Product[];
   productTypes: ProductType[];
-
+  gridColumns = 3;
   isAdmin:boolean=appUtils.isAdminUser(this.tokenService)
 
   constructor(private tokenService: TokenService,

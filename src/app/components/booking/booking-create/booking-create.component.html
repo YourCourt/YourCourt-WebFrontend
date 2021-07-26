@@ -9,10 +9,10 @@
     <div class="row mt-2" style="border-style: outset;" [NgIf]="bookedProducts.length>0"
       *ngFor="let bookedProduct of bookedProducts.value; index as i">
       <em class="fas fa-trash-alt fa-2x col-1 text-center" style="cursor:pointer;"
-        (click)="removeProduct(bookedProduct)"></em>&nbsp;<p class="col-6">{{i+1}}:&nbsp;{{ bookedProduct.item.name }}
+        (click)="removeProduct(bookedProduct)"></em>&nbsp;<p class="col-4">{{i+1}}:&nbsp;{{ bookedProduct.item.name }}
       </p>&nbsp;&nbsp;<p class="col-3">Cantidad:&nbsp;<input type="number" name="quantity" id="{{i}}quantity" min="1"
           max="{{bookedProduct.item.stock-lowStock}}" [(ngModel)]="bookedProduct.quantity" /></p>
-      <!--Total:&nbsp;{{bookedProduct.item.totalPrice*bookedProduct.quantity | number:'.0-2'}} -->
+      <p class="col-3">Total:&nbsp;{{bookedProduct.item.bookPrice*bookedProduct.quantity | number:'.0-2'}}€</p>
     </div>
 
     <button class="btn btn-primary addProduct" (click)="openScrollableContent(longContent)">
@@ -54,12 +54,13 @@
                   <br>
                   <p class="card-text ml-3"><em class="fas fa-box" aria-hidden="true"></em>&nbsp;{{item.stock}}</p>
 
-                  <p class="card-text ml-3"><em class="fas fa-coins" aria-hidden="true"></em>&nbsp;{{item.bookPrice}}€</p>
+                  <p class="card-text ml-3"><em class="fas fa-coins" aria-hidden="true"></em>&nbsp;{{item.bookPrice}}€
+                  </p>
                 </div>
               </a>
-              <div class="card-footer"><button type="submit" class="btn btn-primary" [disabled]="item.stock<lowStock"
-                  [title]="item.stock<lowStock?  'Stock bajo':'Alquilar' " (click)="bookProduct(item)">
-                  Alquilar <em class="fas fa-cart-arrow-down"></em>
+              <div class="card-footer"><button type="submit" class="btn btn-primary" [disabled]="item.stock<=lowStock"
+                  [title]="item.stock<=lowStock?  'Stock bajo':'Alquilar' " (click)="bookProduct(item)">
+                  Alquilar <em class="fas fa-cart-plus " style="color: green;"></em>
                 </button></div>
 
             </div>
@@ -83,7 +84,7 @@
     </button>
     <ng-template #loadingButton>
       <button type="submit" class="btn btn-primary" (click)="createBooking()">
-        <img  style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif">
+        <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif">
       </button>
     </ng-template>
   </div>

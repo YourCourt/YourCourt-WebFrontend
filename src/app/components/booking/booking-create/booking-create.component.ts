@@ -12,12 +12,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { BookingDto, Line } from 'src/app/models/booking';
+import { BookingDto } from 'src/app/models/booking';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductType } from 'src/app/models/product';
 import { ToastService } from 'src/app/services/toast.service';
+import { Line } from 'src/app/models/purchase';
 @Component({
   selector: 'app-booking-create',
   templateUrl: './booking-create.component.html',
@@ -41,7 +42,7 @@ export class BookingCreateComponent implements OnInit {
   lowStock: number = appUtils.LOW_STOCK;
 
   gridColumns = 2;
-  loading:boolean=false;
+  loading: boolean = false;
 
   constructor(
     private tokenService: TokenService,
@@ -130,7 +131,7 @@ export class BookingCreateComponent implements OnInit {
         Validators.required
       );
       this.bookedProducts.push(control);
-      appUtils.showSuccess(this.toastService,'Producto añadido')
+      appUtils.showSuccess(this.toastService, 'Producto añadido');
     } else {
       appUtils.showDanger(
         this.toastService,
@@ -145,7 +146,7 @@ export class BookingCreateComponent implements OnInit {
     );
     let foundIndex = this.bookedProducts.controls.indexOf(found);
     this.bookedProducts.removeAt(foundIndex);
-    appUtils.showSuccess(this.toastService,'Producto eliminado')
+    appUtils.showSuccess(this.toastService, 'Producto eliminado')
   }
 
   getBookingLines() {
@@ -170,8 +171,8 @@ export class BookingCreateComponent implements OnInit {
 
     this.bookingService.createBooking(bookingCreated).subscribe(
       (data) => {
-        this.loading=true;
-        appUtils.showSuccess(this.toastService,'Reserva creada')
+        this.loading = true;
+        appUtils.showSuccess(this.toastService, 'Reserva creada');
         return appUtils.promiseReload(
           this.router,
           '/reservas/' + data.id,
@@ -179,7 +180,7 @@ export class BookingCreateComponent implements OnInit {
         );
       },
       (err) => {
-        appUtils.showDanger(this.toastService,'Error desconocido')
+        appUtils.showErrorMessages(err,this.toastService);
       }
     );
   }

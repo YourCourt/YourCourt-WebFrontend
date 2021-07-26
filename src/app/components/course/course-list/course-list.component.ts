@@ -21,6 +21,7 @@ export class CourseListComponent implements OnInit {
 
   isAdmin:boolean=appUtils.isAdminUser(this.tokenService)
   gridColumns = 3;
+  
   constructor(private tokenService: TokenService,
     private activatedRoute: ActivatedRoute,
     private router: Router,

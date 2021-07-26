@@ -18,4 +18,16 @@
       Eliminar producto
     </button>
   </div>
+  <div *ngIf="isLogged && product.stock>lowStock; else lowStockTemplate" class="addToCart" (click)="addToCart(product.id,product.name,product.totalPrice,product.stock)" 
+  [title]="product.stock<=lowStock?  'Stock bajo':'Añadir' ">
+    <p class="card-text">Añadir al carrito <em  class="fas fa-cart-plus" ></em></p>
+  
+</div>
+
+<ng-template #lowStockTemplate>
+  <div *ngIf="isLogged" class="addToCart" 
+  [title]="product.stock<=lowStock?  'Stock bajo':'Añadir' ">
+    <p class="card-text">Añadir al carrito <em  class="fas fa-cart-plus" ></em></p>
+</div>
+</ng-template>
 </div>

@@ -40,6 +40,7 @@ export function addZeroBeforeNumber(number: number):string {
 }
 
 export const LOW_STOCK: number = 20;
+export const MAXIMUM_CART_SIZE: number = 10;
 
 export function showSuccess(toastService: ToastService, successText: string):void {
   toastService.show(successText, {
@@ -67,7 +68,7 @@ export function showCustomToast(toastService: ToastService, text: string, header
   });
 }
 
-export function showErrorMessaages(httpResponse: any, toastService: ToastService):void {
+export function showErrorMessages(httpResponse: any, toastService: ToastService):void {
   if (httpResponse.error && httpResponse.status != 0) {
     for (var text in httpResponse.error) {
       showDanger(toastService, httpResponse.error[text]);

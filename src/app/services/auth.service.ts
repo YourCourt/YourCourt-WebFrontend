@@ -38,6 +38,10 @@ export class AuthService {
     return this.httpClient.get<User>(this.users + '/username/' + username);
   }
 
+  public showUserById(id: number): Observable<any> {
+    return this.httpClient.get<User>(this.users + '/' + id.toString());
+  }
+
 
 
 }
