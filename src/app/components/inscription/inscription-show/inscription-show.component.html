@@ -14,7 +14,7 @@
 
     </div>
 
-    <div class="modify" *ngIf="isAdmin">
+    <div class="modify" *ngIf="isAdmin || isInscriptionOwner">
         <a href="/inscripciones/editar/{{inscription?.id}}" class="btn btn-primary edit">
             Modificar inscripción</a>
         <button class="btn btn-primary delete" (click)="deleteInscription()">

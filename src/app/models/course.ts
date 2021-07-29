@@ -24,8 +24,8 @@ export class Inscription {
     email: string;
     phone: string;
     observations: string;
-    user: User
-    course: Course
+    user: number;
+    course: Course;
 
     constructor(name: string, surnames: string, email: string, phone: string, observations: string) {
         this.name = name;

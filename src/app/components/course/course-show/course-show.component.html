@@ -3,12 +3,10 @@
     <div class="card-body">
         <h5 class="card-title">{{course?.title}}</h5>
         <p class="card-text"> {{course?.description}}</p>
-        <p class="card-text">Duración: {{course?.startDate | date: 'dd/MM/yyyy' }} - {{course?.endDate | date: 'dd/MM/yyyy' }}
-        </p>
+
         <div class="text-center create-btn">
             <button *ngIf="userId && !alreadyInscripted" class="btn btn-sm btn-outline-primary mr-2 card-text"
                 (click)="openScrollableContent(longContent)">Inscribirse</button>
-            <hr />
         </div>
     </div>
 
@@ -19,6 +17,9 @@
             Eliminar curso
         </button>
     </div>
+
+    <div class="card-footer">Duración: {{course?.startDate | date: 'dd/MM/yyyy' }} - {{course?.endDate | date: 'dd/MM/yyyy' }}</div>
+
 </div>
 
 

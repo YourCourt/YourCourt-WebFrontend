@@ -47,9 +47,6 @@ export class CourseShowComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const today = new Date(); //Date('2021-06-06')
-
-
     this.authService.showUser(this.tokenService.getUsername()).subscribe(
       (data) => {
         this.userId = data.id;

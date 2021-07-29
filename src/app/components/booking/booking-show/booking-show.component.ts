@@ -42,7 +42,6 @@ export class BookingShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBooking();
-    this.setAccesibility();
 
   }
 
@@ -63,13 +62,6 @@ export class BookingShowComponent implements OnInit {
     );
   }
 
-  setBookingUser() {
-    this.authService
-      .showUserById(this.booking.user)
-      .subscribe((data) => {
-        this.purchaseUser = data;
-      });
-  }
 
   getBooking(): void {
     this.bookingService
@@ -79,7 +71,6 @@ export class BookingShowComponent implements OnInit {
           this.booking = data;
 
           this.setAccesibility();
-          this.setBookingUser();
           this.booking.creationDate = new Date(data.creationDate);
           this.booking.startDate = new Date(data.startDate);
           this.booking.endDate = new Date(data.endDate);

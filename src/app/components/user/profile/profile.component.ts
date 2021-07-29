@@ -13,6 +13,11 @@ import { ToastService } from 'src/app/services/toast.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateUser } from 'src/app/models/user-dto';
 import { ImageService } from 'src/app/services/image.service';
+import { PurchaseService } from 'src/app/services/purchase.service';
+import { InscriptionService } from 'src/app/services/inscription.service';
+import { Purchase } from 'src/app/models/purchase';
+import { Course, Inscription } from 'src/app/models/course';
+import { CourseService } from 'src/app/services/course.service';
 
 
 @Component({
@@ -27,6 +32,9 @@ export class ProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private bookingService: BookingService,
+    private purchaseService:PurchaseService,
+    private courseService:CourseService,
+    private inscriptionService:InscriptionService,
     private productService: ProductService,
     private imageService: ImageService,
     public toastService: ToastService,
@@ -54,15 +62,28 @@ export class ProfileComponent implements OnInit {
 
   loading: boolean = false;
 
+  pageSize:number = 4;
+
   AllBookings:Booking[]=[];
   pagedBookings:Booking[]=[];
-  page:number = 1;
-  pageSize:number = 4;
-  collectionSize:number;
+  pageBookings:number = 1;
+  collectionSizeBookings:number;
+
+  AllPurchases:Purchase[]=[];
+  pagedPurchases:Purchase[]=[];
+  pagePurchases:number = 1;
+  collectionSizePurchases:number;
+
+  AllInscriptions:Inscription[]=[];
+  pagedInscriptions:Inscription[]=[];
+  pageInscriptions:number = 1;
+  collectionSizeInscriptions:number;
 
   ngOnInit(): void {
     this.setAccesibility()
     this.loadBookingsByUser()
+    this.loadPurchasesByUser()
+    this.loadInscriptionsByUser()
     
   }
 
@@ -138,16 +159,43 @@ export class ProfileComponent implements OnInit {
   loadBookingsByUser(){
     this.bookingService.getBookingsByUsername(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(data => {
       this.AllBookings=data;
-      this.collectionSize=data.length;
+      this.collectionSizeBookings=data.length;
       this.refreshBookings()
     }, err => { appUtils.showErrorMessages(err, this.toastService) });
+  }
 
+  loadPurchasesByUser(){
+    this.purchaseService.getAllPurchasesByUser(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(data => {
+      this.AllPurchases=data;
+      this.collectionSizePurchases=data.length;
+      this.refreshPurchases()
+    }, err => { appUtils.showErrorMessages(err, this.toastService) });
+  }
+
+  loadInscriptionsByUser(){
+    this.inscriptionService.getAllInscriptionsByUsername(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(data => {
+      this.AllInscriptions=data;
+      this.collectionSizeInscriptions=data.length;
+      this.refreshInscriptions()
+    }, err => { appUtils.showErrorMessages(err, this.toastService) });
   }
 
   refreshBookings() {
     this.pagedBookings = this.AllBookings
       .map((booking, i) => ({id: i + 1, ...booking}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+      .slice((this.pageBookings - 1) * this.pageSize, (this.pageBookings - 1) * this.pageSize + this.pageSize);
+  }
+
+  refreshPurchases() {
+    this.pagedPurchases = this.AllPurchases
+      .map((booking, i) => ({id: i + 1, ...booking}))
+      .slice((this.pagePurchases - 1) * this.pageSize, (this.pagePurchases - 1) * this.pageSize + this.pageSize);
+  }
+
+  refreshInscriptions() {
+    this.pagedInscriptions = this.AllInscriptions
+      .map((booking, i) => ({id: i + 1, ...booking}))
+      .slice((this.pageInscriptions - 1) * this.pageSize, (this.pageInscriptions - 1) * this.pageSize + this.pageSize);
   }
 
 }
