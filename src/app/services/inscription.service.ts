@@ -23,8 +23,8 @@ export class InscriptionService {
     return this.httpClient.post<Inscription>(this.baseUrl + '/inscriptions/course/' + courseId.toString(), inscription);
   }
 
-  public updateInscription(inscription: Inscription, courseId: number): Observable<any> {
-    return this.httpClient.put<Inscription>(this.baseUrl + '/inscriptions/course/' + courseId.toString(), inscription);
+  public updateInscription(inscription: Inscription, inscriptionId: number): Observable<any> {
+    return this.httpClient.put<Inscription>(this.baseUrl + '/inscriptions/' + inscriptionId.toString(), inscription);
   }
 
   public getInscription(id: number): Observable<any> {

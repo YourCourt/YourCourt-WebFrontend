@@ -53,8 +53,8 @@ export class InscriptionUpdateComponent implements OnInit {
         this.authService.showUser(this.tokenService.getUsername()).subscribe(
           (data) => {
             this.user = data;
-            this.isInscriptionOwner = this.user.username === this.tokenService.getUsername();
-            if (!this.isInscriptionOwner && !this.isAdmin) {
+            this.isInscriptionOwner = this.user.id === this.inscription.user;
+            if (this.isInscriptionOwner==false && this.isAdmin==false) {
               appUtils.showDanger(this.toastService, 'Usuario incorrecto')
               return appUtils.promiseReload(this.router, '/', 500);
             }
@@ -77,7 +77,7 @@ export class InscriptionUpdateComponent implements OnInit {
 
   updateInscription(): void {
     let inscriptionUpdated = new Inscription(this.form.value.name, this.form.value.surnames, this.form.value.email, this.form.value.phone, this.form.value.observations)
-    this.inscriptionService.updateInscription(inscriptionUpdated, this.inscription.course.id).subscribe(
+    this.inscriptionService.updateInscription(inscriptionUpdated, this.inscription.id).subscribe(
       data => {
 
         this.loading = true;

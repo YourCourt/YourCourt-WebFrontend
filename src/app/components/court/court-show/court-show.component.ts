@@ -35,7 +35,7 @@ export class CourtShowComponent implements OnInit {
     private calendar: NgbCalendar,
     private calendarConfig: NgbDatepickerConfig,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   court: Court;
   hours: Array<courtUtils.BookingHour> = courtUtils.hours;
@@ -50,7 +50,8 @@ export class CourtShowComponent implements OnInit {
   maxDate: NgbDateStruct;
   availability: any = {};
 
-  isAdmin:boolean=appUtils.isAdminUser(this.tokenService)
+  isAdmin: boolean = appUtils.isAdminUser(this.tokenService);
+  isLogged: boolean = this.tokenService.getToken() != null;
 
   ngOnInit(): void {
     this.getCourt();
@@ -74,7 +75,7 @@ export class CourtShowComponent implements OnInit {
       (data) => {
         this.userId = data.id;
       },
-      (err) => {appUtils.showDanger(this.toastService,'Usuario incorrecto')}
+      (err) => { appUtils.showDanger(this.toastService, 'Inicie sesión para reservar') }
     );
   }
 
@@ -86,7 +87,7 @@ export class CourtShowComponent implements OnInit {
           this.court = data;
         },
         (err) => {
-          appUtils.showDanger(this.toastService,'Pista inexistente')
+          appUtils.showDanger(this.toastService, 'Pista inexistente')
           appUtils.redirect(this.router, '/pistas');
         }
       );
@@ -99,7 +100,7 @@ export class CourtShowComponent implements OnInit {
   deleteCourt() {
     this.courtService.deleteCourt(this.court.id).subscribe(
       (data) => {
-        appUtils.showSuccess(this.toastService,'Pista eliminada')
+        appUtils.showSuccess(this.toastService, 'Pista eliminada')
         return appUtils.promiseReload(this.router, '/pistas/', 2000);
       },
       (err) => {

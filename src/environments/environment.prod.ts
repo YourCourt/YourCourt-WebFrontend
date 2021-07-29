@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
+  production: false,
   backendEndpoint: 'https://dev-yourcourt-api.herokuapp.com'
 };

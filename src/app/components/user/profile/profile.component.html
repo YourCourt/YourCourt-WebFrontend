@@ -115,7 +115,7 @@
                     </table>
 
                     <div class="d-flex justify-content-between p-2">
-                      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshBookings()">
+                      <ngb-pagination [collectionSize]="collectionSizeBookings" [(page)]="pageBookings" [pageSize]="pageSize" (pageChange)="refreshBookings()">
                       </ngb-pagination>
                     
                       <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshBookings()">
@@ -130,18 +130,82 @@
                 <li ngbNavItem="compras">
                   <a ngbNavLink>Compras</a>
                   <ng-template ngbNavContent>
-                    <p>
-                      ComprasComprasComprasComprasComprasComprasComprasComprasComprasComprasComprasComprasComprasComprasCompras.
-                    </p>
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Fecha de compra </th>
+                        <th scope="col">Precio total</th>
+                        <th scope="col">Productos</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let item of pagedPurchases">
+
+                        <th scope="row"> <a href="/compras/{{ item?.id }}"> <em class="far fa-eye"></em></a></th>
+                        <td>
+                          
+                          {{item?.creationDate | date: 'dd/MM/yyyy HH:mm' }}
+                        </td>
+                        <td>{{ item?.productPurchaseSum }}€</td>
+                        <td> <a *ngFor="let line of item?.lines" href="/productos/{{line.productId}}"><em class="fas fa-cube"></em>&nbsp;</a>  </td>
+
+                      </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+                      <ngb-pagination [collectionSize]="collectionSizePurchases" [(page)]="pagePurchases" [pageSize]="pageSize" (pageChange)="refreshPurchases()">
+                      </ngb-pagination>
+                    
+                      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshPurchases()">
+                        <option [ngValue]="2">Mostrar 2</option>
+                        <option [ngValue]="4">Mostrar 4</option>
+                        <option [ngValue]="6">Mostrar 6</option>
+                      </select>
+                    </div>
+
                   </ng-template>
                 </li>
 
                 <li ngbNavItem="cursos">
                   <a ngbNavLink>Cursos</a>
                   <ng-template ngbNavContent>
-                    <p>
-                      CursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursosCursos.
-                    </p>
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">Curso </th>
+                        <th scope="col">Fecha de inicio</th>
+                        <th scope="col">Fecha de fin</th>
+                        <th scope="col">Inscripción</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let item of pagedInscriptions">
+
+                        <th scope="row"> <a href="/cursos/{{ item?.course.id }}"> {{item?.course.title}}</a></th>
+                        <td>
+                          
+                          {{item?.course.startDate | date: 'dd/MM/yyyy' }}
+                        </td>
+                        <td>{{item?.course.endDate | date: 'dd/MM/yyyy' }}</td>
+                        <td> <a href="/inscripciones/{{ item?.id }}"> <em class="far fa-eye"></em></a></td>
+
+                      </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+                      <ngb-pagination [collectionSize]="collectionSizeInscriptions" [(page)]="pageInscriptions" [pageSize]="pageSize" (pageChange)="refreshInscriptions()">
+                      </ngb-pagination>
+                    
+                      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshInscriptions()">
+                        <option [ngValue]="2">Mostrar 2</option>
+                        <option [ngValue]="4">Mostrar 4</option>
+                        <option [ngValue]="6">Mostrar 6</option>
+                      </select>
+                    </div>
+
                   </ng-template>
                 </li>
               </ul>

@@ -15,6 +15,11 @@ export class PurchaseService {
     return this.httpClient.get<Purchase[]>(this.baseUrl+'/purchases');
   }
 
+  public getAllPurchasesByUser(username:string): Observable<any>{
+    let params = new HttpParams().set('username', username);
+    return this.httpClient.get<Purchase[]>(this.baseUrl+'/purchases/user',{ params });
+  }
+
   public getPurchase(id:number): Observable<any>{
     return this.httpClient.get<Purchase>(this.baseUrl+'/purchases/'+id.toString());
   }

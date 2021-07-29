@@ -3,6 +3,7 @@
   <img src="{{news?.image.imageUrl}}" class="card-img-top" alt="{{news?.image.name}}">
   <div class="card-body">
     <h5 class="card-title">{{news?.name}}</h5>
+    <p class="text-muted">Fecha de publicación: {{news?.creationDate | date: 'dd/MM/yyyy' }}</p>
     <p class="card-text"> {{news?.description}}</p>
   </div>
 
@@ -13,4 +14,9 @@
       Eliminar noticia
     </button>
   </div>
+
+  <div class="card-footer">Última actualización: {{news.editionDate | date: 'dd/MM/yyyy' }}</div>
+
+
+  
 </div>

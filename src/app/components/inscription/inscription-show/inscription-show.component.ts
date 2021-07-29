@@ -24,6 +24,7 @@ export class InscriptionShowComponent implements OnInit {
 
   constructor(
     private inscriptionService: InscriptionService,
+    private courseService: CourseService,
     private tokenService: TokenService,
     private toastService: ToastService,
     private authService: AuthService,
@@ -36,6 +37,7 @@ export class InscriptionShowComponent implements OnInit {
   inscription: Inscription;
 
   user: User;
+  course:Course;
   loading: boolean;
 
   isAdmin: boolean = appUtils.isAdminUser(this.tokenService)
@@ -54,7 +56,7 @@ export class InscriptionShowComponent implements OnInit {
     this.authService.showUser(this.tokenService.getUsername()).subscribe(
       (data) => {
         this.user = data;
-        this.isInscriptionOwner = this.user.username === this.tokenService.getUsername();
+        this.isInscriptionOwner = this.user.id === this.inscription.user;
         if (this.isInscriptionOwner==false && this.isAdmin==false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/', 500);
