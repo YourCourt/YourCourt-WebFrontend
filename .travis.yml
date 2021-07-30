@@ -8,9 +8,9 @@ sudo: required
 before_script:
   - npm install -g @angular/cli
   - npm install
-  - yes | cp -r bootstrap.min.css node_modules/bootstrap/dist/css/bootstrap.min.css
 
 script:
+  - yes | cp -r bootstrap.min.css node_modules/bootstrap/dist/css/bootstrap.min.css
   - npm link
   - npm cache clean --force
   - ng build --prod

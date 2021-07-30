@@ -98,7 +98,7 @@
 
 .comment {
     border: 1px solid rgba(16, 46, 46, 1);
-    background-color: rgba(16, 46, 46, 0.973);
+    background-color: rgb(133, 223, 228);
     display: block;
     margin: 5px;
     border-radius: 5px;
@@ -108,9 +108,12 @@
     max-width:max-content;
 }
 
+.comment p.username
+ {
+   font-size: 1rem;
+   font-weight: bold;
+}
 
-
-.comment h4,
 .comment span
  {
     display: inline
@@ -120,12 +123,13 @@
 .comment span
  {
    margin: 1%;
-    color: rgb(184, 183, 183)
+    color: rgb(0, 0, 0);
+    
 }
 
 h1,
 h4 {
-    color: white;
+    color: black;
     font-weight: bold
 }
 
