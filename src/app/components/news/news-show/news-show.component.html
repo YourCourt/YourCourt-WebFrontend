@@ -23,15 +23,16 @@
 
 <div class="comments">
   <h1>Comentarios</h1>
-  <hr>
+
   <div class="text-center create-btn">
     <button *ngIf="userId && !alreadyCommented" class="btn btn-sm btn-outline-primary mr-2 card-text"
       (click)="openScrollableContent(longContent)">Comentar</button>
   </div>
   <div *ngFor="let comment of news?.comments" class="comment mt-4 text-justify "> <img src="{{comment?.user.imageUrl}}"
       alt="" class="rounded-circle" width="40" height="40">
-    <p class="username">{{comment?.user.username}} - {{comment?.creationDate | date: 'dd/MM/yyyy'}}</p>  <br>
-    <p>{{comment?.content}}</p>
+      <div class="username">{{comment?.user.username}} - {{comment?.creationDate | date: 'dd/MM/yyyy'}}</div>
+
+      <p>{{comment?.content}}</p>
 
     <div class="modify" *ngIf="isAdmin || comment?.user.id==userId">
       <button class="btn btn-primary delete" (click)="deleteComment(comment?.id)">

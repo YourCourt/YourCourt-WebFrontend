@@ -1,136 +1,113 @@
 .card {
-    margin-left: 10%;
-    margin-right: 10%;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.18);
-    background-color: rgb(186, 231, 233);
-  }
-  .card img {
-    text-align: center;
-    max-height: 500px;
-    display: block;
-    border-radius: 15px 15px 15px 15px;
-    padding: 5px;
-    object-fit: contain;
-  }
-  
-  .card-title {
-    text-align: center;
-    font-weight: 600;
-    font-size: 24px;
-    margin: 10px 0 15px 0;
-  }
-  
-  .card-text {
-    font-size: 18px;
-    margin: 10px 0 15px 0;
-  }
-  
-  .modify {
-    margin: 20px;
-    display: block;
-    text-align: center;
-  }
-  
-  .modify a {
-    padding: 10px;
-    background-color: #ffffff83;
-    color: black;
-    border: 5px solid #c4c706;
-    margin-left: 5px;
-  }
-  
-  .modify button.delete {
-    padding: 10px;
-    background-color: #ffffff83;
-    color: black;
-    border: 5px solid #bd2c2c;
-    margin-left: 5px;
-  }
-  
-  .modify a.edit:hover {
-    background-color: #c4c706;
-    color: white;
-    border: 5px solid #ffffff83;
-  }
-  
-  .modify button.delete:hover {
-    background-color: #bd2c2c;
-    color: white;
-    border: 5px solid #ffffff83;
-  }
-  
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.18);
+  background-color: rgb(186, 231, 233);
+}
+.card img {
+  text-align: center;
+  max-height: 500px;
+  display: block;
+  border-radius: 15px 15px 15px 15px;
+  padding: 5px;
+  object-fit: contain;
+}
 
-  
+.card-title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 24px;
+  margin: 10px 0 15px 0;
+}
 
+.card-text {
+  font-size: 18px;
+  margin: 10px 0 15px 0;
+}
 
+.modify {
+  margin: 20px;
+  display: block;
+  text-align: center;
+}
 
+.modify a {
+  padding: 10px;
+  background-color: #ffffff83;
+  color: black;
+  border: 5px solid #c4c706;
+  margin-left: 5px;
+}
 
+.modify button.delete {
+  padding: 10px;
+  background-color: #ffffff83;
+  color: black;
+  border: 5px solid #bd2c2c;
+  margin-left: 5px;
+}
 
+.modify a.edit:hover {
+  background-color: #c4c706;
+  color: white;
+  border: 5px solid #ffffff83;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.modify button.delete:hover {
+  background-color: #bd2c2c;
+  color: white;
+  border: 5px solid #ffffff83;
+}
 
 .comments {
-    text-align: center;
-    margin: auto;
-    border: 2px;
-    border-color:#302e2e;
-    border-style: outset;
-    background-color: rgb(186, 231, 233,0.2);
-    max-width:80%;
+  text-align: center;
+  margin: auto;
+  border: 2px;
+  border-color: #302e2e;
+  border-style: outset;
+  background-color: rgb(186, 231, 233, 0.2);
+  max-width: 80%;
 }
 
-.comments h1{
-  color:#3b883b
+.comments h1 {
+  color: #3b883b;
 }
-
 
 .comment {
-    border: 1px solid rgba(16, 46, 46, 1);
-    background-color: rgb(133, 223, 228);
-    display: block;
-    margin: 5px;
-    border-radius: 5px;
-    padding-left: 40px;
-    padding-right: 30px;
-    padding-top: 10px;
-    max-width:max-content;
+  border: 1px solid rgba(16, 46, 46, 1);
+  background-color: rgba(152, 201, 204, 0.86);
+  display: block;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: max-content;
 }
 
-.comment p.username
- {
-   font-size: 1rem;
-   font-weight: bold;
+.username {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.comment span
- {
-    display: inline
+.comment span {
+  display: inline;
 }
 
 .comment p,
-.comment span
- {
-   margin: 1%;
-    color: rgb(0, 0, 0);
-    
+.comment span {
+  margin: 1%;
+  color: rgb(0, 0, 0);
 }
 
-h1,
-h4 {
-    color: black;
-    font-weight: bold
+.comments
+h1
+{
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.329);
 }
 
 .create-btn {
@@ -161,7 +138,6 @@ h4 {
   text-align: center;
 }
 
-
 .modify button.delete {
   padding: 10px;
   background-color: #ffffff83;
@@ -169,8 +145,6 @@ h4 {
   border: 5px solid #bd2c2c;
   margin-left: 5px;
 }
-
-
 
 .modify button.delete:hover {
   background-color: #bd2c2c;
