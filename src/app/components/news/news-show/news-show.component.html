@@ -15,8 +15,69 @@
     </button>
   </div>
 
-  <div class="card-footer">Última actualización: {{news.editionDate | date: 'dd/MM/yyyy' }}</div>
+  <div class="card-footer">Última actualización: {{news?.editionDate | date: 'dd/MM/yyyy' }}</div>
 
 
-  
+
 </div>
+
+<div class="comments">
+  <h1>Comentarios</h1>
+  <hr>
+  <div class="text-center create-btn">
+    <button *ngIf="userId && !alreadyCommented" class="btn btn-sm btn-outline-primary mr-2 card-text"
+      (click)="openScrollableContent(longContent)">Comentar</button>
+  </div>
+  <div *ngFor="let comment of news?.comments" class="comment mt-4 text-justify "> <img src="{{comment?.user.imageUrl}}"
+      alt="" class="rounded-circle" width="40" height="40">
+    <h4>{{comment?.user.username}}</h4> - {{comment?.creationDate | date: 'dd/MM/yyyy'}} <br>
+    <p>{{comment?.content}}</p>
+
+    <div class="modify" *ngIf="isAdmin || comment?.user.id==userId">
+      <button class="btn btn-primary delete" (click)="deleteComment(comment?.id)">
+        Eliminar comentario
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Publicar comentario</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="commentForm" (ngSubmit)="onCommentCreate()">
+
+
+      <div class="form-group">
+        <label for="content">Mensaje</label>
+        <textarea class="form-control"
+          [ngClass]="{'is-invalid':commentForm.get('content').touched && commentForm.get('content').invalid}"
+          id="content" placeholder="Mensaje" cols="30" rows="10" formControlName="content" maxLength="1000"
+          required></textarea>
+      </div>
+
+      <div class="text-center">
+        <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary"
+          [disabled]="!commentForm.valid">Comentar</button>
+      </div>
+
+      <ng-template #loadingButton>
+        <button type="submit" class="btn btn-primary">
+          <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif">
+        </button>
+      </ng-template>
+
+    </form>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+  </div>
+</ng-template>

@@ -6,6 +6,11 @@ import { TokenService } from 'src/app/services/token.service';
 import * as appUtils from 'src/app/appUtils';
 import { News } from 'src/app/models/news';
 import { NewsService } from 'src/app/services/news.service';
+import { User } from 'src/app/models/user';
+import { Comment } from 'src/app/models/news';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommentService } from 'src/app/services/comment.service';
 @Component({
   selector: 'app-news-show',
   templateUrl: './news-show.component.html',
@@ -15,17 +20,43 @@ export class NewsShowComponent implements OnInit {
 
   
   news:News;
+  userId:number;
 
-  isAdmin:boolean=appUtils.isAdminUser(this.tokenService)
+  isAdmin:boolean=appUtils.isAdminUser(this.tokenService);
+  alreadyCommented:boolean;
+
+  commentForm: FormGroup;
+  loading:boolean;
+
   constructor(private newsService: NewsService,
     private tokenService: TokenService,
     private toastService: ToastService,
     private authService: AuthService,
+    private commentService: CommentService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getNews();
+  }
+
+  setAccesibility() {
+    if(this.tokenService.getUsername()){
+    this.authService.showUser(this.tokenService.getUsername()).subscribe(
+      (data) => {
+        this.userId = data.id;
+        this.alreadyCommented = this.news.comments.some(
+          (comment: Comment) => comment.user.id == this.userId
+        )
+      },
+      (err) => {
+      }
+    );
+    }else{
+      this.userId = undefined;
+    }
   }
 
 
@@ -35,6 +66,7 @@ export class NewsShowComponent implements OnInit {
       .subscribe(
         (data) => {
           this.news = data;
+          this.setAccesibility();
         },
         (err) => {
           appUtils.showDanger(this.toastService,'Noticia inexistente')
@@ -51,6 +83,41 @@ export class NewsShowComponent implements OnInit {
       },
       (err) => {
         appUtils.showDanger(this.toastService, err)
+      }
+    );
+  }
+
+  openScrollableContent(longContent) {
+    this.commentForm = this.formBuilder.group({
+      content: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(1000)]]
+    })
+    this.modalService.open(longContent, { scrollable: true, size: 'm' });
+  }
+
+  onCommentCreate() {
+    let commentCreated = new Comment(this.commentForm.value.content,this.news.id)
+
+    this.commentService.createComment(commentCreated).subscribe(
+      data => {
+
+        this.loading = true;
+        appUtils.showSuccess(this.toastService, 'Comentario creado')
+        return appUtils.promiseReload(this.router, '/noticias/' + this.news.id, 1000)
+      },
+      err => {
+        appUtils.showDanger(this.toastService, err);
+      }
+    );
+  }
+
+  deleteComment(id:number) {
+    this.commentService.deleteComment(id).subscribe(
+      (data) => {
+        appUtils.showSuccess(this.toastService, 'Comentario eliminado')
+        return appUtils.promiseReload(this.router, '/noticias/' + this.news.id, 1000)
+      },
+      (err) => {
+        appUtils.showErrorMessages(err,this.toastService)
       }
     );
   }

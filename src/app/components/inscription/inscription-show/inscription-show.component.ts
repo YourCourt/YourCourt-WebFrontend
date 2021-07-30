@@ -37,7 +37,7 @@ export class InscriptionShowComponent implements OnInit {
   inscription: Inscription;
 
   user: User;
-  course:Course;
+  course: Course;
   loading: boolean;
 
   isAdmin: boolean = appUtils.isAdminUser(this.tokenService)
@@ -47,17 +47,17 @@ export class InscriptionShowComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
 
     this.getInscription();
   }
 
-  setAccesibility(){
+  setAccesibility() {
     this.authService.showUser(this.tokenService.getUsername()).subscribe(
       (data) => {
         this.user = data;
         this.isInscriptionOwner = this.user.id === this.inscription.user;
-        if (this.isInscriptionOwner==false && this.isAdmin==false) {
+        if (this.isInscriptionOwner == false && this.isAdmin == false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/', 500);
         }
