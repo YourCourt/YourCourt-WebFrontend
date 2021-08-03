@@ -21,7 +21,7 @@
                 [ngClass]="{'is-invalid':form.get('description').touched && form.get('description').invalid}"
                 id="description" placeholder="Descripción" cols="30" rows="10" formControlName="description"
                 maxLength="512" required></textarea>
-            <div class="invalid-feedback" *ngIf="form.get('title').touched && form.get('title').invalid">
+            <div class="invalid-feedback" *ngIf="form.get('description').touched && form.get('description').invalid">
                 <div *ngIf="form?.get('description').errors.required">La descripción es obligatoria.</div>
             </div>
         </div>

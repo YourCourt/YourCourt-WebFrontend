@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { AboutComponent } from './components/about/about.component';
 import { BookingCreateComponent } from './components/booking/booking-create/booking-create.component';
 import { BookingShowComponent } from './components/booking/booking-show/booking-show.component';
 import { CourseCreateComponent } from './components/course/course-create/course-create.component';
@@ -63,6 +64,8 @@ const routes: Routes = [
   
   { path: 'carrito', component: CartComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'compras/:id', component: PurchaseShowComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
+
+  { path: 'sobre-nosotros', component: AboutComponent, pathMatch: 'full' },
 
   { path: '', component: HomeComponent },
   
