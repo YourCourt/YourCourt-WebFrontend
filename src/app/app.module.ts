@@ -41,6 +41,7 @@ import { NewsUpdateComponent } from './components/news/news-update/news-update.c
 import { NewsListComponent } from './components/news/news-list/news-list.component';
 import { CartComponent } from './components/purchase/cart/cart.component';
 import { PurchaseShowComponent } from './components/purchase/purchase-show/purchase-show.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -75,7 +76,8 @@ registerLocaleData(localeEs, 'es-ES');
     NewsUpdateComponent,
     NewsListComponent,
     CartComponent,
-    PurchaseShowComponent
+    PurchaseShowComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
