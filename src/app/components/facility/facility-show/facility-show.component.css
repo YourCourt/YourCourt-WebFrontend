@@ -1,0 +1,63 @@
+.card {
+    margin-left: 10%;
+    margin-right: 10%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.18);
+    background-color: rgb(186, 231, 233);
+  }
+  .card img {
+    text-align: center;
+    max-height: 500px;
+    display: block;
+    border-radius: 15px 15px 15px 15px;
+    padding: 5px;
+    object-fit: contain;
+  }
+  
+  .card-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 10px 0 15px 0;
+  }
+  
+  .card-text {
+    font-size: 18px;
+    margin: 10px 0 15px 0;
+  }
+  
+  .modify {
+    margin: 20px;
+    display: block;
+    text-align: center;
+  }
+  
+  .modify a {
+    padding: 10px;
+    background-color: #ffffff83;
+    color: black;
+    border: 5px solid #c4c706;
+    margin-left: 5px;
+  }
+  
+  .modify button.delete {
+    padding: 10px;
+    background-color: #ffffff83;
+    color: black;
+    border: 5px solid #bd2c2c;
+    margin-left: 5px;
+  }
+  
+  .modify a.edit:hover {
+    background-color: #c4c706;
+    color: white;
+    border: 5px solid #ffffff83;
+  }
+  
+  .modify button.delete:hover {
+    background-color: #bd2c2c;
+    color: white;
+    border: 5px solid #ffffff83;
+  }
+  

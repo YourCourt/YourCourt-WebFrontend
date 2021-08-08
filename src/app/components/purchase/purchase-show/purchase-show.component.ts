@@ -96,7 +96,7 @@ export class PurchaseShowComponent implements OnInit {
           }
         },
         (err) => {
-          appUtils.showDanger(this.toastService, 'Compra inexistente');
+          appUtils.showErrorMessages(err,this.toastService);
           appUtils.redirect(this.router, '/productos');
         }
       );

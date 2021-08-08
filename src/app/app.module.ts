@@ -42,6 +42,10 @@ import { NewsListComponent } from './components/news/news-list/news-list.compone
 import { CartComponent } from './components/purchase/cart/cart.component';
 import { PurchaseShowComponent } from './components/purchase/purchase-show/purchase-show.component';
 import { AboutComponent } from './components/about/about.component';
+import { FacilityCreateComponent } from './components/facility/facility-create/facility-create.component';
+import { FacilityListComponent } from './components/facility/facility-list/facility-list.component';
+import { FacilityShowComponent } from './components/facility/facility-show/facility-show.component';
+import { FacilityUpdateComponent } from './components/facility/facility-update/facility-update.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -77,7 +81,11 @@ registerLocaleData(localeEs, 'es-ES');
     NewsListComponent,
     CartComponent,
     PurchaseShowComponent,
-    AboutComponent
+    AboutComponent,
+    FacilityCreateComponent,
+    FacilityListComponent,
+    FacilityShowComponent,
+    FacilityUpdateComponent
   ],
   imports: [
     BrowserModule,

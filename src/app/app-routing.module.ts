@@ -12,6 +12,10 @@ import { CourtCreateComponent } from './components/court/court-create/court-crea
 import { CourtListComponent } from './components/court/court-list/court-list.component';
 import { CourtShowComponent } from './components/court/court-show/court-show.component';
 import { CourtUpdateComponent } from './components/court/court-update/court-update.component';
+import { FacilityCreateComponent } from './components/facility/facility-create/facility-create.component';
+import { FacilityListComponent } from './components/facility/facility-list/facility-list.component';
+import { FacilityShowComponent } from './components/facility/facility-show/facility-show.component';
+import { FacilityUpdateComponent } from './components/facility/facility-update/facility-update.component';
 import { HomeComponent } from './components/home/home.component';
 import { InscriptionShowComponent } from './components/inscription/inscription-show/inscription-show.component';
 import { InscriptionUpdateComponent } from './components/inscription/inscription-update/inscription-update.component';
@@ -40,6 +44,11 @@ const routes: Routes = [
   { path: 'pistas/crear', component: CourtCreateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin'] } },
   { path: 'pistas/:id', component: CourtShowComponent, pathMatch: 'full' },
   { path: 'pistas/editar/:id', component: CourtUpdateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin'] } },
+  
+  { path: 'instalaciones', component: FacilityListComponent, pathMatch: 'full' },
+  { path: 'instalaciones/crear', component: FacilityCreateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin'] } },
+  { path: 'instalaciones/:id', component: FacilityShowComponent, pathMatch: 'full' },
+  { path: 'instalaciones/editar/:id', component: FacilityUpdateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin'] } },
   
   { path: 'reservas/crear', component: BookingCreateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'reservas/:id', component: BookingShowComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },

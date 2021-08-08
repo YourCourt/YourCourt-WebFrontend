@@ -67,7 +67,8 @@ export class ProductUpdateComponent implements OnInit {
 
         this.form.controls['name'].setValue(data.name);
         this.form.controls['description'].setValue(data.description);
-        this.form.controls['productType'].setValue(data.productType);
+        this.form.controls['productType'].setValue(data.productType.typeName);
+        this.productTypeSelected=data.productType.typeName;
         this.form.controls['price'].setValue(data.price);
         this.form.controls['bookPrice'].setValue(data.bookPrice);
         this.form.controls['tax'].setValue(data.tax);

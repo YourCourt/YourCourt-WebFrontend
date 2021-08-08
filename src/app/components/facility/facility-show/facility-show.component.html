@@ -1,0 +1,17 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+  <img src="{{facility?.image.imageUrl}}" class="card-img-top" alt="{{facility?.image.name}}">
+  <div class="card-body">
+    <h5 class="card-title">{{facility?.name}}</h5>
+    <p class="card-text"> {{facility?.description}}</p>
+    <p class="card-text">Tipo de instalación:&nbsp; {{facility?.facilityType.typeName}}</p>
+  </div>
+
+  <div class="modify" *ngIf="isAdmin">
+    <a href="/instalaciones/editar/{{facility?.id}}" class="btn btn-primary edit">
+      Modificar instalación</a>
+    <button class="btn btn-primary delete" (click)="deleteFacility()">
+      Eliminar instalación
+    </button>
+  </div>
+</div>
