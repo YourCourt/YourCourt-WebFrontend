@@ -29,7 +29,8 @@
 </div>
 <hr />
 
-<ng-template #longContent let-modal *ngIf="isLogged">
+
+<ng-template #longContent let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Reserva: {{model.day}}-{{model.month}}-{{model.year}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">

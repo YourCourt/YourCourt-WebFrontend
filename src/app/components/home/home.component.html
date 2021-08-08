@@ -1,7 +1,29 @@
 <yourcourt-navbar></yourcourt-navbar>
 <div class="container">
-<h1 class="title">Bienvenido/a</h1> 
-<h2 class="username">{{loggedUsername}}</h2>
+    <h1 class="title">Bienvenido/a</h1>
+    <h2 class="username">{{loggedUsername}}</h2>
+
 </div>
 
+<div class="videoContainer">
 
+    <video playsinline autoplay muted loop id="myVideo">
+        <source src="../../../assets/Tennis Court - 35265.mp4" type="video/mp4">
+        Your browser does not support the video tag. I suggest you upgrade your browser.
+    </video>
+    <div class="overlay row text-center">
+
+        <div class="videoColumn col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <h3>Reserva nuestras pistas</h3>
+            <a href="/pistas">Ir a pistas</a>
+        </div>
+        <div class="videoColumn col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <h3>Echa un vistazo a nuestro catálogo de productos</h3><a href="/productos">Ir a productos</a>
+        </div>
+        <div class="videoColumn col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <h3>Infórmate sobre nuestra actualidad</h3><a href="/noticias">Ir a noticias</a>
+        </div>
+
+    </div>
+
+</div>

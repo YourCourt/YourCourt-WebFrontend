@@ -18,6 +18,13 @@ export class ImageService {
     return this.httpClient.post<any>(url, formData)
   }
 
+  public newFacilityImage(id: number, image: File): Observable<any> {
+    var url = this.baseUrl + '/image/facility/' + id
+    const formData: FormData = new FormData()
+    formData.append('multipartFile', image)
+    return this.httpClient.post<any>(url, formData)
+  }
+
   public newNewsImage(id: number, image: File): Observable<any> {
     var url = this.baseUrl + '/image/news/' + id
     const formData: FormData = new FormData()
