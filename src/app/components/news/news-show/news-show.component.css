@@ -64,6 +64,7 @@
 .comments {
   text-align: center;
   margin: auto;
+  margin-bottom: 0.5rem;
   border: 2px;
   border-color: #302e2e;
   border-style: outset;

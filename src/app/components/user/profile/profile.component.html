@@ -109,7 +109,7 @@
                             {{item?.startDate | date: 'dd/MM/yyyy HH:mm' }}
                           </td>
                           <td>{{item?.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
-                          <td>{{ item.productBookingSum }}€</td>
+                          <td>{{ item?.productBookingSum | number:'.0-2'}}€</td>
                         </tr>
                       </tbody>
                     </table>
@@ -149,7 +149,7 @@
 
                             {{item?.creationDate | date: 'dd/MM/yyyy HH:mm' }}
                           </td>
-                          <td>{{ item?.productPurchaseSum }}€</td>
+                          <td>{{ item?.productPurchaseSum | number:'.0-2'}}€</td>
                           <td> <a *ngFor="let line of item?.lines" href="/productos/{{line.productId}}"><em
                                 class="fas fa-cube"></em>&nbsp;</a> </td>
 

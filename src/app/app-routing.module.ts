@@ -64,7 +64,7 @@ const routes: Routes = [
   { path: 'cursos/editar/:id', component: CourseUpdateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin'] } },
   
   { path: 'inscripciones/:id', component: InscriptionShowComponent, pathMatch: 'full' , canActivate: [guard], data: { expectedRol: ['admin', 'user'] }},
-  { path: 'inscripciones/editar/:id', component: InscriptionUpdateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin','user'] } },
+  { path: 'inscripciones/editar/:id', component: InscriptionUpdateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin'] } },
   
   { path: 'noticias/crear', component: NewsCreateComponent, pathMatch: 'full', canActivate: [guard], data: { expectedRol: ['admin'] } },
   { path: 'noticias', component: NewsListComponent, pathMatch: 'full' },

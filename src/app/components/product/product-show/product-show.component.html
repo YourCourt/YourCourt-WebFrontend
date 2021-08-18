@@ -5,8 +5,8 @@
     <h5 class="card-title">{{product?.name}}</h5>
     <p class="card-text"> {{product?.description}}</p>
     <p class="card-text">Tipo de producto:&nbsp; {{product?.productType}}</p>
-    <p class="card-text">Precio:&nbsp; {{product?.totalPrice}}€ <em class="fas fa-coins"></em></p>
-    <p class="card-text">Precio de alquiler:&nbsp; {{product?.bookPrice}}€ <em class="fas fa-coins"></em></p>
+    <p class="card-text">Precio:&nbsp; {{product?.totalPrice | number:'.0-2'}}€ <em class="fas fa-coins"></em></p>
+    <p class="card-text">Precio de alquiler:&nbsp; {{product?.bookPrice | number:'.0-2'}}€ <em class="fas fa-coins"></em></p>
     <p class="card-text">Stock:&nbsp; {{product?.stock}} <em class="fas fa-box" aria-hidden="true"></em></p>
     <p class="card-text">Impuesto:&nbsp; {{product?.tax}} <em class="fas fa-percent" aria-hidden="true"></em></p>
   </div>

@@ -35,6 +35,7 @@ export class CourseShowComponent implements OnInit {
   ) { }
 
   course: Course;
+  inscriptions:Inscription[];
 
   userId: number;
   user: User;
@@ -44,6 +45,7 @@ export class CourseShowComponent implements OnInit {
 
   inscriptionForm: FormGroup;
   alreadyInscripted: boolean;
+  today:Date;
 
   ngOnInit(): void {
 
@@ -68,12 +70,23 @@ export class CourseShowComponent implements OnInit {
   }
 
   getCourse(): void {
+    this.today = new Date();
     this.courseService
       .getCourse(Number(this.activatedRoute.snapshot.paramMap.get('id')))
       .subscribe(
         (data) => {
           this.course = data;
+          this.course.startDate=new Date(data.startDate);
+          this.course.endDate=new Date(data.endDate);
+          console.log(this.course.startDate);
 
+          console.log(this.today);
+          console.log(this.course.startDate > this.today);
+
+
+          if(this.isAdmin){
+            this.getInscriptions();
+          }
         },
         (err) => {
           appUtils.showDanger(this.toastService, 'Curso inexistente')
@@ -117,6 +130,18 @@ export class CourseShowComponent implements OnInit {
       },
       err => {
         appUtils.showDanger(this.toastService, err);
+      }
+    );
+  }
+
+  getInscriptions(){
+    this.inscriptionService.getAllInscriptionsByCourse(this.course.id).subscribe(
+      data => {
+
+        this.inscriptions=data;
+      },
+      err => {
+        appUtils.showErrorMessages(err,this.toastService);
       }
     );
   }

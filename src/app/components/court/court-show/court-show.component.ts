@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { BookingService } from 'src/app/services/booking.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { Booking } from 'src/app/models/booking';
 
 @Component({
   selector: 'app-court-show',
@@ -40,6 +41,7 @@ export class CourtShowComponent implements OnInit {
   court: Court;
   hours: Array<courtUtils.BookingHour> = courtUtils.hours;
   bookingsByDate: Array<courtUtils.BookingHour> = [];
+  bookings:Booking[]=[];
 
   userId: number;
 
@@ -77,6 +79,8 @@ export class CourtShowComponent implements OnInit {
       },
       (err) => { appUtils.showDanger(this.toastService, 'Inicie sesión para reservar') }
     );
+
+    
   }
 
   getCourt(): void {
@@ -85,6 +89,9 @@ export class CourtShowComponent implements OnInit {
       .subscribe(
         (data) => {
           this.court = data;
+          if(this.isAdmin){
+            this.getBookings();
+          }
         },
         (err) => {
           appUtils.showDanger(this.toastService, 'Pista inexistente')
@@ -155,5 +162,16 @@ export class CourtShowComponent implements OnInit {
       userId: this.userId,
     };
     return appUtils.redirectParams(this.router, '/reservas/crear', params);
+  }
+
+  getBookings(){
+    this.courtService.getBookingsByCourt(this.court.id).subscribe(
+      (data) => {
+        this.bookings=data
+      },
+      (err) => {
+        appUtils.showErrorMessages(err,this.toastService)
+      }
+    );
   }
 }

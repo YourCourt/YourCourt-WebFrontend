@@ -19,6 +19,10 @@ export class InscriptionService {
     return this.httpClient.get<Inscription[]>(this.baseUrl + '/inscriptions/user/' + username);
   }
 
+  public getAllInscriptionsByCourse(courtId: number): Observable<any> {
+    return this.httpClient.get<Inscription[]>(this.baseUrl + '/inscriptions/course/' + courtId.toString());
+  }
+
   public createInscription(inscription: Inscription, courseId: number): Observable<any> {
     return this.httpClient.post<Inscription>(this.baseUrl + '/inscriptions/course/' + courseId.toString(), inscription);
   }

@@ -7,7 +7,7 @@
     <p class="card-text"> Fecha de inicio:&nbsp;{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
     <p class="card-text"> Fecha de fin:&nbsp;{{booking?.endDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
     <p class="card-text"> Fecha de realización:&nbsp;{{booking?.creationDate | date: 'dd/MM/yyyy' }}</p>
-    <p class="card-text" *ngIf="lines.length>0"> Precio total:&nbsp;{{booking?.productBookingSum }}€</p>
+    <p class="card-text" *ngIf="lines.length>0"> Precio total:&nbsp;{{booking?.productBookingSum | number:'.0-2'}}€</p>
     <p class="card-text"> &nbsp;<a href="/pistas/{{booking?.court}}">Pista reservada</a> </p>
 
     <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i" style="border-style: outset;">
@@ -16,13 +16,13 @@
       </a>
       <p class=" col-2"> Cantidad:&nbsp;{{line.quantity}}</p>
       <p class=" col-2"> Descuento:&nbsp;{{line.discount}}</p>
-      <p class=" col-2"> Coste:&nbsp;{{line.product.bookPrice * line.quantity}}€</p>
+      <p class=" col-2"> Coste:&nbsp;{{line.product.bookPrice * line.quantity | number:'.0-2'}}€</p>
 
     </div>
 
   </div>
 
-  <div class="modify" *ngIf="isAdmin || isBookingOwner">
+  <div class="modify" *ngIf="(isAdmin && booking?.startDate > today) || (isBookingOwner && booking?.startDate > today)">
     <button class="btn btn-primary delete" (click)="deleteBooking()">
       Eliminar reserva
     </button>

@@ -5,7 +5,7 @@
         <p class="card-text"> {{course?.description}}</p>
 
         <div class="text-center create-btn">
-            <button *ngIf="userId && !alreadyInscripted" class="btn btn-sm btn-outline-primary mr-2 card-text"
+            <button *ngIf="userId && !alreadyInscripted && ( course?.startDate > today)" class="btn btn-sm btn-outline-primary mr-2 card-text"
                 (click)="openScrollableContent(longContent)">Inscribirse</button>
         </div>
     </div>
@@ -21,6 +21,33 @@
     <div class="card-footer">Duración: {{course?.startDate | date: 'dd/MM/yyyy' }} - {{course?.endDate | date: 'dd/MM/yyyy' }}</div>
 
 </div>
+
+<div class="inscriptions" *ngIf="isAdmin">
+    <h1>Inscripciones</h1>
+      <table class="table table-striped inscriptions-table mt-4 text-justify">
+        <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellidos</th>
+              <th scope="col">Inscripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of inscriptions">
+
+              <td>
+
+                {{item?.name }}
+              </td>
+              <td>{{item?.surnames }}</td>
+              <td> <a href="/inscripciones/{{ item?.id }}"> <em class="far fa-eye"></em></a></td>
+
+            </tr>
+          </tbody>
+        </table>
+  
+      
+  </div>
 
 
 
@@ -69,6 +96,11 @@
                     [ngClass]="{'is-invalid':inscriptionForm.get('observations').touched && inscriptionForm.get('observations').invalid}"
                     id="observations" placeholder="Observaciones" cols="30" rows="10" formControlName="observations"
                     maxLength="512" required></textarea>
+                    <div class="invalid-feedback"
+                    *ngIf="inscriptionForm.get('observations').touched && inscriptionForm.get('observations').invalid">
+                    <div *ngIf="inscriptionForm?.get('observations').errors.required">Las observaciones son obligatorias.</div>
+ 
+                </div>
             </div>
 
             <div class="text-center">

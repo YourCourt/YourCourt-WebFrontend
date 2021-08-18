@@ -29,6 +29,34 @@
 </div>
 <hr />
 
+<div class="bookings" *ngIf="isAdmin">
+  <h1>Reservas</h1>
+    <table class="table table-striped bookings-table mt-4 text-justify">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Fecha de inicio </th>
+          <th scope="col">Fecha de fin</th>
+          <th scope="col">Precio total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of bookings">
+
+          <th scope="row"> <a href="/reservas/{{ item.id }}"> <em class="far fa-eye"></em></a></th>
+          <td>
+
+            {{item?.startDate | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+          <td>{{item?.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ item?.productBookingSum | number:'.0-2'}} €</td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+</div>
+
 
 <ng-template #longContent let-modal>
   <div class="modal-header">

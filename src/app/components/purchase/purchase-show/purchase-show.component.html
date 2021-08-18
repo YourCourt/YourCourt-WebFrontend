@@ -5,7 +5,7 @@
         <h5 class="card-title">{{purchase?.creationDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</h5>
         <p class="card-text"> Autor:&nbsp; <a href="/usuario/{{purchaseUser?.username}}">{{purchaseUser?.username}}</a>
         </p>
-        <p class="card-text"> Precio total:&nbsp;{{purchase?.productPurchaseSum }}€</p>
+        <p class="card-text"> Precio total:&nbsp;{{purchase?.productPurchaseSum | number:'.0-2'}}€</p>
 
         <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i" style="border-style: outset;">
             <a href="/productos/{{line.product.id}}">
@@ -13,7 +13,7 @@
             </a>
             <p class=" col-2"> Cantidad:&nbsp;{{line.quantity}}</p>
             <p class=" col-2"> Descuento:&nbsp;{{line.discount}}</p>
-            <p class=" col-2"> Coste:&nbsp;{{line.product.totalPrice * line.quantity}}€</p>
+            <p class=" col-2"> Coste:&nbsp;{{line.product.totalPrice * line.quantity | number:'.0-2'}}€</p>
 
         </div>
 
