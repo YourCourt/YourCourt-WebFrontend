@@ -39,6 +39,7 @@ export class BookingShowComponent implements OnInit {
   isAdmin: boolean
   user: User;purchaseUser:User;
   isBookingOwner: boolean;
+  today:Date;
 
   ngOnInit(): void {
     this.getBooking();
@@ -64,6 +65,8 @@ export class BookingShowComponent implements OnInit {
 
 
   getBooking(): void {
+    this.today = new Date();
+
     this.bookingService
       .getBooking(Number(this.activatedRoute.snapshot.paramMap.get('id')))
       .subscribe(
@@ -74,6 +77,7 @@ export class BookingShowComponent implements OnInit {
           this.booking.creationDate = new Date(data.creationDate);
           this.booking.startDate = new Date(data.startDate);
           this.booking.endDate = new Date(data.endDate);
+          
           for (let line of this.booking.productBooking.lines) {
             this.productService
               .getProductById(line.productId)

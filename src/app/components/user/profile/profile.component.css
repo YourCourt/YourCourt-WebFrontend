@@ -55,3 +55,9 @@ input {
 .user-image:hover > .image-text{ 
         opacity: 1;
 }
+
+.table{
+    table-layout: fixed;
+    width: 100%;
+    word-break: break-all 
+}

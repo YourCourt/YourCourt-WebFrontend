@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
   loggedUsername: String;
 
   cartLength:number=0;
+  isOdd: boolean;
 
   isAdmin: boolean = appUtils.isAdminUser(this.tokenService)
 
@@ -30,9 +31,8 @@ export class NavbarComponent implements OnInit {
     if (this.tokenService.getToken()) {
       this.isLogged = true;
       this.loggedUsername = this.tokenService.getUsername();
-
+      this.getCartLength();
       if (localStorage.getItem(CART_KEY)) {
-        this.cartLength=JSON.parse(localStorage.getItem(CART_KEY)).length;
       }
     }
   }
@@ -45,6 +45,14 @@ export class NavbarComponent implements OnInit {
 
   goHome(){
     appUtils.promiseReload(this.router, '/', 0);
+  }
+
+  getCartLength(){
+    if(localStorage.getItem(CART_KEY)){
+      this.cartLength=JSON.parse(localStorage.getItem(CART_KEY)).length;
+    }else{
+      this.cartLength=0;
+    }
   }
 
 

@@ -44,11 +44,11 @@ export class InscriptionShowComponent implements OnInit {
 
   inscriptionForm: FormGroup;
   isInscriptionOwner: boolean;
+  today:Date;
+  inscriptionStartDate:Date;
 
 
   ngOnInit(): void {
-
-
     this.getInscription();
   }
 
@@ -68,12 +68,16 @@ export class InscriptionShowComponent implements OnInit {
   }
 
   getInscription(): void {
+    this.today = new Date();
+
     this.inscriptionService
       .getInscription(Number(this.activatedRoute.snapshot.paramMap.get('id')))
       .subscribe(
         (data) => {
           this.inscription = data;
+          this.inscriptionStartDate= new Date(this.inscription.course.startDate)
           this.setAccesibility();
+          
         },
         (err) => {
           appUtils.showDanger(this.toastService, 'Inscripción inexistente')

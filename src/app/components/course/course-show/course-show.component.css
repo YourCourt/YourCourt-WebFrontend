@@ -73,3 +73,48 @@
   padding-left: 10%;
   padding-right: 10%;
 }
+
+
+/*Inscriptions*/
+
+.inscriptions {
+  text-align: center;
+  margin: auto;
+  margin-bottom: 0.5rem;
+  border: 2px;
+  border-color: #302e2e;
+  border-style: outset;
+  background-color: rgb(186, 231, 233, 0.2);
+  max-width: 95%;
+}
+
+.inscriptions h1 {
+  color: #3b883b;
+}
+
+.inscriptions-table {
+  background-color: rgba(217, 217, 217, 1);
+  margin: auto;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: max-content;
+  margin-bottom: 0.5rem;
+  table-layout: fixed;
+  width: 100%;
+  word-break: break-all 
+}
+
+.inscriptions-table td,th{
+  font-size: 1rem;
+}
+
+
+.inscriptions
+h1
+{
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.329);
+}
+
+
