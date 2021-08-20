@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FacilityService } from 'src/app/services/facility.service';
-import { Court } from 'src/app/models/court';
 import * as appUtils from 'src/app/appUtils';
 import { TokenService } from 'src/app/services/token.service';
 import { Facility } from 'src/app/models/facility';

@@ -54,13 +54,12 @@ export class CourseShowComponent implements OnInit {
         this.userId = data.id;
         this.user = data;
         this.inscriptionService.getAllInscriptionsByUsername(data.username).subscribe(
-          (data) => {
-            this.alreadyInscripted = data.some(
+          (allInscriptionsByUsername) => {
+            this.alreadyInscripted = allInscriptionsByUsername.some(
               (inscription: Inscription) => inscription.course.id == this.course.id
             )
           },
 
-          (err) => { }
         );
       },
       (err) => { appUtils.showDanger(this.toastService, 'Acceda para inscribirse') }

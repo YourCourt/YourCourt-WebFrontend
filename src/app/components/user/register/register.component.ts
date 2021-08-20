@@ -2,7 +2,6 @@ import * as appUtils from 'src/app/appUtils';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { LoginUser } from 'src/app/models/login-user';
 import { NewUser } from 'src/app/models/user-dto';
 import { AuthService } from 'src/app/services/auth.service';
@@ -83,14 +82,7 @@ export class RegisterComponent implements OnInit {
 
         this.isLogged = false;
         this.isRegisterFail = true;
-        appUtils.showErrorMessages(errorRegister,this.toastService)
-        // if (errorRegister.error && errorRegister.status != 0) {
-        //   for (var text in errorRegister.error) {
-        //     appUtils.showDanger(this.toastService, errorRegister.error[text]);
-        //   }
-        // } else {
-        //   appUtils.showDanger(this.toastService, 'Error desconocido');
-        // }
+        appUtils.showErrorMessages(errorRegister,this.toastService);
 
       }
     );

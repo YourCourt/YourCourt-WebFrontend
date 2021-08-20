@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   isLogged: boolean = false;
-  loggedUsername: String;
+  loggedUsername: string;
 
   cartLength:number=0;
   isOdd: boolean;
@@ -31,8 +31,9 @@ export class NavbarComponent implements OnInit {
     if (this.tokenService.getToken()) {
       this.isLogged = true;
       this.loggedUsername = this.tokenService.getUsername();
-      this.getCartLength();
+      
       if (localStorage.getItem(CART_KEY)) {
+        this.getCartLength();
       }
     }
   }

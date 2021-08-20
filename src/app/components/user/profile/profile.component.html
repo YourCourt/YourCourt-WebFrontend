@@ -85,6 +85,11 @@
                       </div>
                     </form>
 
+                    <div class="modify" *ngIf="isAdmin">
+                      <button class="btn btn-primary delete" (click)="deleteUser()">
+                          Eliminar usuario
+                      </button>
+                  </div>
 
                   </ng-template>
                 </li>

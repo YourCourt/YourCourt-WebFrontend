@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from 'src/app/services/image.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { FacilityService } from 'src/app/services/facility.service';
-import { Facility, FacilityType } from 'src/app/models/facility';
+import { Facility } from 'src/app/models/facility';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable, Subject, merge, OperatorFunction } from 'rxjs';
@@ -85,7 +85,7 @@ export class FacilityUpdateComponent implements OnInit {
         if(this.image!=undefined){
 
           this.imageService.newFacilityImage(data.id,this.image).subscribe(
-            data => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
+            newFacilityImage => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
         }
         this.loading=true;
         appUtils.showSuccess(this.toastService,'Instalación actualizada')

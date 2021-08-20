@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { News } from 'src/app/models/news';
@@ -12,7 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
   templateUrl: './news-create.component.html',
   styleUrls: ['./news-create.component.css']
 })
-export class NewsCreateComponent implements OnInit {
+export class NewsCreateComponent {
 
   form: FormGroup;
   image: File
@@ -26,8 +26,6 @@ export class NewsCreateComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
 
   createNews(): void {
     let newsCreated = new News(this.form.value.name, this.form.value.description)

@@ -3,15 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 import * as appUtils from 'src/app/appUtils';
 import { DatePipe } from '@angular/common';
-import {
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { ToastService } from 'src/app/services/toast.service';
 import { CourseService } from 'src/app/services/course.service';
 import { Course, Inscription } from 'src/app/models/course';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { InscriptionService } from 'src/app/services/inscription.service';
 
 @Component({
