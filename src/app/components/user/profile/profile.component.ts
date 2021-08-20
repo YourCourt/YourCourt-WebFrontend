@@ -4,9 +4,7 @@ import { Booking } from 'src/app/models/booking';
 import { BookingService } from 'src/app/services/booking.service';
 import { TokenService } from 'src/app/services/token.service';
 import * as appUtils from 'src/app/appUtils';
-import * as bookingUtils from 'src/app/components/booking/bookingUtils';
 import { ProductService } from 'src/app/services/product.service';
-import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { ToastService } from 'src/app/services/toast.service';
@@ -16,7 +14,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { PurchaseService } from 'src/app/services/purchase.service';
 import { InscriptionService } from 'src/app/services/inscription.service';
 import { Purchase } from 'src/app/models/purchase';
-import { Course, Inscription } from 'src/app/models/course';
+import { Inscription } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
 
 
@@ -154,6 +152,15 @@ export class ProfileComponent implements OnInit {
     this.imageService.deleteUserImage(this.user.id).toPromise();
     appUtils.showSuccess(this.toastService, 'Imagen eliminada');
     appUtils.promiseReload(this.router, '/usuario/' + this.user.username, 1000)
+  }
+
+  deleteUser(){
+    this.authService.deleteUser(this.user.id).subscribe(
+      data => {
+        appUtils.showSuccess(this.toastService, 'Usuario eliminado');
+    appUtils.promiseReload(this.router, '/', 1000);
+       
+      }, err => { appUtils.showErrorMessages(err, this.toastService) });
   }
 
   loadBookingsByUser() {

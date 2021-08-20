@@ -13,7 +13,6 @@ import {
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/models/user';
 import { BookingService } from 'src/app/services/booking.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Booking } from 'src/app/models/booking';

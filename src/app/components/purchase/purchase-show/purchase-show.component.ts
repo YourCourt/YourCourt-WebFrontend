@@ -114,7 +114,7 @@ export class PurchaseShowComponent implements OnInit {
     );
   }
 
-  getProductName
+
 
 
 

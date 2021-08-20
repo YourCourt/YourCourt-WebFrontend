@@ -65,7 +65,7 @@ export class FacilityCreateComponent implements OnInit {
         if(this.image!=undefined){
 
           this.imageService.newFacilityImage(data.id,this.image).subscribe(
-            data => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
+            newFacilityImage => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
         }
         this.loading=true;
         appUtils.showSuccess(this.toastService,'Instalación creada')

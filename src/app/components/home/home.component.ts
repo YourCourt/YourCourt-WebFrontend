@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     page=4;
 
   isLogged:boolean = false;
-  loggedUsername: String;
+  loggedUsername: string;
 
   ngOnInit(): void {
     if(this.tokenService.getToken()){

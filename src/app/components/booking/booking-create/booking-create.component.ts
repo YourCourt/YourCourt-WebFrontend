@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
-import * as bookingUtils from 'src/app/components/booking/bookingUtils';
 import * as appUtils from 'src/app/appUtils';
 import { BookingService } from 'src/app/services/booking.service';
 import {
@@ -14,9 +13,8 @@ import {
 } from '@angular/forms';
 import { BookingDto } from 'src/app/models/booking';
 import { ProductService } from 'src/app/services/product.service';
-import { Product } from 'src/app/models/product';
+import { Product, ProductType } from 'src/app/models/product';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProductType } from 'src/app/models/product';
 import { ToastService } from 'src/app/services/toast.service';
 import { Line } from 'src/app/models/purchase';
 @Component({

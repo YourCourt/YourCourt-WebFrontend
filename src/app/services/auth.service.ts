@@ -42,6 +42,10 @@ export class AuthService {
     return this.httpClient.get<User>(this.users + '/' + id.toString());
   }
 
+  public deleteUser(id: number): Observable<any> {
+    return this.httpClient.delete<any>(this.users + '/' + id.toString());
+  }
+
 
 
 }

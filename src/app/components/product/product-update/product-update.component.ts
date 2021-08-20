@@ -8,7 +8,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable, Subject, merge, OperatorFunction } from 'rxjs';
-import { Product, ProductDto, ProductType } from 'src/app/models/product';
+import { Product, ProductDto } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-update',

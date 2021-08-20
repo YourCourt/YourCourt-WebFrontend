@@ -6,7 +6,6 @@ import { ToastService } from 'src/app/services/toast.service';
 import { TokenService } from 'src/app/services/token.service';
 import * as appUtils from 'src/app/appUtils';
 import { Product } from 'src/app/models/product';
-import { NavbarComponent } from '../../navbar/navbar.component';
 
 const CART_KEY = 'CartProducts';
 

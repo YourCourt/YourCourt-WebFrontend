@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Court } from 'src/app/models/court';
@@ -13,7 +13,7 @@ import { ToastService } from 'src/app/services/toast.service';
   templateUrl: './court-create.component.html',
   styleUrls: ['./court-create.component.css']
 })
-export class CourtCreateComponent implements OnInit {
+export class CourtCreateComponent {
 
   form: FormGroup;
   defaultCourtType = 'FAST'
@@ -31,9 +31,6 @@ export class CourtCreateComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {    
-  }
-
   createCourt(): void {
     let courtCreated = new Court(this.form.value.name, this.form.value.description, this.form.value.courtType)
 
@@ -42,7 +39,7 @@ export class CourtCreateComponent implements OnInit {
         if(this.image!=undefined){
 
           this.imageService.newCourtImage(data.id,this.image).subscribe(
-            data => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
+            newCourtImage => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
         }
         this.loading=true;
         appUtils.showSuccess(this.toastService,'Pista creada')

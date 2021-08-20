@@ -61,3 +61,19 @@ input {
     width: 100%;
     word-break: break-all 
 }
+
+.modify button.delete {
+    padding: 10px;
+    background-color: #ffffff83;
+    color: black;
+    border: 5px solid #bd2c2c;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+  
+  
+  .modify button.delete:hover {
+    background-color: #bd2c2c;
+    color: white;
+    border: 5px solid #ffffff83;
+  }

@@ -4,7 +4,6 @@ import { Booking } from 'src/app/models/booking';
 import { BookingService } from 'src/app/services/booking.service';
 import { TokenService } from 'src/app/services/token.service';
 import * as appUtils from 'src/app/appUtils';
-import * as bookingUtils from 'src/app/components/booking/bookingUtils';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
