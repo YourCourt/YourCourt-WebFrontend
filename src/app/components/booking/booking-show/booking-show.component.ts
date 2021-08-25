@@ -36,9 +36,10 @@ export class BookingShowComponent implements OnInit {
   }> = [];
 
   isAdmin: boolean
-  user: User;purchaseUser:User;
+  user: User;
+  bookingUser: User;
   isBookingOwner: boolean;
-  today:Date;
+  today: Date;
 
   ngOnInit(): void {
     this.getBooking();
@@ -50,7 +51,7 @@ export class BookingShowComponent implements OnInit {
       (data) => {
         this.user = data;
         this.isBookingOwner = this.user.id === this.booking.user;
-        if (this.isBookingOwner==false && this.isAdmin==false) {
+        if (this.isBookingOwner == false && this.isAdmin == false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/pistas/', 500);
         }
@@ -76,7 +77,7 @@ export class BookingShowComponent implements OnInit {
           this.booking.creationDate = new Date(data.creationDate);
           this.booking.startDate = new Date(data.startDate);
           this.booking.endDate = new Date(data.endDate);
-          
+          if(this.booking.productBooking){
           for (let line of this.booking.productBooking.lines) {
             this.productService
               .getProductById(line.productId)
@@ -93,6 +94,12 @@ export class BookingShowComponent implements OnInit {
                 this.lines.push(lineWithProduct);
               });
           }
+        }
+
+          this.authService.showUserById(this.booking.user).subscribe(
+            (data) => { this.bookingUser = data; }
+            ,
+            (err) => { });
         },
         (err) => {
           appUtils.showDanger(this.toastService, 'Reserva inexistente');

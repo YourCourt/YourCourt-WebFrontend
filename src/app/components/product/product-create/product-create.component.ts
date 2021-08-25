@@ -61,7 +61,7 @@ export class ProductCreateComponent implements OnInit {
   }
 
   createProduct(): void {
-    let productCreated = new ProductDto(this.form.value.name, this.form.value.description, this.form.value.productType, this.form.value.price, this.form.value.bookPrice, this.form.value.tax, this.form.value.stock)
+    let productCreated = new ProductDto(this.form.value.name, this.form.value.description, this.form.value.productType, this.form.value.price, this.form.value.bookPrice, this.form.value.stock, this.form.value.tax)
 
     this.productService.createProduct(productCreated).subscribe(
       data => {

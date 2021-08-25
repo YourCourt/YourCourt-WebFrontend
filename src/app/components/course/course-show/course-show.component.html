@@ -5,7 +5,7 @@
         <p class="card-text"> {{course?.description}}</p>
 
         <div class="text-center create-btn">
-            <button *ngIf="userId && !alreadyInscripted && ( course?.startDate > today)" class="btn btn-sm btn-outline-primary mr-2 card-text"
+            <button *ngIf="userId && ( course?.startDate > today)" class="btn btn-sm btn-outline-primary mr-2 card-text"
                 (click)="openScrollableContent(longContent)">Inscribirse</button>
         </div>
     </div>

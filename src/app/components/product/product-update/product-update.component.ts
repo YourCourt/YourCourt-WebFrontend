@@ -46,8 +46,9 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProductTypes();
     this.getProduct();
+    this.getProductTypes();
+    
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
@@ -87,7 +88,7 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   updateProduct(): void {
-    let productUpdated = new ProductDto(this.form.value.name, this.form.value.description, this.form.value.productType, this.form.value.price, this.form.value.bookPrice, this.form.value.tax, this.form.value.stock)
+    let productUpdated = new ProductDto(this.form.value.name, this.form.value.description, this.form.value.productType, this.form.value.price, this.form.value.bookPrice, this.form.value.stock, this.form.value.tax)
 
     this.productService.updateProduct(this.product.id, productUpdated).subscribe(
       data => {

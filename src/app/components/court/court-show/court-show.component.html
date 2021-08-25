@@ -41,8 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of bookings">
-
+        <tr *ngFor="let item of bookings" [NgIf]="bookings.length>0">
           <th scope="row"> <a href="/reservas/{{ item.id }}"> <em class="far fa-eye"></em></a></th>
           <td>
 
@@ -51,6 +50,17 @@
           <td>{{item?.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
           <td>{{ item?.productBookingSum | number:'.0-2'}} €</td>
         </tr>
+
+        <tr *ngIf="bookings.length==0">
+          <th scope="row"> -</th>
+          <td>
+
+            -
+          </td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+
       </tbody>
     </table>
 

@@ -9,14 +9,15 @@
     <p class="card-text"> Fecha de realización:&nbsp;{{booking?.creationDate | date: 'dd/MM/yyyy' }}</p>
     <p class="card-text" *ngIf="lines.length>0"> Precio total:&nbsp;{{booking?.productBookingSum | number:'.0-2'}}€</p>
     <p class="card-text"> &nbsp;<a href="/pistas/{{booking?.court}}">Pista reservada</a> </p>
+    <p class="card-text"> &nbsp;<a href="/usuario/{{bookingUser?.username}}"><em class="fas fa-user"></em> {{bookingUser?.username}}</a> </p>
 
     <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i" style="border-style: outset;">
       <a href="/productos/{{line.product.id}}">
         <p class=" col-6"> {{i+1}}:&nbsp;{{line.product.name}}</p>
       </a>
-      <p class=" col-2"> Cantidad:&nbsp;{{line.quantity}}</p>
-      <p class=" col-2"> Descuento:&nbsp;{{line.discount}}</p>
-      <p class=" col-2"> Coste:&nbsp;{{line.product.bookPrice * line.quantity | number:'.0-2'}}€</p>
+      <p class=" col-6"> Cantidad:&nbsp;{{line.quantity}}</p>
+      <p class=" col-6"> Descuento:&nbsp;{{line.discount}}</p>
+      <p class=" col-6"> Coste:&nbsp;{{line.product.bookPrice * line.quantity | number:'.0-2'}}€</p>
 
     </div>
 
