@@ -18,6 +18,8 @@ export class AuthService {
   //auth = 'http://localhost:8080/auth/'
   constructor(private httpClient: HttpClient) { }
 
+
+
   public new(newUser: NewUser): Observable<any> {
     var req = this.httpClient.post<NewUser>(this.users, newUser);
     return req
@@ -31,10 +33,13 @@ export class AuthService {
   public login(loginUser: LoginUser): Observable<any> {
     var req = this.httpClient.post<JwtDto>(this.auth + '/login', loginUser);
     return req
-    //return this.httpClient.get<JwtDto>(this.auth+'login');
   }
 
-  public showUser(username: String): Observable<any> {
+  public getAllUsers(): Observable<any> {
+    return this.httpClient.get<User[]>(this.users);
+  }
+
+  public showUser(username: string): Observable<any> {
     return this.httpClient.get<User>(this.users + '/username/' + username);
   }
 

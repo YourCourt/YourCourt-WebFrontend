@@ -87,9 +87,9 @@
 
                     <div class="modify" *ngIf="isAdmin">
                       <button class="btn btn-primary delete" (click)="deleteUser()">
-                          Eliminar usuario
+                        Eliminar usuario
                       </button>
-                  </div>
+                    </div>
 
                   </ng-template>
                 </li>
@@ -240,3 +240,42 @@
 
 
     </div>
+  </div>
+</div>
+<div class="container container-users">
+  <div class="users" *ngIf="isAdminProfile">
+    <h1>Usuarios</h1>
+    <table class="table table-striped users-table mt-4 text-justify">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Nombre de usuario </th>
+          <th scope="col">Número de socio</th>
+          <th scope="col"> Fecha de creación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of systemUsers" [NgIf]="systemUsers.length>0">
+          <th scope="row"> <a href="/usuario/{{ item?.username }}"> <em class="far fa-eye"></em></a></th>
+          <td>{{item?.username}}
+          </td>
+          <td>{{item?.membershipNumber}}</td>
+          <td>{{item?.creationDate | date:'dd/MM/yyyy'}}</td>
+        </tr>
+
+        <tr *ngIf="systemUsers.length==0">
+          <th scope="row"> -</th>
+          <td>
+
+            -
+          </td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

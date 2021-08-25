@@ -48,8 +48,10 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  isAdmin: boolean
+  isAdmin: boolean;
+  isAdminProfile:boolean;
   user: User;
+  systemUsers:User[];
   isProfileOwner: boolean;
   active = "datos";
 
@@ -89,10 +91,15 @@ export class ProfileComponent implements OnInit {
     this.authService.showUser(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(
       (data) => {
         this.user = data;
+        this.isAdminProfile=data.roles.some((role)=> role.roleType=="ROLE_ADMIN")
         this.isProfileOwner = this.user.username === this.tokenService.getUsername();
         if (this.isProfileOwner == false && this.isAdmin == false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/', 500);
+        }
+
+        if(this.isAdmin){
+          this.loadUsers();
         }
 
         this.formUpdate.controls['username'].setValue(data.username);
@@ -203,6 +210,14 @@ export class ProfileComponent implements OnInit {
     this.pagedInscriptions = this.AllInscriptions
       .map((booking, i) => ({ id: i + 1, ...booking }))
       .slice((this.pageInscriptions - 1) * this.pageSize, (this.pageInscriptions - 1) * this.pageSize + this.pageSize);
+  }
+
+  loadUsers(){
+    this.authService.getAllUsers().subscribe(
+      data => {
+        this.systemUsers=data
+       
+      }, err => { appUtils.showErrorMessages(err, this.toastService) });
   }
 
 }
