@@ -44,7 +44,7 @@ export class CourseShowComponent implements OnInit {
   isAdmin: boolean = appUtils.isAdminUser(this.tokenService)
 
   inscriptionForm: FormGroup;
-  alreadyInscripted: boolean;
+  // alreadyInscripted: boolean;
   today:Date;
 
   ngOnInit(): void {
@@ -53,14 +53,14 @@ export class CourseShowComponent implements OnInit {
       (data) => {
         this.userId = data.id;
         this.user = data;
-        this.inscriptionService.getAllInscriptionsByUsername(data.username).subscribe(
-          (allInscriptionsByUsername) => {
-            this.alreadyInscripted = allInscriptionsByUsername.some(
-              (inscription: Inscription) => inscription.course.id == this.course.id
-            )
-          },
+        // this.inscriptionService.getAllInscriptionsByUsername(data.username).subscribe(
+        //   (allInscriptionsByUsername) => {
+        //     this.alreadyInscripted = allInscriptionsByUsername.some(
+        //       (inscription: Inscription) => inscription.course.id == this.course.id
+        //     )
+        //   },
 
-        );
+        // );
       },
       (err) => { appUtils.showDanger(this.toastService, 'Acceda para inscribirse') }
     );
@@ -77,11 +77,6 @@ export class CourseShowComponent implements OnInit {
           this.course = data;
           this.course.startDate=new Date(data.startDate);
           this.course.endDate=new Date(data.endDate);
-          console.log(this.course.startDate);
-
-          console.log(this.today);
-          console.log(this.course.startDate > this.today);
-
 
           if(this.isAdmin){
             this.getInscriptions();
@@ -128,7 +123,7 @@ export class CourseShowComponent implements OnInit {
         return appUtils.promiseReload(this.router, '/inscripciones/' + data.id, 2500)
       },
       err => {
-        appUtils.showDanger(this.toastService, err);
+        appUtils.showErrorMessages(err,this.toastService);
       }
     );
   }
