@@ -27,6 +27,12 @@
   margin: 10px 0 15px 0;
 }
 
+.form-control, label, .invalid-feedback{
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}
+
 .modify {
   margin: 20px;
   display: block;

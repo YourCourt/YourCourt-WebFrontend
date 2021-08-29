@@ -30,7 +30,7 @@
         <div *ngIf="form?.get('description').errors.required">La descripción es obligatoria.</div>
       </div>
     </div>
-    <!-- {{courtTypes?.get(entry[1])}} -->
+
     <label for="courtType">Tipo de pista</label>
     <select class="form-control" id="courtType" formControlName="courtType">
       <option *ngFor="let entry of courtTypesEntries" label={{entry[0]}}>{{entry[1]}}</option>

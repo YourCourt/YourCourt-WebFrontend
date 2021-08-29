@@ -16,24 +16,26 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class CourtUpdateComponent implements OnInit {
 
-  constructor(private courtService: CourtService, private imageService: ImageService, private tokenService: TokenService, private toastService: ToastService, private activatedRoute: ActivatedRoute, private router: Router,private formBuilder: FormBuilder) { }
+  constructor(private courtService: CourtService, private imageService: ImageService, private tokenService: TokenService, private toastService: ToastService, private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) { }
 
 
   court: Court;
-  courtUpdated:Court;
-  defaultCourtType='FAST'
-  courtTypes:Map<string,string>=courtUtils.courtTypes
-  courtTypesEntries=Array.from(this.courtTypes.entries());
-  form:FormGroup
+  courtUpdated: Court;
+
+  courtTypes: Map<string, string> = courtUtils.courtTypes
+  courtTypesEntries = Array.from(this.courtTypes.entries());
+  defaultCourtType = this.courtTypesEntries[0][1];
+
+  form: FormGroup
   image: File
 
-  loading:boolean=false;
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.getCourt()
 
     this.form = this.formBuilder.group({
-      name: ['',[Validators.required, Validators.minLength(3),Validators.maxLength(50)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(512)]],
       courtType: [this.defaultCourtType, [Validators.required]],
     })
@@ -49,27 +51,28 @@ export class CourtUpdateComponent implements OnInit {
         this.form.controls['courtType'].setValue(data.courtType);
       },
       err => {
-        appUtils.showDanger(this.toastService,'Pista inexistente')
-        appUtils.redirect(this.router,'/pistas')      }
+        appUtils.showDanger(this.toastService, 'Pista inexistente')
+        appUtils.redirect(this.router, '/pistas')
+      }
     );
   }
 
   updateCourt(): void {
-    this.courtUpdated= new Court(this.form.value.name,this.form.value.description,this.form.value.courtType)
+    this.courtUpdated = new Court(this.form.value.name, this.form.value.description, this.form.value.courtType)
 
-    this.courtService.updateCourt(this.court.id,this.courtUpdated).subscribe(
+    this.courtService.updateCourt(this.court.id, this.courtUpdated).subscribe(
       data => {
-        if(this.image!=undefined){
+        if (this.image != undefined) {
 
-          this.imageService.newCourtImage(data.id,this.image).subscribe(
-            newCourtImage => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
+          this.imageService.newCourtImage(data.id, this.image).subscribe(
+            newCourtImage => { }, errorImage => { appUtils.showErrorMessages(errorImage, this.toastService) });
         }
-        this.loading=true;
-        appUtils.showSuccess(this.toastService,'Pista actualizada')
-        return appUtils.promiseReload(this.router,'/pistas/'+ data.id,3500)
+        this.loading = true;
+        appUtils.showSuccess(this.toastService, 'Pista actualizada')
+        return appUtils.promiseReload(this.router, '/pistas/' + data.id, 3500)
       },
       err => {
-        appUtils.showDanger(this.toastService,err)
+        appUtils.showDanger(this.toastService, err)
       }
     );
   }

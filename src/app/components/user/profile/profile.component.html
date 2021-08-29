@@ -85,7 +85,7 @@
                       </div>
                     </form>
 
-                    <div class="modify" *ngIf="isAdmin">
+                    <div class="modify" *ngIf="isAdmin && !isAdminProfile">
                       <button class="btn btn-primary delete" (click)="deleteUser()">
                         Eliminar usuario
                       </button>

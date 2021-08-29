@@ -49,9 +49,9 @@ export class ProfileComponent implements OnInit {
   }
 
   isAdmin: boolean;
-  isAdminProfile:boolean;
+  isAdminProfile: boolean;
   user: User;
-  systemUsers:User[];
+  systemUsers: User[];
   isProfileOwner: boolean;
   active = "datos";
 
@@ -81,9 +81,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.setAccesibility()
-    this.loadBookingsByUser()
-    this.loadPurchasesByUser()
-    this.loadInscriptionsByUser()
+
 
   }
 
@@ -91,14 +89,17 @@ export class ProfileComponent implements OnInit {
     this.authService.showUser(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(
       (data) => {
         this.user = data;
-        this.isAdminProfile=data.roles.some((role)=> role.roleType=="ROLE_ADMIN")
+        this.isAdminProfile = data.roles.some((role) => role.roleType == "ROLE_ADMIN")
         this.isProfileOwner = this.user.username === this.tokenService.getUsername();
         if (this.isProfileOwner == false && this.isAdmin == false) {
           appUtils.showDanger(this.toastService, 'Usuario incorrecto')
           return appUtils.promiseReload(this.router, '/', 500);
         }
+        this.loadBookingsByUser();
+        this.loadPurchasesByUser();
+        this.loadInscriptionsByUser();
 
-        if(this.isAdmin){
+        if (this.isAdmin) {
           this.loadUsers();
         }
 
@@ -161,12 +162,12 @@ export class ProfileComponent implements OnInit {
     appUtils.promiseReload(this.router, '/usuario/' + this.user.username, 1000)
   }
 
-  deleteUser(){
+  deleteUser() {
     this.authService.deleteUser(this.user.id).subscribe(
       data => {
         appUtils.showSuccess(this.toastService, 'Usuario eliminado');
-    appUtils.promiseReload(this.router, '/', 1000);
-       
+        appUtils.promiseReload(this.router, '/', 1000);
+
       }, err => { appUtils.showErrorMessages(err, this.toastService) });
   }
 
@@ -212,11 +213,11 @@ export class ProfileComponent implements OnInit {
       .slice((this.pageInscriptions - 1) * this.pageSize, (this.pageInscriptions - 1) * this.pageSize + this.pageSize);
   }
 
-  loadUsers(){
+  loadUsers() {
     this.authService.getAllUsers().subscribe(
       data => {
-        this.systemUsers=data
-       
+        this.systemUsers = data
+
       }, err => { appUtils.showErrorMessages(err, this.toastService) });
   }
 
