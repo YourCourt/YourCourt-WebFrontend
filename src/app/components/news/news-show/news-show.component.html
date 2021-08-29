@@ -30,9 +30,9 @@
   </div>
   <div *ngFor="let comment of news?.comments" class="comment mt-4 text-justify "> <img src="{{comment?.user.imageUrl}}"
       alt="" class="rounded-circle" width="40" height="40">
-      <div class="username">{{comment?.user.username}} - {{comment?.creationDate | date: 'dd/MM/yyyy'}}</div>
+    <div class="username">{{comment?.user.username}} - {{comment?.creationDate | date: 'dd/MM/yyyy'}}</div>
 
-      <p>{{comment?.content}}</p>
+    <p>{{comment?.content}}</p>
 
     <div class="modify" *ngIf="isAdmin || comment?.user.id==userId">
       <button class="btn btn-primary delete" (click)="deleteComment(comment?.id)">
@@ -59,8 +59,12 @@
         <label for="content">Mensaje</label>
         <textarea class="form-control"
           [ngClass]="{'is-invalid':commentForm.get('content').touched && commentForm.get('content').invalid}"
-          id="content" placeholder="Mensaje" cols="30" rows="10" formControlName="content" maxLength="1000"
-          required></textarea>
+          id="content" placeholder="Mensaje" cols="30" rows="10" formControlName="content" required minlength="3"
+          maxLength="1000"></textarea>
+        <div class="invalid-feedback" *ngIf="form?.get('content').touched && form?.get('content').invalid">
+          <div *ngIf="form?.get('content').errors.required">El contenido es obligatorio.</div>
+          <div *ngIf="form?.get('content').errors.minlength">El contenido debe ser de un mínimo de 3 caracteres.</div>
+        </div>
       </div>
 
       <div class="text-center">

@@ -16,13 +16,14 @@ import { ToastService } from 'src/app/services/toast.service';
 export class CourtCreateComponent {
 
   form: FormGroup;
-  defaultCourtType = 'FAST'
-  image: File
-  courtTypes:Map<string,string>=courtUtils.courtTypes
-  courtTypesEntries=Array.from(this.courtTypes.entries());
-  loading:boolean=false;
 
-  constructor(private courtService: CourtService, private imageService: ImageService, private toastService: ToastService,private formBuilder: FormBuilder, private router: Router) {
+  image: File
+  courtTypes: Map<string, string> = courtUtils.courtTypes
+  courtTypesEntries = Array.from(this.courtTypes.entries());
+  defaultCourtType = this.courtTypesEntries[0][1];
+  loading: boolean = false;
+
+  constructor(private courtService: CourtService, private imageService: ImageService, private toastService: ToastService, private formBuilder: FormBuilder, private router: Router) {
 
     this.form = formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
@@ -36,13 +37,13 @@ export class CourtCreateComponent {
 
     this.courtService.createCourt(courtCreated).subscribe(
       data => {
-        if(this.image!=undefined){
+        if (this.image != undefined) {
 
-          this.imageService.newCourtImage(data.id,this.image).subscribe(
-            newCourtImage => {},errorImage => {appUtils.showErrorMessages(errorImage, this.toastService)});
+          this.imageService.newCourtImage(data.id, this.image).subscribe(
+            newCourtImage => { }, errorImage => { appUtils.showErrorMessages(errorImage, this.toastService) });
         }
-        this.loading=true;
-        appUtils.showSuccess(this.toastService,'Pista creada')
+        this.loading = true;
+        appUtils.showSuccess(this.toastService, 'Pista creada')
         return appUtils.promiseReload(this.router, '/pistas/' + data.id, 5500)
       },
       err => {

@@ -2,7 +2,7 @@
 
 <div class="card mb-3 ">
     <div class="card-body">
-        <h5 class="card-title">{{purchase?.creationDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</h5>
+        <h5 class="card-title">{{purchase?.creationDate | date: 'EEEE dd/MM/yyyy' }}</h5>
         <p class="card-text"> Autor:&nbsp; <a href="/usuario/{{purchaseUser?.username}}">{{purchaseUser?.username}}</a>
         </p>
         <p class="card-text"> Precio total:&nbsp;{{purchase?.productPurchaseSum | number:'.0-2'}}€</p>

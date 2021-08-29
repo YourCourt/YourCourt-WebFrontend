@@ -78,11 +78,11 @@ export class InscriptionUpdateComponent implements OnInit {
       data => {
 
         this.loading = true;
-        appUtils.showSuccess(this.toastService, 'Inscripción creada')
+        appUtils.showSuccess(this.toastService, 'Inscripción actualizada')
         return appUtils.promiseReload(this.router, '/inscripciones/' + data.id, 2500)
       },
       err => {
-        appUtils.showDanger(this.toastService, err);
+        appUtils.showErrorMessages(err,this.toastService);
       }
     );
   }
