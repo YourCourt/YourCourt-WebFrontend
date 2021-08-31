@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <!-- <a class="navbar-brand" href="#">Yourney</a> -->
+<a class="yourcourt-image" href="/">
+  <img class="navbar-brand" src="assets/yourcourt-logo.png" alt="YourCourt"  (click)="goHome()"/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+    aria-controls="navbarColor3" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link animated-link" href="#">Inicio
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/pistas">Pistas</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/productos">Productos</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/cursos">Cursos</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/noticias">Noticias</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/instalaciones">Instalaciones</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/sobre-nosotros">Sobre Nosotros</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+
+
+      <div *ngIf="isLogged; then loggedBlock else notLoggedBlock"></div>
+      <ng-template #notLoggedBlock>
+        <li class="nav-item">
+          <a class="nav-link  animated-link" routerLink="/acceso" *ngIf="!isLogged">Acceder</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link  animated-link" routerLink="/registro">Registrarse</a>
+        </li>
+      </ng-template>
+
+
+      <ng-template #loggedBlock>
+        <li class="nav-item dropdown" *ngIf="isLogged">
+          <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false" style="min-width:140px; text-align:right">{{loggedUsername}}</a>
+          <div class="dropdown-menu ">
+            <a class="dropdown-item" href="/usuario/{{loggedUsername}}">Mi perfil <em class="fas fa-user"></em></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/carrito">Carrito <em class="fas fa-shopping-cart"></em><span class='badge badge-warning' id='lblCartCount'> {{cartLength}} </span></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/" *ngIf="isLogged" (click)="logOut()"><strong>Cerrar
+                Sesión <em class="fas fa-power-off"></em></strong></a>
+          </div>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>

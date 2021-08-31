@@ -1,0 +1,278 @@
+/******************************* Banner ******************************************/
+
+#banner {
+  background: #cce8f4 url("../../../assets/yourcourt-logo.png");
+  background-position: center center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  text-align: center;
+  position: relative;
+  padding: 8em 0;
+  margin: 4em 0 0 0;
+}
+
+#banner header {
+  background-color: rgba(49, 71, 80, 0.5);
+  display: inline-block;
+  padding: 2.5em 5em;
+  border-radius: 5px;
+}
+
+#banner header h2 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 2.5em;
+  margin: 0 0 0.65em 0;
+}
+
+#banner header p {
+  color: #2370d5;
+  padding: 0;
+  font-style: normal;
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.title {
+  color: black;
+  font-size: 2.197rem;
+  font-weight: 900;
+}
+
+.title-2 {
+  font-size: 1.69rem;
+  font-weight: 600;
+}
+
+.title-3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-bottom: 25px;
+}
+
+.p-text {
+  font-size: 1.2rem;
+  font-weight: 200;
+  margin-bottom: 25px;
+}
+
+/******************************* Who are we ***********************************/
+#who-we-are {
+  /* background: #98dbf8; */
+  background: linear-gradient(
+    180deg,
+    rgba(0, 178, 255, 1) 0%,
+    rgba(84, 197, 246, 1) 20%,
+    rgba(204, 232, 244, 1) 100%
+  );
+  padding-top: 50px;
+  margin-top: 3rem;
+  position: relative;
+  text-align: center;
+}
+
+/***************************************** Our Mision/Vision *********************************/
+
+#mission-vision {
+  background: linear-gradient(
+    0deg,
+    rgba(0, 178, 255, 1) 0%,
+    rgba(84, 197, 246, 1) 20%,
+    rgba(204, 232, 244, 1) 100%
+  );
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+#mission-vision > div.container div.row.text-center article {
+  border: 2px solid #2370d5;
+}
+
+#mission-vision .title-2 {
+  color: white;
+  background-color: #2370d5;
+}
+
+#mission-vision .title-3 {
+  color: #f2f2f2;
+}
+
+#mission-vision .p-text {
+  color: #5a5a5a;
+}
+
+/*************************** Functionalities **************************/
+#club-functionality {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 178, 255, 1) 0%,
+    rgba(84, 197, 246, 1) 20%,
+    rgba(204, 232, 244, 1) 100%
+  );
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+  text-align: center;
+}
+
+#users-functionality {
+  background: linear-gradient(
+    275deg,
+    rgba(0, 178, 255, 1) 0%,
+    rgba(84, 197, 246, 1) 20%,
+    rgba(204, 232, 244, 1) 100%
+  );
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+  text-align: center;
+}
+
+#club-functionality > div.container,
+#users-functionality > div.container {
+  border: 2px solid #2370d5;
+}
+
+#club-functionality .title-2,
+#users-functionality .title-2 {
+  color: white;
+  background-color: #2370d5;
+}
+
+#club-functionality .title-3,
+#users-functionality .title-3 {
+  color: #f2f2f2;
+}
+
+#club-functionality .p-text,
+#users-functionality .p-text {
+  color: #5a5a5a;
+}
+
+/******************* Team *********************/
+
+#team {
+  color: white;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 178, 255, 1) 0%,
+    rgba(84, 197, 246, 1) 20%,
+    rgba(204, 232, 244, 1) 100%
+  );
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  position: relative;
+  text-align: center;
+}
+
+#team h3 {
+  color: #5a5a5a;
+}
+
+/* Three columns side by side */
+#team .column {
+  float: left;
+  width: 50%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 650px) {
+  #team .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+/* Add some shadows to create a card effect */
+#team .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: rgba(204, 232, 244, 1);
+}
+
+#team .card img {
+  text-align: center;
+  max-height: 500px;
+  display: block;
+  border-radius: 15px 15px 15px 15px;
+  padding: 5px;
+  object-fit: contain;
+}
+
+/* Some left and right padding inside the container */
+#team .container {
+  padding: 0 16px;
+}
+
+/* Clear floats */
+#team .container::after,
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/******************** Contact Us ********************/
+div#contact {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 178, 255, 1) 0%,
+    rgba(84, 197, 246, 1) 20%,
+    rgba(204, 232, 244, 1) 100%
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+div#contact form#contactForm p.help-block {
+  margin: 0;
+}
+
+form#contactForm {
+  padding: 3rem;
+  margin: 3rem;
+}
+
+#contactForm > .form-group label {
+  font-size: 1.2rem;
+  font-weight: 200;
+  color: white;
+}
+
+.form-control,
+label,
+.invalid-feedback {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  font-size: 1.2rem;
+  font-weight: 200;
+}
+
+.create-btn {
+  margin: 15px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.create-btn > button {
+  font-size: 38px !important;
+  padding-left: 10%;
+  padding-right: 10%;
+}

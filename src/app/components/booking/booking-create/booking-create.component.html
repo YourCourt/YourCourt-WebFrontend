@@ -1,0 +1,91 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">
+      Reserva:&nbsp;{{ start_hour }}-{{ end_hour }} {{ day }}-{{ month }}-{{
+      year
+      }}
+    </h5>
+    <div class="row mt-2" style="border-style: outset;" [NgIf]="bookedProducts.length>0"
+      *ngFor="let bookedProduct of bookedProducts.value; index as i">
+      <em class="fas fa-trash-alt fa-2x col-1 text-center" style="cursor:pointer;"
+        (click)="removeProduct(bookedProduct)"></em>&nbsp;<p class="col-4">{{i+1}}:&nbsp;{{ bookedProduct.item.name }}
+      </p>&nbsp;&nbsp;<p class="col-3">Cantidad:&nbsp;<input type="number" name="quantity" id="{{i}}quantity" min="1"
+          max="{{bookedProduct.item.stock-lowStock}}" [(ngModel)]="bookedProduct.quantity" /></p>
+      <p class="col-3">Total:&nbsp;{{bookedProduct.item.bookPrice*bookedProduct.quantity | number:'.0-2'}}€</p>
+    </div>
+
+    <button class="btn btn-primary addProduct" (click)="openScrollableContent(longContent)">
+      Alquilar producto
+    </button>
+    <ng-template #longContent let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Añade un producto a la reserva</h4>
+        <button type="button" class="close" aria-label="Cerrar" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="onSearch()" [formGroup]="formSearch">
+          <div class="form-group">
+            <label for="productType">Tipo de producto</label>
+            <select formControlName="productType" class="form-control" id="productType">
+              <option *ngFor="let productType of productTypes" [value]="productType.typeName">
+                {{ productType.typeName }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" [disabled]="!formSearch.valid">
+              Buscar
+            </button>
+          </div>
+        </form>
+
+        <div *ngIf="products" fxLayout="row wrap" fxLayoutGap="16px grid">
+          <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="90%" fxFlex.sm="30%" *ngFor="let item of products">
+
+            <div class="card mx-5 my-5">
+              <a class="card-link" href="/productos/{{item.id}}">
+                <img class="card-img-top" src="{{item.image.imageUrl}}" alt="{{item.image.name}}">
+                <div class="card-body">
+                  <h5 class="card-title text-green">{{item.name}}</h5>
+                  <p class="card-text text-center pr-3 pb-3 text-truncate"> {{item.description}}</p>
+                  <br>
+                  <p class="card-text ml-3"><em class="fas fa-box" aria-hidden="true"></em>&nbsp;{{item.stock}}</p>
+
+                  <p class="card-text ml-3"><em class="fas fa-coins" aria-hidden="true"></em>&nbsp;{{item.bookPrice}}€
+                  </p>
+                </div>
+              </a>
+              <div class="card-footer"><button type="submit" class="btn btn-primary" [disabled]="item.stock<=lowStock"
+                  [title]="item.stock<=lowStock?  'Stock bajo':'Alquilar' " (click)="bookProduct(item)">
+                  Alquilar <em class="fas fa-cart-plus " style="color: green;"></em>
+                </button></div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">
+          Cerrar
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="create-btn">
+    <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary" (click)="createBooking()">
+      Confirmar reserva
+    </button>
+    <ng-template #loadingButton>
+      <button type="submit" class="btn btn-primary" (click)="createBooking()">
+        <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif" alt="cargando">
+      </button>
+    </ng-template>
+  </div>
+</div>

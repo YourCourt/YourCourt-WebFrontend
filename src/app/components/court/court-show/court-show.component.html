@@ -1,0 +1,104 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+  <img src="{{court?.image.imageUrl}}" class="card-img-top" alt="{{court?.image.name}}">
+  <div class="card-body">
+    <h5 class="card-title">{{court?.name}}</h5>
+    <p class="card-text"> {{court?.description}}</p>
+    <p class="card-text">Tipo de pista:&nbsp; {{getCourtType(court?.courtType)}}</p>
+  </div>
+
+  <div class="modify" *ngIf="isAdmin">
+    <a href="/pistas/editar/{{court?.id}}" class="btn btn-primary edit">
+      Modificar pista</a>
+    <button class="btn btn-primary delete" (click)="deleteCourt()">
+      Eliminar pista
+    </button>
+  </div>
+</div>
+
+
+<div class="ngb-datepicker" *ngIf="isLogged">
+  <ngb-datepicker class="datepicker" #dp [(ngModel)]="model" (navigate)="date = $event.next" [minDate]="minDate"
+    [maxDate]="maxDate"></ngb-datepicker>
+</div>
+<hr />
+<div class="datepicker-buttons" *ngIf="isLogged">
+  <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Hoy</button>
+  <button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">Mes actual</button>
+  <button class="btn btn-sm btn-outline-primary mr-2" (click)="openScrollableContent(longContent)">Reservar</button>
+</div>
+<hr />
+
+<div class="bookings" *ngIf="isAdmin">
+  <h1>Reservas</h1>
+    <table class="table table-striped bookings-table mt-4 text-justify">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Fecha de inicio </th>
+          <th scope="col">Fecha de fin</th>
+          <th scope="col">Precio total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of bookings" [NgIf]="bookings.length>0">
+          <th scope="row"> <a href="/reservas/{{ item.id }}"> <em class="far fa-eye"></em></a></th>
+          <td>
+
+            {{item?.startDate | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+          <td>{{item?.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ item?.productBookingSum | number:'.0-2'}} €</td>
+        </tr>
+
+        <tr *ngIf="bookings.length==0">
+          <th scope="row"> -</th>
+          <td>
+
+            -
+          </td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    
+</div>
+
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Reserva: {{model.day}}-{{model.month}}-{{model.year}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Hora</th>
+          <th>Disponibilidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hour of hours">
+          <td>{{hour.start}}-{{hour.end}}</td>
+          <td *ngIf="availability[hour.start]; else notAvailable"><button class="btn btn-outline-success"
+              (click)="book(hour.start,hour.end)">Reservar</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+    <ng-template #notAvailable>
+      <td><button class="btn btn-outline-danger" disabled>No disponible</button></td>
+    </ng-template>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+  </div>
+</ng-template>

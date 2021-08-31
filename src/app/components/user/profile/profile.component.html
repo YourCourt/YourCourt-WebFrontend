@@ -1,0 +1,281 @@
+<yourcourt-navbar></yourcourt-navbar>
+
+<div class="container">
+  <div class="row gutters-sm">
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="user-image">
+          <img class="card-img-top" src="{{user?.imageUrl}}" alt="{{user?.imageUrl}}">
+          <p class="image-text ">Cambiar imagen </p>
+          <input type="file" id="image" class="form-control file-input image-text" accept="image/*"
+            (change)="addUserImage($event.target.files, image)">
+          <div class="image-text">
+            <button class="btn btn-danger" (click)="deleteUserImage()">Eliminar imagen</button>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div class="d-flex flex-column align-items-center text-center">
+            <h5 class="card-title">{{user?.username}}</h5>
+            <div class="d-flex">
+
+              <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills" orientation="vertical">
+                <li ngbNavItem="datos">
+                  <a ngbNavLink>Datos</a>
+                  <ng-template ngbNavContent>
+
+                    <form #f="ngForm" [formGroup]="formUpdate" (ngSubmit)="onUpdate()">
+                      <div class="form-group">
+                        <label>Nombre de Usuario: </label>
+                        <input type="text" name="username" id="username" class="form-control" formControlName="username"
+                          disabled>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Email: </label>
+                        <input type="text" name="email" id="email" class="form-control" formControlName="email" required
+                          email minlength="5" maxlength="50" placeholder="email@email.com"
+                          [ngClass]="{'is-invalid':formUpdate.get('email').touched && formUpdate.get('email').invalid}">
+                        <div class="invalid-feedback"
+                          *ngIf="formUpdate.get('email').touched && formUpdate.get('email').invalid">
+                          <div *ngIf="formUpdate.get('email').errors.required">No puede quedar vacío</div>
+                          <div *ngIf="formUpdate.get('email').errors.minlength">Debe de tener al menos 5
+                            caracteres
+                          </div>
+                          <div *ngIf="formUpdate.get('email').errors.maxlength">Debe de tener como máximo 50
+                            caracteres</div>
+                          <div *ngIf="formUpdate.get('email').errors.email">Formato no válido</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Año de nacimiento: </label>
+                        <input type="date" name="birthDate" id="birthDate" class="form-control"
+                          formControlName="birthDate" required past
+                          [ngClass]="{'is-invalid':formUpdate.get('birthDate').touched && formUpdate.get('birthDate').invalid}">
+                        <div class="invalid-feedback"
+                          *ngIf="formUpdate.get('birthDate').touched && formUpdate.get('birthDate').invalid">
+                          <div *ngIf="formUpdate.get('birthDate').errors.required">No puede quedar vacío</div>
+                          <div *ngIf="formUpdate.get('birthDate').errors.past">Debe ser una fecha pasada</div>
+
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Teléfono: </label>
+                        <input type="text" name="phone" id="phone" class="form-control" formControlName="phone"
+                          placeholder="+(34) 123456789" required
+                          [ngClass]="{'is-invalid':formUpdate.get('phone').touched && formUpdate.get('phone').invalid}">
+                        <div class="invalid-feedback"
+                          *ngIf="formUpdate.get('phone').touched && formUpdate.get('phone').invalid">
+                          <div *ngIf="formUpdate.get('phone').errors.required">No puede quedar vacío</div>
+                          <div *ngIf="formUpdate.get('phone').errors.pattern">Formato incorrecto</div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Número de socio: </label>
+                        <input type="number" name="membershipNumber" id="membershipNumber" class="form-control"
+                          formControlName="membershipNumber" disabled>
+
+                      </div>
+
+                      <div>
+                        <button class="btn btn-primary" [disabled]="!formUpdate.valid">
+                          Actualizar</button>
+                      </div>
+                    </form>
+
+                    <div class="modify" *ngIf="isAdmin && !isAdminProfile">
+                      <button class="btn btn-primary delete" (click)="deleteUser()">
+                        Eliminar usuario
+                      </button>
+                    </div>
+
+                  </ng-template>
+                </li>
+                <li ngbNavItem="reservas">
+                  <a ngbNavLink>Reservas</a>
+                  <ng-template ngbNavContent>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">Fecha de inicio </th>
+                          <th scope="col">Fecha de fin</th>
+                          <th scope="col">Precio total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of pagedBookings">
+
+                          <th scope="row"> <a href="/reservas/{{ item.id }}"> <em class="far fa-eye"></em></a></th>
+                          <td>
+
+                            {{item?.startDate | date: 'dd/MM/yyyy HH:mm' }}
+                          </td>
+                          <td>{{item?.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+                          <td>{{ item?.productBookingSum | number:'.0-2'}}€</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+                      <ngb-pagination [collectionSize]="collectionSizeBookings" [(page)]="pageBookings"
+                        [pageSize]="pageSize" (pageChange)="refreshBookings()">
+                      </ngb-pagination>
+
+                      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize"
+                        (ngModelChange)="refreshBookings()">
+                        <option [ngValue]="2">Mostrar 2</option>
+                        <option [ngValue]="4">Mostrar 4</option>
+                        <option [ngValue]="6">Mostrar 6</option>
+                      </select>
+                    </div>
+
+                  </ng-template>
+                </li>
+                <li ngbNavItem="compras">
+                  <a ngbNavLink>Compras</a>
+                  <ng-template ngbNavContent>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">Fecha de compra </th>
+                          <th scope="col">Precio total</th>
+                          <th scope="col">Productos</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of pagedPurchases">
+
+                          <th scope="row"> <a href="/compras/{{ item?.id }}"> <em class="far fa-eye"></em></a></th>
+                          <td>
+
+                            {{item?.creationDate | date: 'dd/MM/yyyy HH:mm' }}
+                          </td>
+                          <td>{{ item?.productPurchaseSum | number:'.0-2'}}€</td>
+                          <td> <a *ngFor="let line of item?.lines" href="/productos/{{line.productId}}"><em
+                                class="fas fa-cube"></em>&nbsp;</a> </td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+                      <ngb-pagination [collectionSize]="collectionSizePurchases" [(page)]="pagePurchases"
+                        [pageSize]="pageSize" (pageChange)="refreshPurchases()">
+                      </ngb-pagination>
+
+                      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize"
+                        (ngModelChange)="refreshPurchases()">
+                        <option [ngValue]="2">Mostrar 2</option>
+                        <option [ngValue]="4">Mostrar 4</option>
+                        <option [ngValue]="6">Mostrar 6</option>
+                      </select>
+                    </div>
+
+                  </ng-template>
+                </li>
+
+                <li ngbNavItem="cursos">
+                  <a ngbNavLink>Cursos</a>
+                  <ng-template ngbNavContent>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">Curso </th>
+                          <th scope="col">Fecha de inicio</th>
+                          <th scope="col">Nombre completo</th>
+                          <th scope="col">Inscripción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of pagedInscriptions">
+
+                          <th scope="row"> <a href="/cursos/{{ item?.course.id }}"> {{item?.course.title}}</a></th>
+                          <td>
+
+                            {{item?.course.startDate | date: 'dd/MM/yyyy' }}
+                          </td>
+                          <td>{{item?.name }} {{item?.surnames}}</td>
+                          <td> <a href="/inscripciones/{{ item?.id }}"> <em class="far fa-eye"></em></a></td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+                      <ngb-pagination [collectionSize]="collectionSizeInscriptions" [(page)]="pageInscriptions"
+                        [pageSize]="pageSize" (pageChange)="refreshInscriptions()">
+                      </ngb-pagination>
+
+                      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize"
+                        (ngModelChange)="refreshInscriptions()">
+                        <option [ngValue]="2">Mostrar 2</option>
+                        <option [ngValue]="4">Mostrar 4</option>
+                        <option [ngValue]="6">Mostrar 6</option>
+                      </select>
+                    </div>
+
+                  </ng-template>
+                </li>
+              </ul>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="outer">
+        <div class="middle">
+          <div class="inner">
+            <div [ngbNavOutlet]="nav" class="ml-4"></div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="container container-users">
+  <div class="users" *ngIf="isAdminProfile">
+    <h1>Usuarios</h1>
+    <table class="table table-striped users-table mt-4 text-justify">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Nombre de usuario </th>
+          <th scope="col">Número de socio</th>
+          <th scope="col"> Fecha de creación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of systemUsers" [NgIf]="systemUsers.length>0">
+          <th scope="row"> <a href="/usuario/{{ item?.username }}"> <em class="far fa-eye"></em></a></th>
+          <td>{{item?.username}}
+          </td>
+          <td>{{item?.membershipNumber}}</td>
+          <td>{{item?.creationDate | date:'dd/MM/yyyy'}}</td>
+        </tr>
+
+        <tr *ngIf="systemUsers.length==0">
+          <th scope="row"> -</th>
+          <td>
+
+            -
+          </td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

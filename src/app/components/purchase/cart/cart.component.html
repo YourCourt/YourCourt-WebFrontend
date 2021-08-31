@@ -1,0 +1,26 @@
+<yourcourt-navbar></yourcourt-navbar>
+
+<div *ngIf="cartProducts.length>0" class="card mb-3 ">
+    <div class="card-body">
+        <h5 class="card-title">Carrito</h5>
+
+        <div class="row" style="border-style: outset;" [NgIf]="cartProducts.length>0"
+            *ngFor="let product of cartProducts.value; index as i">
+            <em class="fas fa-trash-alt fa-2x col-1 text-center" style="cursor:pointer;"
+                (click)="removeProduct(product)"></em>&nbsp;<p class="col-4">{{i+1}}:&nbsp;{{ product.item.name }}
+            </p>&nbsp;&nbsp;<p class="col-3">Cantidad:&nbsp;<input type="number" name="quantity" id="{{i}}quantity"
+                    min="1" max="{{product.item.stock-lowStock}}" [(ngModel)]="product.quantity" /></p>
+                    <p class="col-3">Total:&nbsp;{{product.item.price*product.quantity | number:'.0-2'}}€</p>
+        </div>
+        <div *ngIf="!loading  ; else loadingButton" class="pay" (click)="createPurchase()">
+            <p class="card-text">Finalizar compra &nbsp;<em class="fas fa-wallet"></em></p>
+        </div>
+
+        <ng-template #loadingButton>
+            <div class="pay" (click)="createPurchase()">
+                <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif" alt="cargando">
+            </div>
+        </ng-template>
+
+    </div>
+</div>

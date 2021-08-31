@@ -1,0 +1,31 @@
+<yourcourt-navbar></yourcourt-navbar>
+
+<div class="card mb-3 ">
+  <div class="card-body">
+    <h5 class="card-title">{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}&nbsp;a&nbsp;{{booking?.endDate |
+      date: 'HH:mm' }}</h5>
+    <p class="card-text"> Fecha de inicio:&nbsp;{{booking?.startDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
+    <p class="card-text"> Fecha de fin:&nbsp;{{booking?.endDate | date: 'EEEE dd/MM/yyyy HH:mm' }}</p>
+    <p class="card-text"> Fecha de realización:&nbsp;{{booking?.creationDate | date: 'dd/MM/yyyy' }}</p>
+    <p class="card-text" *ngIf="lines.length>0"> Precio total:&nbsp;{{booking?.productBookingSum | number:'.0-2'}}€</p>
+    <p class="card-text"> &nbsp;<a href="/pistas/{{booking?.court}}">Pista reservada</a> </p>
+    <p class="card-text"> &nbsp;<a href="/usuario/{{bookingUser?.username}}"><em class="fas fa-user"></em> {{bookingUser?.username}}</a> </p>
+
+    <div [NgIf]="lines.length>0" *ngFor="let line of lines; index as i" style="border-style: outset;">
+      <a href="/productos/{{line.product.id}}">
+        <p class=" col-6"> {{i+1}}:&nbsp;{{line.product.name}}</p>
+      </a>
+      <p class=" col-6"> Cantidad:&nbsp;{{line.quantity}}</p>
+      <p class=" col-6"> Descuento:&nbsp;{{line.discount}}</p>
+      <p class=" col-6"> Coste:&nbsp;{{line.product.bookPrice * line.quantity | number:'.0-2'}}€</p>
+
+    </div>
+
+  </div>
+
+  <div class="modify" *ngIf="(isAdmin && booking?.startDate > today) || (isBookingOwner && booking?.startDate > today)">
+    <button class="btn btn-primary delete" (click)="deleteBooking()">
+      Eliminar reserva
+    </button>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+  <img src="{{product?.image.imageUrl}}" class="card-img-top" alt="{{product?.image.name}}">
+  <div class="card-body">
+    <h5 class="card-title">{{product?.name}}</h5>
+    <p class="card-text"> {{product?.description}}</p>
+    <p class="card-text">Tipo de producto:&nbsp; {{product?.productType}}</p>
+    <p class="card-text">Precio:&nbsp; {{product?.totalPrice | number:'.0-2'}}€ <em class="fas fa-coins"></em></p>
+    <p class="card-text">Precio de alquiler:&nbsp; {{product?.bookPrice | number:'.0-2'}}€ <em class="fas fa-coins"></em></p>
+    <p class="card-text">Stock:&nbsp; {{product?.stock}} <em class="fas fa-box" aria-hidden="true"></em></p>
+    <p class="card-text">Impuesto:&nbsp; {{product?.tax}} <em class="fas fa-percent" aria-hidden="true"></em></p>
+  </div>
+
+  <div class="modify" *ngIf="isAdmin">
+    <a href="/productos/editar/{{product?.id}}" class="btn btn-primary edit">
+      Modificar producto</a>
+    <button class="btn btn-primary delete" (click)="deleteProduct()">
+      Eliminar producto
+    </button>
+  </div>
+  <div *ngIf="isLogged && product?.stock>lowStock; else lowStockTemplate" class="addToCart" (click)="addToCart(product.id,product.name,product.totalPrice,product.stock)" 
+  [title]="product.stock<=lowStock?  'Stock bajo':'Añadir' ">
+    <p class="card-text">Añadir al carrito <em  class="fas fa-cart-plus" ></em></p>
+  
+</div>
+
+<ng-template #lowStockTemplate>
+  <div *ngIf="isLogged" class="addToCart" 
+  [title]="product?.stock<=lowStock?  'Stock bajo':'Añadir' ">
+    <p class="card-text">Añadir al carrito <em  class="fas fa-cart-plus" ></em></p>
+</div>
+</ng-template>
+</div>

@@ -1,0 +1,24 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+    <div class="card-body">
+        <h5 class="card-title">{{inscription?.course.title}}</h5>
+        <p class="card-text">Duración: {{inscription?.course.startDate | date: 'dd/MM/yyyy' }} -
+            {{inscription?.course.endDate |
+            date: 'dd/MM/yyyy' }}
+        </p>
+
+        <p class="card-text">Nombre completo: {{inscription?.name}}&nbsp;{{inscription?.surnames }}
+        <p class="card-text">Datos de contacto: {{inscription?.email}}&nbsp;{{inscription?.phone }}
+        <p class="card-text">Observaciones: {{inscription?.observations}}
+        </p>
+
+    </div>
+
+    <div class="modify" *ngIf="(isAdmin && inscriptionStartDate > today) || (isInscriptionOwner && inscriptionStartDate > today)">
+        <a *ngIf="isAdmin" href="/inscripciones/editar/{{inscription?.id}}" class="btn btn-primary edit">
+            Modificar inscripción</a>
+        <button class="btn btn-primary delete" (click)="deleteInscription()">
+            Eliminar inscripción
+        </button>
+    </div>
+</div>

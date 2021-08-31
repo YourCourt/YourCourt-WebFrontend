@@ -1,0 +1,113 @@
+input {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.18);
+  border-radius: 0.25rem;
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  top: auto;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  /* width:50%; */
+  padding: 0.2rem;
+  min-width: 300px;
+}
+
+.form-control,
+label,
+.invalid-feedback {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}
+.image-text {
+  text-align: center;
+  opacity: 0;
+  background-color: #c5e2b8;
+}
+
+.user-image:hover > .image-text {
+  opacity: 1;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+  word-break: break-all;
+}
+
+.modify button.delete {
+  padding: 10px;
+  background-color: #ffffff83;
+  color: black;
+  border: 5px solid #bd2c2c;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.modify button.delete:hover {
+  background-color: #bd2c2c;
+  color: white;
+  border: 5px solid #ffffff83;
+}
+
+/*Users*/
+
+@media (max-width: 768px) {
+  .container-users {
+    margin-top: 40rem;
+  }
+}
+
+.users {
+  text-align: center;
+  margin: auto;
+  margin-bottom: 0.5rem;
+  border: 2px;
+  border-color: #302e2e;
+  border-style: outset;
+  background-color: rgb(186, 231, 233, 0.2);
+  max-width: 95%;
+}
+
+.users h1 {
+  color: #3b883b;
+}
+
+.users-table {
+  background-color: rgba(217, 217, 217, 1);
+  margin: auto;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: max-content;
+  margin-bottom: 0.5rem;
+  table-layout: fixed;
+  width: 100%;
+  word-break: break-all;
+}
+
+.users-table td,
+th {
+  font-size: 1rem;
+}
+
+.users h1 {
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.329);
+}

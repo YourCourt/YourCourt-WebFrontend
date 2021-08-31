@@ -1,0 +1,88 @@
+<yourcourt-navbar></yourcourt-navbar>
+<div class="card mb-3 ">
+  <img src="{{news?.image.imageUrl}}" class="card-img-top" alt="{{news?.image.name}}">
+  <div class="card-body">
+    <h5 class="card-title">{{news?.name}}</h5>
+    <p class="text-muted">Fecha de publicación: {{news?.creationDate | date: 'dd/MM/yyyy' }}</p>
+    <p class="card-text"> {{news?.description}}</p>
+  </div>
+
+  <div class="modify" *ngIf="isAdmin">
+    <a href="/noticias/editar/{{news?.id}}" class="btn btn-primary edit">
+      Modificar noticia</a>
+    <button class="btn btn-primary delete" (click)="deleteNews()">
+      Eliminar noticia
+    </button>
+  </div>
+
+  <div class="card-footer">Última actualización: {{news?.editionDate | date: 'dd/MM/yyyy' }}</div>
+
+
+
+</div>
+
+<div class="comments">
+  <h1>Comentarios</h1>
+
+  <div class="text-center create-btn">
+    <button *ngIf="userId && !alreadyCommented" class="btn btn-sm btn-outline-primary mr-2 card-text"
+      (click)="openScrollableContent(longContent)">Comentar</button>
+  </div>
+  <div *ngFor="let comment of news?.comments" class="comment mt-4 text-justify "> <img src="{{comment?.user.imageUrl}}"
+      alt="" class="rounded-circle" width="40" height="40">
+    <div class="username">{{comment?.user.username}} - {{comment?.creationDate | date: 'dd/MM/yyyy'}}</div>
+
+    <p>{{comment?.content}}</p>
+
+    <div class="modify" *ngIf="isAdmin || comment?.user.id==userId">
+      <button class="btn btn-primary delete" (click)="deleteComment(comment?.id)">
+        Eliminar comentario
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Publicar comentario</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="commentForm" (ngSubmit)="onCommentCreate()">
+
+
+      <div class="form-group">
+        <label for="content">Mensaje</label>
+        <textarea class="form-control"
+          [ngClass]="{'is-invalid':commentForm.get('content').touched && commentForm.get('content').invalid}"
+          id="content" placeholder="Mensaje" cols="30" rows="10" formControlName="content" required minlength="3"
+          maxLength="1000"></textarea>
+        <div class="invalid-feedback" *ngIf="form?.get('content').touched && form?.get('content').invalid">
+          <div *ngIf="form?.get('content').errors.required">El contenido es obligatorio.</div>
+          <div *ngIf="form?.get('content').errors.minlength">El contenido debe ser de un mínimo de 3 caracteres.</div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button *ngIf="!loading; else loadingButton" type="submit" class="btn btn-primary"
+          [disabled]="!commentForm.valid">Comentar</button>
+      </div>
+
+      <ng-template #loadingButton>
+        <button type="submit" class="btn btn-primary">
+          <img style="width: 25%; display: unset;" src="../../../../assets/Spinner.gif" alt="cargando">
+        </button>
+      </ng-template>
+
+    </form>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+  </div>
+</ng-template>
